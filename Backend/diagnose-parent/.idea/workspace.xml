@@ -4,28 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="837c84d2-9569-4a86-bdf8-352986d717e9" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/../../frontend/.browserslistrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/.eslintrc.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/babel.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/jsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/App.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/router/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/store/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/utils/element-ui.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/utils/request.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/vue.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/yarn.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../前后端接口文档.md" beforeDir="false" />
-    </list>
+    <list default="true" id="837c84d2-9569-4a86-bdf8-352986d717e9" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +15,7 @@
       <list>
         <option value="Exception" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -249,6 +229,7 @@
       <workItem from="1741315460547" duration="1240000" />
       <workItem from="1741316751114" duration="1652000" />
       <workItem from="1741332195119" duration="85000" />
+      <workItem from="1741334925974" duration="2866000" />
     </task>
     <servers />
   </component>

@@ -51,10 +51,8 @@ public class UploadFile implements Serializable {
     @AllArgsConstructor
     @Getter
     public enum Category {
-        CATEGORY_VOICE("voice"),
-        CATEGORY_COURSEWARE("courseware"),
-        CATEGORY_VIDEO("video"),
-        CATEGORY_AVATAR("avatar");
+        CATEGORY_AVATAR("avatar"),
+        CATEGORY_DIAGNOSE("diagnose");
 
         private String category;
     }

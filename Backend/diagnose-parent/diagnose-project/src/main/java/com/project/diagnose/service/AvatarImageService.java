@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author itcast
  * @since 2025-03-04
  */
-public interface UploadFileService extends IService<UploadFile> {
-    UploadFileVo uploadAndInsert(String bucket, MultipartFile file, UploadFile.Category requiredCategory, Long userId, String voiceSeedName);
+public interface AvatarImageService extends IService<UploadFile> {
+    UploadFileVo uploadAndInsert(String bucket, MultipartFile file, UploadFile.Category requiredCategory, Long userId);
     PageVo<UploadFileVo> getPageByCategory(UploadFileQuery uploadFileQuery, Long userId);
 }

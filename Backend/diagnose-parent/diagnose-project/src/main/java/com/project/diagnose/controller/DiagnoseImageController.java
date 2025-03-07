@@ -1,6 +1,5 @@
 package com.project.diagnose.controller;
 
-
 import com.project.diagnose.aop.LogAnnotation;
 import com.project.diagnose.dto.vo.Result;
 import com.project.diagnose.dto.vo.UploadFileVo;
@@ -15,8 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RestController
-@RequestMapping("/upload")
-public class AvatarImageController {
+@RequestMapping("/diagnose/upload")
+public class DiagnoseImageController {
     @Value("${minio.bucket.image}")
     private String bucket;
 
@@ -31,7 +30,7 @@ public class AvatarImageController {
     @LogAnnotation(module = "FileController",operator = "用MinIO上传用户头像")
     public Result<UploadFileVo> upload(@RequestHeader("Authorization") String token, @RequestParam("file") MultipartFile image) {
         Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
-        UploadFileVo avatarImage = avatarImageService.uploadAndInsert(bucket, image, UploadFile.Category.CATEGORY_AVATAR, userId);
+        UploadFileVo avatarImage = avatarImageService.uploadAndInsert(bucket, image, UploadFile.Category.CATEGORY_AVATAR, userId, null);
         return Result.success(avatarImage);
     }
 }

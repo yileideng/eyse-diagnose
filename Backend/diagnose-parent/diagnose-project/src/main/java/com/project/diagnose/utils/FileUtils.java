@@ -38,6 +38,11 @@ public class FileUtils {
         MIME_TYPE_FUNCTIONS.put("image/png", UploadFile.Category.CATEGORY_AVATAR);
         MIME_TYPE_FUNCTIONS.put("image/gif", UploadFile.Category.CATEGORY_AVATAR);
 
+        MIME_TYPE_FUNCTIONS.put("image/jpeg", UploadFile.Category.CATEGORY_DIAGNOSE);
+        MIME_TYPE_FUNCTIONS.put("image/png", UploadFile.Category.CATEGORY_AVATAR);
+        MIME_TYPE_FUNCTIONS.put("image/gif", UploadFile.Category.CATEGORY_AVATAR);
+        MIME_TYPE_FUNCTIONS.put("application/zip", UploadFile.Category.CATEGORY_AVATAR);
+
     }
 
     public static String getMimeType(String fileName) {

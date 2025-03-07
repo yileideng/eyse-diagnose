@@ -2,6 +2,7 @@ package com.project.diagnose.utils;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.model.OSSObject;
+import com.project.diagnose.dto.response.UploadFileResponse;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
@@ -76,43 +77,9 @@ public class AliOSSUtils {
         }
     }
 
-    // 解析pptx文件
-    public List<List<String>> extractTextFromPPT(OSSObject ossObject) throws Exception {
-        try (InputStream inputStream = ossObject.getObjectContent()) {
-            XMLSlideShow ppt = new XMLSlideShow(inputStream);
-            // 外层列表存储每一页的文本列表
-            List<List<String>> pptTextList = new ArrayList<>();
-
-            // 遍历每一页幻灯片
-            for (int i = 0; i < ppt.getSlides().size(); i++) {
-                // 内层列表存储当前页的文本内容
-                List<String> pageTextList = new ArrayList<>();
-
-                // 遍历当前页的形状
-                for (XSLFShape shape : ppt.getSlides().get(i)) {
-                    if (shape instanceof XSLFTextShape) {
-                        XSLFTextShape textShape = (XSLFTextShape) shape;
-                        String text = textShape.getText();
-                        if (text != null && !text.trim().isEmpty()) {
-                            // 添加当前形状的文本到当前页的列表
-                            pageTextList.add(text.trim());
-                        }
-                    }
-                }
-
-                // 将当前页的文本列表添加到外层列表
-                pptTextList.add(pageTextList);
-            }
-
-            return pptTextList;
-        } catch (Exception e) {
-            log.info("Failed to extract text from PPT", e);
-            throw new RuntimeException("Failed to extract text from PPT", e);
-        }
-    }
 
     // 上传文件
-    public String upload(MultipartFile file) throws IOException {
+    public UploadFileResponse upload(MultipartFile file) throws IOException {
         // 获取阿里云OSS参数
         String endpoint=aliOSSProperties.getEndpoint();
         String bucketName=aliOSSProperties.getBucketName();
@@ -131,7 +98,11 @@ public class AliOSSUtils {
         String url = endpoint.split("//")[0] + "//" + bucketName + "." + endpoint.split("//")[1] + "/" + fileName;
 
         // 把上传到oss的路径返回
-        return url;
+        return new UploadFileResponse(fileName, url);
+    }
+
+    public void delete(String bucketName, String objectName) {
+        ossClient.deleteObject(bucketName, objectName);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.project.diagnose.utils;
 
+import com.project.diagnose.dto.response.UploadFileResponse;
 import io.minio.*;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class MinioUtils {
     private MinioClient minioClient;
 
 
-    public String uploadAndGetUrl(MultipartFile file, String bucket) throws Exception {
+    public UploadFileResponse uploadAndGetUrl(MultipartFile file, String bucket) throws Exception {
         log.info(bucket);
         // 获取文件的输入流
         InputStream inputStream = file.getInputStream();
@@ -53,7 +54,7 @@ public class MinioUtils {
 
         String url = endpoint + "/" + bucket + "/" + filePath;
 
-        return url;
+        return new UploadFileResponse(filePath, url);
     }
 
 

@@ -4,13 +4,13 @@ import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.project.diagnose.dto.query.UploadFileQuery;
+import com.project.diagnose.dto.response.UploadFileResponse;
 import com.project.diagnose.dto.vo.PageVo;
 import com.project.diagnose.dto.vo.UploadFileVo;
 import com.project.diagnose.exception.DiagnoseException;
 import com.project.diagnose.mapper.UploadFileMapper;
-import com.project.diagnose.mapper.UserMapper;
 import com.project.diagnose.pojo.UploadFile;
-import com.project.diagnose.service.UploadFileService;
+import com.project.diagnose.service.AvatarImageService;
 import com.project.diagnose.utils.AliOSSUtils;
 import com.project.diagnose.utils.FileUtils;
 import com.project.diagnose.utils.MinioUtils;
@@ -31,19 +31,18 @@ import java.time.LocalDateTime;
  */
 @Slf4j
 @Service
-public class UploadFileServiceImpl extends ServiceImpl<UploadFileMapper, UploadFile> implements UploadFileService {
+public class AvatarImageServiceImpl extends ServiceImpl<UploadFileMapper, UploadFile> implements AvatarImageService {
     @Autowired
     private MinioUtils minioUtils;
     @Autowired
     private AliOSSUtils aliOSSUtils;
     @Autowired
     private UploadFileMapper uploadFileMapper;
-    @Autowired
-    private UserMapper userMapper;
+
 
 
     @Override
-    public UploadFileVo uploadAndInsert(String bucket, MultipartFile file, UploadFile.Category requiredCategory, Long userId, String voiceSeedName) {
+    public UploadFileVo uploadAndInsert(String bucket, MultipartFile file, UploadFile.Category requiredCategory, Long userId) {
         if (file.isEmpty()) {
             throw new DiagnoseException("上传的文件为空");
         }
@@ -53,10 +52,10 @@ public class UploadFileServiceImpl extends ServiceImpl<UploadFileMapper, UploadF
         }
 
         // 上传文件到Minio
-        String url = null;
+        UploadFileResponse response = null;
         try {
-            url = minioUtils.uploadAndGetUrl(file, bucket);
-            if(url!=null){
+            response = minioUtils.uploadAndGetUrl(file, bucket);
+            if(response!=null){
                 log.info("上传文件成功");
             }
         } catch (Exception e) {
@@ -74,14 +73,10 @@ public class UploadFileServiceImpl extends ServiceImpl<UploadFileMapper, UploadF
         // 设置文件创建时间
         uploadFile.setTime(LocalDateTime.now());
         // 设置文件的访问路径
-        uploadFile.setUrl(url);
-
+        uploadFile.setUrl(response.getUrl());
         // 设置文件名
-        if(voiceSeedName == null || voiceSeedName.isEmpty()){
-            uploadFile.setName(fileName);
-        }else {
-            uploadFile.setName(voiceSeedName);
-        }
+        uploadFile.setName(fileName);
+
 
         // 写入UploadFile表
         uploadFileMapper.insert(uploadFile);
