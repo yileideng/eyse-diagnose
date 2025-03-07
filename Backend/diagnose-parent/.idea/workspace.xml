@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="837c84d2-9569-4a86-bdf8-352986d717e9" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/../../frontend/.browserslistrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/babel.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/jsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/App.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/router/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/store/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/utils/element-ui.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/utils/request.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/vue.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../前后端接口文档.md" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Exception" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2smwLgFRZApSGzLQJB7BGNkbZzc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.MinioTest.minioUpload.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Test.messageLogin.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Test.minioUpload.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.blog-parent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.blog-parent [org.apache.maven.plugins:maven-clean-plugin:3.1.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.diagnose-parent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.diagnose-project [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tts-parent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tts-parent [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tts-project [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tts-project [org.apache.maven.plugins:maven-clean-plugin:3.1.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tts-project [package].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Vcs Important Messages&quot;: &quot;VCS 重要消息&quot;,
+    &quot;Notification.DoNotAsk-Vcs Important Messages&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.MybatisApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MybatisApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Git-repository/TTS/Chat-TTS/Backend/tts-parent/tts-project/src/main/java/com/project/tts/service/Impl&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;工件&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.itangcent.idea.plugin.configurable.AccountConfigurable.apifox&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Git-repository\TTS\Chat-TTS\Backend\tts-parent\tts-project\src\main\java\com\project\tts\service\Impl" />
+      <recent name="D:\Git-repository\TTS\Chat-TTS\Backend\tts-parent\tts-project\src\main\java\com\project\tts\service" />
+      <recent name="D:\Git-repository\TTS\Chat-TTS\Backend\tts-parent\tts-project\src\main\java\com\project\tts\mapper" />
+      <recent name="D:\Git-repository\TTS\Chat-TTS\Backend\tts-parent\tts-project\src\main\java\com\project\tts\pojo" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.project.tts.config" />
+      <recent name="com.lingrui.blog.config" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.MybatisApplication">
+    <configuration name="MinioTest.minioUpload" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="diagnose-project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.project.diagnose.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.project.tts" />
+      <option name="MAIN_CLASS_NAME" value="com.project.diagnose.MinioTest" />
+      <option name="METHOD_NAME" value="minioUpload" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test.messageLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="blog-api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lingrui.blog.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.lingrui.blog" />
+      <option name="MAIN_CLASS_NAME" value="com.lingrui.blog.Test" />
+      <option name="METHOD_NAME" value="messageLogin" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test.minioUpload" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="diagnose-project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.project.diagnose.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.project.tts" />
+      <option name="MAIN_CLASS_NAME" value="com.project.tts.Test" />
+      <option name="METHOD_NAME" value="minioUpload" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Backend" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Backend" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="MybatisApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="diagnose-project" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.diagnose.MybatisApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MybatisApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="blog-api" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.lingrui.blog.MybatisApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MinioTest.minioUpload" />
+        <item itemvalue="JUnit.Test.minioUpload" />
+        <item itemvalue="JUnit.Test.messageLogin" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="837c84d2-9569-4a86-bdf8-352986d717e9" name="更改" comment="" />
+      <created>1739074004362</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739074004362</updated>
+      <workItem from="1739074006141" duration="1093000" />
+      <workItem from="1739096300506" duration="51000" />
+      <workItem from="1739096414016" duration="26000" />
+      <workItem from="1739154215334" duration="32000" />
+      <workItem from="1739154570868" duration="57000" />
+      <workItem from="1739154913638" duration="389000" />
+      <workItem from="1739171978893" duration="413000" />
+      <workItem from="1739337898980" duration="26000" />
+      <workItem from="1739337960946" duration="724000" />
+      <workItem from="1739338699248" duration="1599000" />
+      <workItem from="1739342211580" duration="3761000" />
+      <workItem from="1739681747729" duration="2488000" />
+      <workItem from="1739697820374" duration="11854000" />
+      <workItem from="1739763128931" duration="2017000" />
+      <workItem from="1739769760256" duration="1855000" />
+      <workItem from="1739959446544" duration="654000" />
+      <workItem from="1739963953588" duration="14000" />
+      <workItem from="1740028982130" duration="831000" />
+      <workItem from="1740111013106" duration="3555000" />
+      <workItem from="1740226417621" duration="1882000" />
+      <workItem from="1740378870059" duration="24000" />
+      <workItem from="1740379178783" duration="1146000" />
+      <workItem from="1740408163335" duration="1773000" />
+      <workItem from="1740648446386" duration="4204000" />
+      <workItem from="1740717926172" duration="8329000" />
+      <workItem from="1740988442522" duration="911000" />
+      <workItem from="1741063319597" duration="683000" />
+      <workItem from="1741064757894" duration="2952000" />
+      <workItem from="1741070750227" duration="2802000" />
+      <workItem from="1741077615356" duration="4018000" />
+      <workItem from="1741085323628" duration="1455000" />
+      <workItem from="1741088071987" duration="2418000" />
+      <workItem from="1741098392886" duration="2694000" />
+      <workItem from="1741103987298" duration="801000" />
+      <workItem from="1741150530504" duration="1423000" />
+      <workItem from="1741152159443" duration="46000" />
+      <workItem from="1741152457866" duration="186000" />
+      <workItem from="1741155957336" duration="2172000" />
+      <workItem from="1741163316731" duration="312000" />
+      <workItem from="1741166074768" duration="15598000" />
+      <workItem from="1741184448472" duration="5294000" />
+      <workItem from="1741237602686" duration="1214000" />
+      <workItem from="1741238896739" duration="6480000" />
+      <workItem from="1741245477787" duration="156000" />
+      <workItem from="1741245659739" duration="13948000" />
+      <workItem from="1741315460547" duration="1240000" />
+      <workItem from="1741316751114" duration="1652000" />
+      <workItem from="1741332195119" duration="85000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

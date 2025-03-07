@@ -1,0 +1,57 @@
+server:
+  port: 8081
+  #8800
+spring:
+  #数据库连接信息
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/diagnose
+    # docker: jdbc:mysql://mysql2:3307/diagnose (第二个mysql是容器名,qpp_db是数据库名)
+    # 服务器: jdbc:mysql://47.109.44.103:3306/ydTest
+    # 本地: jdbc:mysql://localhost:3306/diagnose
+    username: root
+    password: 1234
+    #Dyl!20050802
+
+  servlet:
+    #文件上传
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 100MB
+  thymeleaf:
+    cache: false
+  #redis
+  data:
+    redis:
+      host: localhost
+      # docker: redis(容器名)
+      # 服务器: 47.109.44.103
+      # 本地: localhost
+      port: 6379
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+logging:
+  aop:
+    enabled: true
+    log-request: true
+    log-response: true
+
+#阿里云OSS
+aliyun:
+   oss:
+    endpoint: https://oss-cn-chengdu.aliyuncs.com
+    accessKeyId: LTAI5t5m1m2qkqzcTzLMzAh9
+    accessKeySecret: VUZdvf3gRJFSetwtNWt2rRbOONzPmN
+    bucketName: dyl123
+
+minio:
+  endpoint: http://8.137.104.3:8000
+  accessKey: admin
+  secretKey: admin123
+  bucket:
+    image: diagnoseImage
+
+
