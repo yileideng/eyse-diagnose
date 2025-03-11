@@ -1,6 +1,6 @@
 package com.project.diagnose.dto.vo;
 
-import com.project.diagnose.pojo.UploadFile;
+import com.project.diagnose.pojo.AvatarImage;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Data
-public class UploadFileVo {
+public class AvatarImageVo {
     /**
      * 文件id
      */
@@ -33,12 +33,12 @@ public class UploadFileVo {
 
     private String category;
 
-    public UploadFileVo(UploadFile uploadFile) {
-        this.setId(uploadFile.getId().toString());
-        this.setName(uploadFile.getName());
-        this.setUrl(uploadFile.getUrl());
-        this.setUserId(uploadFile.getUserId().toString());
-        this.setTime(uploadFile.getTime());
-        this.setCategory(uploadFile.getCategory());
+    public AvatarImageVo(AvatarImage avatarImage) {
+        this.setId(avatarImage.getId().toString());
+        this.setName(avatarImage.getName());
+        this.setUrl(avatarImage.getUrl());
+        this.setUserId(avatarImage.getUserId().toString());
+        this.setTime(avatarImage.getTime());
+        this.setCategory(avatarImage.getCategory());
     }
 }

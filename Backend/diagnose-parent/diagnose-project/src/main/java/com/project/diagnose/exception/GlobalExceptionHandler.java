@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
     // 自定义异常
     @ExceptionHandler(DiagnoseException.class)
-    public ResponseEntity<Result> handleBlogException(DiagnoseException e) {
-        log.error("捕获到BlogException: {}", e.getMessage());
+    public ResponseEntity<Result> handleDiagnoseException(DiagnoseException e) {
+        log.error("捕获到DiagnoseException: {}", e.getMessage());
         return ResponseEntity.status(e.getHttpStatus())
                 .body(Result.error(e.getHttpStatus().value(), e.getMessage()));
     }

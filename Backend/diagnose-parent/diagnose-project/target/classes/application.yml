@@ -52,6 +52,7 @@ minio:
   accessKey: admin
   secretKey: admin123
   bucket:
-    image: diagnoseImage
+    avatar: diagnoseavatar
+    diagnose: diagnose
 
 

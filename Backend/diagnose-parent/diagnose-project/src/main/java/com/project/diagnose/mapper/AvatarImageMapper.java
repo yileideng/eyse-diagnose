@@ -1,7 +1,7 @@
 package com.project.diagnose.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.project.diagnose.pojo.UploadFile;
+import com.project.diagnose.pojo.AvatarImage;
 import org.apache.ibatis.annotations.Mapper;
 
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @author itcast
  */
 @Mapper
-public interface UploadFileMapper extends BaseMapper<UploadFile> {
+public interface AvatarImageMapper extends BaseMapper<AvatarImage> {
 
 }

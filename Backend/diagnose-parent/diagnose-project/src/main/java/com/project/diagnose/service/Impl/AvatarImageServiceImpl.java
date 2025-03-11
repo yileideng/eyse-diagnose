@@ -3,13 +3,13 @@ package com.project.diagnose.service.Impl;
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.project.diagnose.dto.query.UploadFileQuery;
+import com.project.diagnose.dto.query.AvatarQuery;
 import com.project.diagnose.dto.response.UploadFileResponse;
 import com.project.diagnose.dto.vo.PageVo;
-import com.project.diagnose.dto.vo.UploadFileVo;
+import com.project.diagnose.dto.vo.AvatarImageVo;
 import com.project.diagnose.exception.DiagnoseException;
-import com.project.diagnose.mapper.UploadFileMapper;
-import com.project.diagnose.pojo.UploadFile;
+import com.project.diagnose.mapper.AvatarImageMapper;
+import com.project.diagnose.pojo.AvatarImage;
 import com.project.diagnose.service.AvatarImageService;
 import com.project.diagnose.utils.AliOSSUtils;
 import com.project.diagnose.utils.FileUtils;
@@ -31,18 +31,18 @@ import java.time.LocalDateTime;
  */
 @Slf4j
 @Service
-public class AvatarImageServiceImpl extends ServiceImpl<UploadFileMapper, UploadFile> implements AvatarImageService {
+public class AvatarImageServiceImpl extends ServiceImpl<AvatarImageMapper, AvatarImage> implements AvatarImageService {
     @Autowired
     private MinioUtils minioUtils;
     @Autowired
     private AliOSSUtils aliOSSUtils;
     @Autowired
-    private UploadFileMapper uploadFileMapper;
+    private AvatarImageMapper avatarImageMapper;
 
 
 
     @Override
-    public UploadFileVo uploadAndInsert(String bucket, MultipartFile file, UploadFile.Category requiredCategory, Long userId) {
+    public String uploadAndInsert(String bucket, MultipartFile file, FileUtils.Category requiredCategory, Long userId) {
         if (file.isEmpty()) {
             throw new DiagnoseException("上传的文件为空");
         }
@@ -64,45 +64,45 @@ public class AvatarImageServiceImpl extends ServiceImpl<UploadFileMapper, Upload
 
 // 向数据库中插入上传文件的信息
 
-        UploadFile uploadFile = new UploadFile();
+        AvatarImage avatarImage = new AvatarImage();
 
         // 设置文件分类:音频,图片等等
-        uploadFile.setCategory(requiredCategory.getCategory());
+        avatarImage.setCategory(requiredCategory.getCategory());
         // 设置上传文件的用户
-        uploadFile.setUserId(userId);
+        avatarImage.setUserId(userId);
         // 设置文件创建时间
-        uploadFile.setTime(LocalDateTime.now());
+        avatarImage.setTime(LocalDateTime.now());
         // 设置文件的访问路径
-        uploadFile.setUrl(response.getUrl());
+        avatarImage.setUrl(response.getUrl());
         // 设置文件名
-        uploadFile.setName(fileName);
+        avatarImage.setName(fileName);
 
 
         // 写入UploadFile表
-        uploadFileMapper.insert(uploadFile);
+        avatarImageMapper.insert(avatarImage);
         log.info("向数据库插入文件成功");
 
-        return uploadFile.getVo();
+        return response.getUrl();
     }
 
     @Override
-    public PageVo<UploadFileVo> getPageByCategory(UploadFileQuery uploadFileQuery, Long userId) {
+    public PageVo<AvatarImageVo> getPageByCategory(AvatarQuery avatarQuery, Long userId) {
         // Assert.notNull 方法会抛出一个 IllegalArgumentException 异常
-        Assert.notNull(uploadFileQuery, "用户参数不能为空");
+        Assert.notNull(avatarQuery, "用户参数不能为空");
 
-        String fileName = uploadFileQuery.getName();
+        String fileName = avatarQuery.getName();
 
         //默认按照time降序排序(如果有参数query,就按照参数排序)
-        Page<UploadFile> page= uploadFileQuery.toMpPage();
+        Page<AvatarImage> page= avatarQuery.toMpPage();
 
-        Page<UploadFile> p = lambdaQuery()
-                .eq(UploadFile::getUserId, userId)
-                .like(fileName!=null, UploadFile::getName, fileName)
+        Page<AvatarImage> p = lambdaQuery()
+                .eq(AvatarImage::getUserId, userId)
+                .like(fileName!=null, AvatarImage::getName, fileName)
                 .page(page);
 
 
         //封装成Vo:Po<Po>转为Vo<Vo>
-        return PageVo.of(p, UploadFileVo.class);
+        return PageVo.of(p, AvatarImageVo.class);
     }
 }
 

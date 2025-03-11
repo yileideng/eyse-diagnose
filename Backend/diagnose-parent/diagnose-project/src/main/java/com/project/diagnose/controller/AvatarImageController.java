@@ -3,9 +3,8 @@ package com.project.diagnose.controller;
 
 import com.project.diagnose.aop.LogAnnotation;
 import com.project.diagnose.dto.vo.Result;
-import com.project.diagnose.dto.vo.UploadFileVo;
-import com.project.diagnose.pojo.UploadFile;
 import com.project.diagnose.service.AvatarImageService;
+import com.project.diagnose.utils.FileUtils;
 import com.project.diagnose.utils.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/upload")
 public class AvatarImageController {
-    @Value("${minio.bucket.image}")
+    @Value("${minio.bucket.avatar}")
     private String bucket;
 
     @Autowired
@@ -29,9 +28,8 @@ public class AvatarImageController {
     @PostMapping("/avatar")
     //@PreAuthorize("hasAuthority('upload')")
     @LogAnnotation(module = "FileController",operator = "用MinIO上传用户头像")
-    public Result<UploadFileVo> upload(@RequestHeader("Authorization") String token, @RequestParam("file") MultipartFile image) {
-        Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
-        UploadFileVo avatarImage = avatarImageService.uploadAndInsert(bucket, image, UploadFile.Category.CATEGORY_AVATAR, userId);
-        return Result.success(avatarImage);
+    public Result<String> upload(@RequestParam("file") MultipartFile image) {
+        String url = avatarImageService.uploadAndInsert(bucket, image, FileUtils.Category.CATEGORY_IMAGE, null);
+        return Result.success(url);
     }
 }

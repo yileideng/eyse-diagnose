@@ -1,12 +1,23 @@
 package com.project.diagnose.utils;
 
-import com.project.diagnose.pojo.UploadFile;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 
 public class FileUtils {
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    public enum Category {
+        CATEGORY_IMAGE("image");
+
+        private String category;
+    }
+
     private static final HashMap<String, String> MIME_TYPES = new HashMap<>();
-    private static final HashMap<String, UploadFile.Category> MIME_TYPE_FUNCTIONS = new HashMap<>();
+    private static final HashMap<String, Category> MIME_TYPE_FUNCTIONS = new HashMap<>();
 
     static {
         // 添加更多的 MIME 类型映射
@@ -34,14 +45,10 @@ public class FileUtils {
         MIME_TYPES.put(".pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation"); // 添加 pptx
 
         // 头像
-        MIME_TYPE_FUNCTIONS.put("image/jpeg", UploadFile.Category.CATEGORY_AVATAR);
-        MIME_TYPE_FUNCTIONS.put("image/png", UploadFile.Category.CATEGORY_AVATAR);
-        MIME_TYPE_FUNCTIONS.put("image/gif", UploadFile.Category.CATEGORY_AVATAR);
-
-        MIME_TYPE_FUNCTIONS.put("image/jpeg", UploadFile.Category.CATEGORY_DIAGNOSE);
-        MIME_TYPE_FUNCTIONS.put("image/png", UploadFile.Category.CATEGORY_AVATAR);
-        MIME_TYPE_FUNCTIONS.put("image/gif", UploadFile.Category.CATEGORY_AVATAR);
-        MIME_TYPE_FUNCTIONS.put("application/zip", UploadFile.Category.CATEGORY_AVATAR);
+        MIME_TYPE_FUNCTIONS.put("image/jpeg", Category.CATEGORY_IMAGE);
+        MIME_TYPE_FUNCTIONS.put("image/png", Category.CATEGORY_IMAGE);
+        MIME_TYPE_FUNCTIONS.put("image/gif", Category.CATEGORY_IMAGE);
+        MIME_TYPE_FUNCTIONS.put("application/zip", Category.CATEGORY_IMAGE);
 
     }
 
@@ -63,14 +70,14 @@ public class FileUtils {
         return mimeType;
     }
 
-    public static UploadFile.Category getMimeTypeFunction(String mimeType) {
+    public static Category getMimeTypeFunction(String mimeType) {
         // 返回对应的 MIME 类型，如果不存在返回默认值
         return MIME_TYPE_FUNCTIONS.getOrDefault(mimeType, null);
     }
 
-    public static Boolean checkFileCategory(String fileName, UploadFile.Category requiredCategory) {
+    public static Boolean checkFileCategory(String fileName, Category requiredCategory) {
         String mimeType = FileUtils.getMimeType(fileName);
-        UploadFile.Category fileCategory = FileUtils.getMimeTypeFunction(mimeType);
+        Category fileCategory = FileUtils.getMimeTypeFunction(mimeType);
         return fileCategory == requiredCategory;
     }
 }

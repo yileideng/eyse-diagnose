@@ -1,8 +1,10 @@
 package com.project.diagnose.service.Impl;
 
 import cn.hutool.core.lang.Assert;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.project.diagnose.exception.DiagnoseException;
 import com.project.diagnose.mapper.UserMapper;
 import com.project.diagnose.pojo.User;
 import com.project.diagnose.dto.query.UserQuery;
@@ -68,6 +70,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         UserVo userVo=new UserVo();
         BeanUtils.copyProperties(userMapper.selectById(id),userVo);
         return userVo;
+    }
+
+    @Override
+    public void updateUser(Long userId, UserQuery userQuery) {
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", userId);
+
+        User user = new User();
+        user.setUsername(userQuery.getUsername());
+        user.setEmail(userQuery.getEmail());
+        user.setPhoneNumber(userQuery.getPhoneNumber());
+        user.setAvatarUrl(userQuery.getAvatarUrl());
+
+        // MyBatis-Plus会自动忽略null值字段
+        userMapper.update(user, updateWrapper);
     }
 
 }

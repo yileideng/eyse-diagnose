@@ -29,7 +29,7 @@ public class PageQuery {
         OrderItem defaultOrderItem = getDefaultOrderItem();
         //分页条件
         Page<T> page=Page.of(pageNo,pageSize);
-        //排序条件(默认按照username升序排序)
+        //排序条件
         if(StrUtil.isNotBlank(sortBy)){
             page.addOrder(new OrderItem(sortBy,isAsc));
         }else if (defaultOrderItem != null) {

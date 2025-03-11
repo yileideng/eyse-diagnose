@@ -1,11 +1,8 @@
 package com.project.diagnose.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.project.diagnose.dto.vo.UploadFileVo;
-import lombok.AllArgsConstructor;
+import com.project.diagnose.dto.vo.AvatarImageVo;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("upload_file")
-public class UploadFile implements Serializable {
+public class AvatarImage implements Serializable {
 
 
     private static final long serialVersionUID = 1L;
@@ -47,17 +44,7 @@ public class UploadFile implements Serializable {
     private String category;
 
 
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Getter
-    public enum Category {
-        CATEGORY_AVATAR("avatar"),
-        CATEGORY_DIAGNOSE("diagnose");
-
-        private String category;
-    }
-
-    public UploadFileVo getVo(){
-        return new UploadFileVo(this);
+    public AvatarImageVo getVo(){
+        return new AvatarImageVo(this);
     }
 }

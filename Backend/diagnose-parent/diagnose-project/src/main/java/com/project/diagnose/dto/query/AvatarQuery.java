@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import lombok.Data;
 
 @Data
-public class UploadFileQuery extends PageQuery{
+public class AvatarQuery extends PageQuery{
     private Long id;
     private String name;
 
