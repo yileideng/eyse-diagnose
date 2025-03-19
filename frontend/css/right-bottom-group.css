@@ -1,0 +1,32 @@
+.right-button-group {
+  position: absolute;
+  top: 50%;
+  right: 41px;
+  transform: translate(0, -30%);
+  width: 16px;
+  height: 226px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #c2c2c2;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out;
+}
+
+.dot:hover {
+  transform: rotate(180deg);
+  background: #ffffff;
+}
+
+.dot.active {
+  background: #FFFFFF;
+}

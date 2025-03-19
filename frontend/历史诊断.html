@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="./photograph/屏幕截图 2025-03-01 145911.png" sizes="16*16">
+  <link rel="stylesheet" href="./css/general.css">
+  <link rel="stylesheet" href="./css/right-bottom-group.css">
+  <title>历史诊断</title>
+  <style>
+    .container {
+      scroll-behavior: smooth;
+      position: absolute;
+      top: calc(50px + 50%);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1532px;
+      height: 733px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-y: scroll;
+      gap: 77px;
+      transition: all 0.5s ease;
+    }
+
+    .container::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+    .row {
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 328px;
+      transition: all 0.5s ease;
+      opacity: 0;
+    }
+
+    .row.show {
+      opacity: 1;
+      /* 显示时完全不透明 */
+      transform: translateY(0);
+      /* 恢复原位 */
+    }
+
+    .left {
+      width: 328px;
+      height: 328px;
+      background: #555555;
+      border-radius: 50px 50px 50px 50px;
+      opacity: 0.4;
+    }
+
+    .right {
+      width: 1118px;
+      height: 328px;
+      background: #555555;
+      border-radius: 50px 50px 50px 50px;
+      opacity: 0.4;
+    }
+
+    .contents {
+      display: contents;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background">
+
+    <div class="backgroundMask">
+      <div class="navbar navbar-expand-lg navbar-dark ">
+        <a class="navbar-brand" href="#"><img src="./photograph/屏幕截图 2025-03-01 145911.png" alt="logo">
+        </a>
+        <span class="brand"><strong>Eyes Diagnose</strong></span>
+        <div class=" collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item ">
+              <a class="nav-link" href="主页.html">主页 <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="诊断.html">诊断</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="历史诊断.html">历史诊断</a>
+            </li>
+            <li class="nav-item nav-search">
+              <span class="search">搜索</span>
+              <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="-搜索编号-">
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <!-- 四行历史诊断病例的卡片元素 -->
+      <div class="contents">
+        <div class="row">
+          <div class="left">111111111111</div>
+          <div class="right"></div>
+        </div>
+
+        <div class="row">
+          <div class="left">222222222222</div>
+          <div class="right"></div>
+        </div>
+      </div>
+      <div class="contents">
+        <div class="row">
+          <div class="left">18725343631</div>
+          <div class="right"></div>
+        </div>
+
+        <div class="row">
+          <div class="left">2</div>
+          <div class="right"></div>
+        </div>
+      </div>
+      <div class="contents">
+        <div class="row">
+          <div class="left">8888888888</div>
+          <div class="right"></div>
+        </div>
+
+        <div class="row">
+          <div class="left">2</div>
+          <div class="right"></div>
+        </div>
+      </div>
+      <div class="contents">
+        <div class="row">
+          <div class="left">635432.3.1</div>
+          <div class="right"></div>
+        </div>
+
+        <div class="row">
+          <div class="left">2</div>
+          <div class="right"></div>
+        </div>
+      </div>
+    </div>
+    <div class="right-button-group">
+      <li class="dot first active"></li>
+      <li class="dot second"></li>
+      <li class="dot third"></li>
+    </div>
+
+  </div>
+  <script src="./js/jquery-3.7.1.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script>
+    let currentRow = 0; // 当前展示的行索引  
+    const rows = document.querySelectorAll('.row'); // 获取所有的行  
+    const totalRows = rows.length; // 总的行数量  
+    const rowsToShow = 2; // 每次展示的行数量  
+
+    // 初始化显示的行  
+    function initDisplay() {
+      for (let i = 0; i < Math.min(rowsToShow, totalRows); i++) {
+        rows[i].classList.add('show'); // 添加显示类  
+      }
+    }
+
+    // 观察元素的可见性  
+    const observerOptions = {
+      root: document.querySelector('.container'), // 观察器的根  
+      rootMargin: '0px',
+      threshold: 0.5 // 50% 进入视口时触发  
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show'); // 当行的一半可见时显示  
+        } else {
+          entry.target.classList.remove('show'); // 当行不可见时隐藏  
+        }
+      });
+    }, observerOptions);
+
+    // 观察每一行  
+    rows.forEach(row => {
+      observer.observe(row); // 开始观察行  
+    });
+
+    // 防抖函数  
+    function debounce(func, delay) {
+      let timeout;
+      return function (...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), delay);
+      };
+    }
+
+    // 滚动事件  
+    window.addEventListener('wheel', debounce(function (event) {
+      // 处理额外的行显示或其他逻辑  
+    }, 300)); // 设置防抖时间为300毫秒  
+
+    // 初始化  
+    initDisplay();  
+  </script>
+</body>
+
+</html>

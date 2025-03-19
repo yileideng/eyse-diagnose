@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="一个致力于排查眼部疾病的平台">
+  <meta name="copyright" content="版权所有 © 2025 凌睿工作室">
+  <meta name="keywords" content="眼部，疾病，检测，监测，排查，安全，障碍，隐患，平台，系统，深度学习，人工智能，算法，大模型">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="./photograph/屏幕截图 2025-03-01 145911.png" sizes="16*16">
+  <link rel="stylesheet" href="./css/loginbg.css">
+  <link rel="stylesheet" href="./css/login_form.css">
+  <link rel="stylesheet" href="./css/welcome.css">
+  <title>Eye Diseases Detection—登录注册</title>
+</head>
+
+<body>
+
+  <div class="background">
+    <div class="backgroundMask">
+      <div class="swiper-slide">
+        <p class="welcome">
+          欢迎使用眼部疾病检测平台!
+        </p>
+      </div>
+      <div class="container-for-login">
+        <div class="list-header">
+          <div class="title">Eyes Diagnose</div>
+        </div>
+        <div class="form">
+          <div class="username list-item">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control login-username" placeholder="用户名/邮箱" aria-label="Username"
+                aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div class="password list-item ">
+            <div class="input-group mb-3">
+              <input type="password" class="form-control login-password" id="exampleInputPassword1"
+                placeholder="Password">
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="tick list-item">
+            <label> <input type="checkbox">
+              <span class="custom-checkbox"></span>
+              我已阅读并同意全部<a href="#"><strong>条款</strong></a>内容</label>
+          </div>
+          <input type="checkbox">
+          <div class="submit list-item">
+            <button type="button" class="btn btn-secondary btn-lg btn-block login">登录</button>
+          </div>
+          <a href="" class="register">没有账号？<strong>注册</strong></a>
+        </div>
+      </div>
+
+
+      <div class="container-for-register" style="opacity: 0;">
+        <div class="list-header">
+          <div class="title">Eyes Diagnose</div>
+        </div>
+        <div class="form form-for-register">
+          <div class="username list-item">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control register-username" placeholder="用户名" aria-label="Username"
+                aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div class="email list-item">
+            <div class="input-group mb-3">
+              <input type="email" class="form-control register-email  " placeholder="邮箱" aria-label="Email"
+                aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div class="password list-item ">
+            <div class="input-group mb-3">
+              <input type="password" class="form-control register-password" id="exampleInputPassword1"
+                placeholder="Password">
+            </div>
+          </div>
+        </div>
+        <div class="footer footer-for-register">
+          <div class="tick list-item">
+            <label> <input type="checkbox">
+              <span class="custom-checkbox"></span>
+              我已阅读并同意全部<a href="#"><strong>条款</strong></a>内容</label>
+          </div>
+          <div class="submit list-item">
+            <button type="button" class="btn btn-secondary btn-lg btn-block log">注册</button>
+          </div>
+          <a href="" class="to-login">已有账号？<strong>登录</strong></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="./js/jquery-3.7.1.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 显示欢迎动画
+      const welcome = document.querySelector('.welcome');
+      const loginContainer = document.querySelector('.container-for-login');
+
+      // 初始状态设置
+      welcome.style.display = 'block';
+      loginContainer.style.opacity = 0;
+
+      // 启动欢迎动画
+      setTimeout(() => {
+        welcome.classList.add('active');
+      }, 500);
+
+      // 全局点击监听
+      document.addEventListener('click', function welcomeClickHandler(e) {
+        // 过滤掉登录容器内的点击
+        // if (!e.target.closest('.container-for-login') &&
+        //   !e.target.closest('.container-for-register')) {
+        welcome.style.transition = 'all 0.8s ease-in-out';
+        welcome.classList.remove('active');
+        loginContainer.style.opacity = 1;
+        loginContainer.classList.add('active');
+
+        // 移除监听避免重复触发
+        setTimeout(() => {
+          document.removeEventListener('click', welcomeClickHandler);
+          welcome.style.display = 'none';
+        }, 800);
+        // }
+      });
+    });
+
+    document.querySelector(".register").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.querySelector(".container-for-login").style.cssText = `opacity: 0;transform: translate(-300px,0) scale(0.8);`
+      document.querySelector(".container-for-register").style.cssText = `opacity: 1;transform: translate(0,0) scale(1.1,1.05); `
+    });
+
+    document.querySelector(".to-login").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.querySelector(".container-for-register").style.cssText = `opacity: 0;transform: translate(300px,0) scale(0.8);`
+      document.querySelector(".container-for-login").style.cssText = `opacity: 1;display: block;transform: translate(0,0);`
+    });
+    // 注册
+    document.querySelector(".log").addEventListener("click", function (e) {
+      e.preventDefault();
+      var username = document.querySelector(" .register-username").value;
+      var email = document.querySelector(" .register-email").value;
+      var password = document.querySelector(" .register-password").value;
+      console.log(username, email, password);
+      if (username.trim() == "" || email.trim() == "" || password.trim() == "") {
+        alert("用户名、邮箱或密码不能为空！");
+      } else if (!document.querySelector(".tick input[type='checkbox']").checked) {
+        alert("请阅读并同意协议内容！");
+        return false;
+        // 正则表达式验证用户名（ 不为数字）、邮箱、密码（6-16位，字母数字下划线）格式
+      } else if (!/^[a-zA-Z][a-zA-Z0-9_]{1,15}$/.test(username)) {
+        alert("用户名不能为数字且不得超过15个字符");
+        return false;
+      } else if (!/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(email)) {
+        alert("邮箱格式不正确！");
+        return false;
+      } else if (!/^[a-zA-Z0-9_]{6,16}$/.test(password)) {
+        alert("请输入6-16位字母数字下划线密码！");
+        return false;
+      }
+      $.ajax({
+        type: "POST",
+        url: "register.php",
+        data: {
+          username: username,
+          email: email,
+          password: password
+        },
+        success: function (data) {
+          if (data == "success") {
+            alert("注册成功！");
+            document.querySelector(".container-for-register").style.cssText = `opacity: 0;transform: translate(300px,0) scale(0.8);`
+            document.querySelector(".container-for-login").style.cssText = `opacity: 1;display: block;transform: translate(0,0);`
+          } else {
+            alert("用户名或邮箱已存在！");
+            // 清空 input 内容
+            document.querySelector(".register-username").value = "";
+            document.querySelector(".register-email").value = "";
+            document.querySelector(".register-password").value = "";
+          }
+        }
+      });
+    });
+    // 登录
+    document.querySelector(".login").addEventListener("click", function (e) {
+      // 设置一个可以用于登录的初始账号密码
+      var adminUsername = "admin";
+      var adminPassword = "123456";
+
+      e.preventDefault();
+      var username = document.querySelector(".login-username").value;
+      var password = document.querySelector(".login-password").value;
+      console.log(username, password);
+      if (username.trim() == "" || password.trim() == "") {
+        alert("用户名或密码不能为空！");
+        // 判断是否同意协议
+      } else if (!document.querySelector(".tick input[type='checkbox']").checked) {
+        alert("请阅读并同意协议内容！");
+        return false;
+        // 验证是否和注册数据匹配
+      }
+      // 判断是否为初始账号密码
+      if (username == adminUsername && password == adminPassword) {
+        // 跳转到主页
+        window.location.href = "主页.html";
+      }
+      else {
+        $.ajax({
+          type: "POST",
+          url: "login.php",
+          data: {
+            username: username,
+            password: password
+          },
+          success: function (data) {
+            if (data == "success") {
+              alert("登录成功！");
+              // 跳转到主页
+              window.location.href = "主页.html";
+            } else {
+              alert("用户名或密码错误！");
+              // 清空 input 内容
+              document.querySelector(".login-username").value = "";
+              document.querySelector(".login-password").value = "";
+            }
+          }
+        });
+      }
+    });
+  </script>
+
+</html>

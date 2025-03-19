@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="./photograph/屏幕截图 2025-03-01 145911.png" sizes="16*16">
+  <link rel="stylesheet" href="./css/general.css">
+  <link rel="stylesheet" href="./css/right-bottom-group.css">
+  <title>主页</title>
+  <style>
+    .container {
+      position: absolute;
+      padding: 50px 42px 0px 116px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: calc(100vh - 100px);
+    }
+
+    .container {
+      will-change: transform, opacity;
+    }
+
+    .left {
+      width: 976px;
+      height: 451px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .content-top {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .title {
+      width: 970px;
+      height: 163px;
+      font-size: 120px;
+      font-family: Segoe UI-Semibold, Segoe UI;
+      font-weight: 600;
+      color: #FFFFFF;
+      line-height: 168px;
+    }
+
+    .sub-title {
+      width: 970px;
+      height: 60px;
+      text-align: right;
+      font-size: 42px;
+      font-family: Microsoft YaHei-Regular, Microsoft YaHei;
+      font-weight: 400;
+      color: #FFFFFF;
+      line-height: 60px;
+    }
+
+    .content-bottom {
+      width: 100%;
+      height: 97px;
+    }
+
+    .btn {
+      width: 401px;
+      height: 90px;
+      background: #9a9a9a;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 45px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 48px;
+      font-family: Microsoft YaHei-Light, Microsoft YaHei;
+      font-weight: 300;
+      color: #FFFFFF;
+      opacity: 0.7;
+      line-height: 67px;
+
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #f2f2f2;
+      opacity: 1;
+    }
+
+    #content {
+      display: contents;
+      position: relative;
+    }
+
+    .animate__animated {
+      animation-duration: 3s;
+      animation-fill-mode: both;
+    }
+
+    .animate__backOutLeft {
+      animation-name: backOutLeft;
+    }
+
+    @keyframes backOutLeft {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      to {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background">
+
+    <div class="backgroundMask">
+      <div id="content">
+        <div class="navbar navbar-expand-lg navbar-dark ">
+          <a class="navbar-brand" href="#"><img src="./photograph/屏幕截图 2025-03-01 145911.png" alt="logo">
+          </a>
+          <span class="brand"><strong>Eyes Diagnose</strong></span>
+          <div class=" collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="主页.html">主页 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="诊断.html">诊断</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="历史诊断.html">历史诊断</a>
+              </li>
+              <li class="nav-item nav-search">
+                <span class="search">搜索</span>
+                <div class="search-bar">
+                  <span class="search-icon">🔍</span>
+                  <input type="text" class="search-input" placeholder="-搜索编号-">
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="left">
+          <div class="content-top">
+            <h1 class="title">
+              Eyes Diagnose</h1>
+            <p class="sub-title">——基于眼底医学影像的眼科疾病智能诊断系统</p>
+          </div>
+          <div class="content-bottom">
+            <div class="btn toDiagnose">开始诊断</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="right-button-group">
+        <li class="dot first active"></li>
+        <li class="dot second"></li>
+        <li class="dot third"></li>
+      </div>
+    </div>
+  </div>
+  <script src="./js/jquery-3.7.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".toDiagnose").click(function () {
+        // 加上过渡动画
+        $(".backgroundMask").addClass("animate__animated animate__backOutLeft");
+        setTimeout(function () {
+          // 跳转到诊断页面,设置下一个页面进入的过渡动画
+
+          window.location.href = "诊断.html";
+        }, 2000);
+        // window.location.href = "诊断.html";
+      });
+    });
+  </script>
+</body>
+
+</html>

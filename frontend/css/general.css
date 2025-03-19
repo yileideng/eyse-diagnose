@@ -1,0 +1,186 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../photograph/background@2x.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+  filter: brightness(1.3);
+}
+
+.backgroundMask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(43, 43, 43, 0.2);
+  border-radius: 0px 0px 0px 0px;
+  z-index: 0;
+  border: 1px solid #707070;
+  box-shadow: 0px 0px 30px #707070;
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  background: rgba(95, 94, 94, 0.5);
+  border-radius: 0px 0px 0px 0px;
+
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1;
+}
+
+img {
+  width: 39px;
+  height: 38px;
+  position: absolute;
+  top: -2px;
+  left: -3px;
+  object-fit: contain;
+}
+
+.navbar-brand {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 39px;
+  height: 38px;
+  margin-left: 100px;
+  border: 3px solid #FFFFFF;
+}
+
+.navbar-toggler-icon {
+  width: 229px;
+  height: 48px;
+  font-size: 36px;
+  font-family: Segoe UI-Regular, Segoe UI;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 50px;
+  text-align: center;
+}
+
+.navbar-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.brand {
+  margin-bottom: 8px;
+  width: 250px;
+  height: 50px;
+  font-size: 36px;
+  font-family: Segoe UI-Regular, Segoe UI;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 50px;
+  opacity: 1;
+}
+
+.collapse {
+  align-items: center;
+  height: 48px;
+}
+
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 48px;
+  font-size: 24px;
+  font-family: Segoe UI-Bold, Segoe UI;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 38px;
+  margin-bottom: 10px;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  transform: translate(0, 30%);
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #FFFFFF;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search {
+  width: 120px;
+  height: 32px;
+  font-size: 16px;
+  font-family: Segoe UI-Regular, Segoe UI;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 27px;
+  margin-right: -20px;
+  /* position: relative; */
+}
+
+.search-bar {
+  outline: none;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  width: 242px;
+  height: 44px;
+  background: #000000;
+  border-radius: 22px 22px 22px 22px;
+  opacity: 0.8;
+  border: none;
+  padding-left: 10px;
+}
+
+.search-icon {
+  color: #FFFFFF;
+  margin-right: 10px;
+}
+
+.search-input {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  outline: none;
+  height: 100%;
+  flex-grow: 1;
+}
+
+/* 改变bootstrap默认的container	宽度 */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1920px;
+  }
+}

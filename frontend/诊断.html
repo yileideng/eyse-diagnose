@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="./photograph/屏幕截图 2025-03-01 145911.png" sizes="16*16">
+  <link rel="stylesheet" href="./css/general.css">
+  <link rel="stylesheet" href="./css/diagnose.css">
+  <link rel="stylesheet" href="./css/right-bottom-group.css">
+  <title>诊断界面</title>
+  <style>
+    .container {
+      position: absolute;
+      padding-left: 41px;
+      top: calc(50% + 20px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .left-content {
+      width: 1280px;
+      height: 400px;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .icon-box {
+      position: relative;
+      width: 76px;
+      height: 351px;
+      background: rgba(90, 91, 91, 0.4);
+      border-radius: 41px 41px 41px 41px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    .icon-box.active {
+      width: 303px;
+    }
+
+    .main-content {
+      padding-bottom: 30px;
+      width: 900px;
+      /* height: 400px; */
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .title {
+      position: relative;
+      /* line-height: 126px; */
+      width: 585px;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      /* text-align: center; */
+    }
+
+    .text {
+      position: absolute;
+      top: 0;
+      font-size: 80px;
+      font-family: Segoe UI-Semibold, Segoe UI;
+      font-weight: 600;
+      color: #FFFFFF;
+      line-height: 126px;
+    }
+
+
+
+    #content {
+      position: relative;
+      display: contents;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background">
+
+    <div class="backgroundMask">
+      <div id="content">
+        <div class="navbar navbar-expand-lg navbar-dark ">
+          <a class="navbar-brand" href="#"><img src="./photograph/屏幕截图 2025-03-01 145911.png" alt="logo">
+          </a>
+          <span class="brand"><strong>Eyes Diagnose</strong></span>
+          <div class=" collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item ">
+                <a class="nav-link" href="主页.html">主页 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="诊断.html">诊断</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="历史诊断.html">历史诊断</a>
+              </li>
+              <li class="nav-item nav-search">
+                <span class="search">搜索</span>
+                <div class="search-bar">
+                  <span class="search-icon">🔍</span>
+                  <input type="text" class="search-input" placeholder="-搜索编号-">
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="left-content">
+          <div class="icon-box">
+
+            <svg class="expand-svg common-svg" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+              viewBox="0 0 40 40">
+              <defs>
+                <style>
+                  .first-a,
+                  .first-c {
+                    fill: none;
+                  }
+
+                  .first-a {
+                    stroke: #fff;
+                    stroke-width: 3px;
+                  }
+
+                  .first-b {
+                    stroke: none;
+                  }
+                </style>
+              </defs>
+              <line class="first-a" y2="37" transform="translate(13.5 1.5)" />
+              <line class=" first-a " x2="10" y2="10" transform="translate(21.5 10.75)" />
+              <line class=" first-a " x2="10" y2="10" transform="translate(31.5 19.25) rotate(90)" />
+              <g class="first-a">
+                <rect class="first-b" width="40" height="40" rx="15" />
+                <rect class="first-c" x="1.5" y="1.5" width="37" height="37" rx="13.5" />
+              </g>
+            </svg>
+            <svg class="new-svg common-svg" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+              viewBox="0 0 40 40">
+              <defs>
+                <style>
+                  .second-a,
+                  .second-c {
+                    fill: none;
+                  }
+
+                  .second-a {
+                    stroke: #fff;
+                    stroke-width: 3px;
+                  }
+
+                  .second-b {
+                    stroke: none;
+                  }
+                </style>
+              </defs>
+              <line class="second-a" x2="20" transform="translate(10.5 19.5)" />
+              <line class="second-a" x2="20" transform="translate(20.5 9.5) rotate(90)" />
+              <g class="second-a">
+                <rect class="second-b" width="40" height="40" rx="15" />
+                <rect class="second-c" x="1.5" y="1.5" width="37" height="37" rx="13.5" />
+              </g>
+            </svg>
+          </div>
+          <div class="main-content">
+            <div class="title">
+              <p class="text">Eyes Diagnose</p>
+            </div>
+            <div class="diagnose-content">
+
+              <svg class="append-svg main-svg" xmlns="http://www.w3.org/2000/svg" width="838.125" height="210.125"
+                viewBox="0 0 838.125 210.125">
+                <defs>
+                  <style>
+                    .a,
+                    .c,
+                    .e {
+                      fill: none;
+                    }
+
+                    .a,
+                    .c {
+                      stroke: #fff;
+                    }
+
+                    .a {
+                      stroke-width: 5px;
+                    }
+
+                    .b {
+                      opacity: 0;
+                    }
+
+                    .c {
+                      stroke-linecap: round;
+                    }
+
+                    .d {
+                      stroke: none;
+                    }
+                  </style>
+                </defs>
+                <g transform="translate(2.527 2.527)">
+                  <g transform="translate(-532 -709)">
+                    <line class="a" x2="60" transform="translate(920 811.5)" />
+                    <line class="a" x2="60" transform="translate(950 781.5) rotate(90)" />
+                  </g>
+                  <g class="b" transform="translate(-532 -709)">
+                    <g class="c" transform="translate(880 811)">
+                      <ellipse class="d" cx="70" cy="0.5" rx="70" ry="0.5" />
+                      <ellipse class="e" cx="70" cy="0.5" rx="69.5" />
+                    </g>
+                    <g class="c" transform="translate(939 811)">
+                      <ellipse class="d" cx="10.5" cy="0.5" rx="10.5" ry="0.5" />
+                      <ellipse class="e" cx="10.5" cy="0.5" rx="10" />
+                    </g>
+                    <path class="c" d="M898.965,791.378s39.489-20.568,97.044-1.434" transform="translate(2.013 13)" />
+                    <line class="c" y2="7" transform="translate(950 817)" />
+                    <line class="c" y2="7" transform="translate(924.75 817.469) rotate(30)" />
+                    <line class="c" y1="7" transform="translate(978.75 823.531) rotate(150)" />
+                  </g>
+                  <g transform="translate(-532 -709)">
+                    <g transform="translate(-10.907 -11.026)">
+                      <path class="a" d="M540.926-446.182v-18.31s-1.385-23.944,19.578-23.475"
+                        transform="translate(2 1208)" />
+                      <path class="a" d="M583.978-487.974h-23.8" transform="translate(2 1208)" />
+                    </g>
+                    <g transform="translate(2083.818 166.093) rotate(90)">
+                      <path class="a" d="M540.926-446.182v-18.31s-1.385-23.944,19.578-23.475"
+                        transform="translate(2 1208)" />
+                      <path class="a" d="M583.978-487.974h-23.8" transform="translate(2 1208)" />
+                    </g>
+                    <g transform="translate(1907.978 1632.818) rotate(180)">
+                      <path class="a" d="M540.926-446.182v-18.31s-1.385-23.944,19.578-23.475"
+                        transform="translate(2 1208)" />
+                      <path class="a" d="M583.978-487.974h-23.8" transform="translate(2 1208)" />
+                    </g>
+                    <g transform="translate(-188.026 1456.978) rotate(-90)">
+                      <path class="a" d="M540.926-446.182v-18.31s-1.385-23.944,19.578-23.475"
+                        transform="translate(2 1208)" />
+                      <path class="a" d="M583.978-487.974h-23.8" transform="translate(2 1208)" />
+                    </g>
+                  </g>
+                </g>
+
+              </svg>
+              <svg class="eyes-svg main-svg" xmlns="http://www.w3.org/2000/svg" width="638.125" height="150.125"
+                viewBox="0 0 638.125 150.125">
+                <defs>
+                  <style>
+                    .anothor-a {
+                      opacity: 0;
+                    }
+
+                    .another-b,
+                    .another-c,
+                    .anothor-e {
+                      fill: none;
+                    }
+
+                    .another-b,
+                    .another-c {
+                      stroke: #fff;
+                      stroke-width: 5px;
+                    }
+
+                    .another-c {
+                      stroke-linecap: round;
+                    }
+
+                    .another-d {
+                      stroke: none;
+                    }
+                  </style>
+                </defs>
+                <g transform="translate(2.527 2.527)">
+                  <g class="anothor-a" transform="translate(-632 -739)">
+                    <line class="another-b" x2="7" transform="translate(947.5 811.5)" />
+                    <line class="another-b" y2="4" transform="translate(950.5 809.5)" />
+                  </g>
+                  <g transform="translate(-632 -739)">
+                    <g class="another-c" transform="translate(880 778)">
+                      <ellipse class="another-d" cx="70" cy="33" rx="70" ry="33" />
+                      <ellipse class="anothor-e" cx="70" cy="33" rx="67.5" ry="30.5" />
+                    </g>
+                    <g class="another-c" transform="translate(939 778)">
+                      <ellipse class="another-d" cx="10.5" cy="33" rx="10.5" ry="33" />
+                      <ellipse class="anothor-e" cx="10.5" cy="33" rx="8" ry="30.5" />
+                    </g>
+                    <path class="another-c" d="M898.965,791.378s39.489-20.568,97.044-1.434"
+                      transform="translate(2.013 -22)" />
+                    <line class="another-c" y2="7" transform="translate(950 844)" />
+                    <line class="another-c" y2="7" transform="translate(916.75 837.938) rotate(30)" />
+                    <line class="another-c" y1="7" transform="translate(985.75 844) rotate(150)" />
+                  </g>
+                  <g class="anothor-a" transform="translate(-632 -739)">
+                    <g transform="translate(89.093 18.974)">
+                      <path class="another-b" d="M540.926-446.182v-18.31s-1.385-23.944,19.578-23.475"
+                        transform="translate(2 1208)" />
+                      <path class="another-b" d="M583.978-487.974h-23.8" transform="translate(2 1208)" />
+                    </g>
+                    <g transform="translate(1983.818 196.093) rotate(90)">
+                      <path class="another-b" d="M540.926-446.182v-18.31s-1.385-23.944,19.578-23.475"
+                        transform="translate(2 1208)" />
+                      <path class="another-b" d="M583.978-487.974h-23.8" transform="translate(2 1208)" />
+                    </g>
+                    <g transform="translate(1807.978 1602.818) rotate(180)">
+                      <path class="another-b" d="M540.926-446.182v-18.31s-1.385-23.944,19.578-23.475"
+                        transform="translate(2 1208)" />
+                      <path class="another-b" d="M583.978-487.974h-23.8" transform="translate(2 1208)" />
+                    </g>
+                    <g transform="translate(-88.026 1426.978) rotate(-90)">
+                      <path class="another-b" d="M540.926-446.182v-18.31s-1.385-23.944,19.578-23.475"
+                        transform="translate(2 1208)" />
+                      <path class="another-b" d="M583.978-487.974h-23.8" transform="translate(2 1208)" />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+              <div class="three-major-symptoms">
+                <div class="major1 major">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="47.749" height="45.02" viewBox="0 0 47.749 45.02">
+                    <defs>
+                      <style>
+                        .a-first,
+                        .b-first {
+                          fill: none;
+                          stroke: #fff;
+                          stroke-linejoin: round;
+                          stroke-width: 3px;
+                        }
+
+                        .b-first {
+                          stroke-linecap: round;
+                        }
+                      </style>
+                    </defs>
+                    <g transform="translate(0.018)">
+                      <path class="a-first"
+                        d="M15.4,13.52H35.52a6,6,0,0,1,6,6v18a6,6,0,0,1-6,6h-28a6,6,0,0,1-6-6V22.68" />
+                      <path class="a-first" d="M2.54,19.52H13.3s3.87.43,3.59-6.43" />
+                      <path class="a-first" d="M5.4,8.13H14s3.1-.46,2.87,6.91" />
+                      <path class="a-first" d="M1.53,24V11.26S.85,8,5.88,8.13" />
+                      <line class="b-first rotateItem" x2="9.38" y2="0.07"
+                        transform="translate(46.22 5.63) rotate(180)" />
+                      <line class="b-first" y1="8.19" transform="translate(41.53 1.5)" />
+                    </g>
+                  </svg>
+                </div>
+                <div class="major2 major">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41">
+                    <defs>
+                      <style>
+                        .a-second,
+                        .b-second,
+                        .d-second {
+                          fill: none;
+                        }
+
+                        .a-second,
+                        .b-second {
+                          stroke: #fff;
+                          stroke-width: 3px;
+                        }
+
+                        .b-second {
+                          stroke-linecap: round;
+                        }
+
+                        .c-second {
+                          stroke: none;
+                        }
+                      </style>
+                    </defs>
+                    <g transform="translate(-940.438 -633.368)">
+                      <g class="a-second" transform="translate(951.938 640.594)">
+                        <circle class="c-second" cx="4.5" cy="4.5" r="4.5" />
+                        <circle class="d-second" cx="4.5" cy="4.5" r="3" />
+                      </g>
+                      <g class="a-second" transform="translate(940.438 633.368)">
+                        <rect class="c-second" width="41" height="41" rx="15" />
+                        <rect class="d-second" x="1.5" y="1.5" width="38" height="38" rx="13.5" />
+                      </g>
+                      <path class="b-second" d="M1285.086,898.14s5.425-5.145,7.233-6.953,3.123,0,3.123,0l10.752,11.909"
+                        transform="translate(-327.843 -238.79)" />
+                      <path class="b-second"
+                        d="M1304,900.063l6-5.047a2.129,2.129,0,0,1,2.971,0c1.422,1.43,8.055,8.548,8.055,8.548"
+                        transform="translate(-360.476 -239.412)" />
+                    </g>
+                  </svg>
+                </div>
+                <div class="major3 major">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="51.732" height="48.004" viewBox="0 0 51.732 48.004">
+                    <defs>
+                      <style>
+                        .a-third {
+                          fill: none;
+                          stroke: #fff;
+                          stroke-linecap: round;
+                          stroke-miterlimit: 10;
+                          stroke-width: 3px;
+                        }
+                      </style>
+                    </defs>
+                    <g transform="translate(1.64 -1.636)">
+                      <path class="a-third" d="M24,4.78h0" transform="translate(49.64 1.64) rotate(90)" />
+                      <path class="a-third"
+                        d="M24,4.78a22.57,22.57,0,0,1,22.5,22.5h0A22.56,22.56,0,0,1,24,49.78h0A22.56,22.56,0,0,1,1.5,27.28"
+                        transform="translate(49.64 1.64) rotate(90)" />
+                      <line class="a-third" y1="3.28" x2="8.13" transform="translate(48.14 25.64) rotate(90)" />
+                      <line class="a-third" x2="16.85" y2="16.85" transform="translate(13.935 17.34)" />
+                      <line class="a-third" y1="7.15" transform="translate(13.935 17.47)" />
+                      <line class="a-third" x1="7.15" transform="translate(13.935 17.09)" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-button-group">
+        <li class="dot first active"></li>
+        <li class="dot second"></li>
+        <li class="dot third"></li>
+      </div>
+    </div>
+  </div>
+  <script src="./js/jquery-3.7.1.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script>
+    const contractSvg = document.querySelector('.contract-svg');
+    const expandSvg = document.querySelector('.expand-svg');
+    const newSvg = document.querySelector('.new-svg');
+    const diagnoseContent = document.querySelector('.diagnose-content');
+    const threeMajorSymptoms = document.querySelector('.three-major-symptoms');
+    document.querySelector('.diagnose-content').addEventListener('click', function (e) {
+      e.stopPropagation(); // 阻止事件冒泡
+      this.classList.add('active');
+      diagnoseContent.style.cssText = `background: rgba(0, 0, 0, 0)`;
+      threeMajorSymptoms.style.cssText = `z-index: 2;`;
+      // 外围点击检测
+      const clickHandler = (event) => {
+        if (!this.contains(event.target)) {
+          this.classList.remove('active');
+          diagnoseContent.style.cssText = `background: rgba(90, 91, 91, 0.4)`;
+          document.removeEventListener('click', clickHandler);
+        }
+      };
+
+      if (this.classList.contains('active')) {
+        document.addEventListener('click', clickHandler);
+      }
+    });
+    threeMajorSymptoms.addEventListener('click', function (e) {
+      e.stopPropagation(); // 阻止事件冒泡
+      console.log(e.target);
+    });
+    document.querySelector('.expand-svg').addEventListener('click', function (e) {
+      e.stopPropagation(); // 阻止事件冒泡
+      this.classList.toggle('active');
+      document.querySelector('.icon-box').classList.toggle('active');
+      newSvg.classList.toggle('active');
+    });
+    document.querySelector('.expand-svg').addEventListener('click', function (e) {
+      newSvg.classList.add('animate');
+      newSvg.addEventListener('animationend', function () {
+        newSvg.classList.remove('animate');
+      }, { once: true });
+    })
+
+  </script>
+</body>
+
+</html>

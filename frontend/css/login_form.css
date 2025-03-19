@@ -1,0 +1,195 @@
+.container-for-login {
+  position: absolute;
+  width: 600px;
+  height: 610px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.16), inset 10px 10px 10px 1px rgba(0, 0, 0, 0.16);
+  border-radius: 54px;
+  z-index: 1;
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 60px 50px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-in-out;
+}
+
+.container-for-login.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container-for-register {
+  position: absolute;
+  transform: translate(377px, 10px);
+  width: 492px;
+  height: 630px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.16), inset 10px 10px 10px 1px rgba(0, 0, 0, 0.16);
+  border-radius: 54px;
+  z-index: 1;
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 60px;
+  transition: all 0.5s ease-in-out;
+}
+
+.list-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  width: 390px;
+  height: 80px;
+  font-size: 54px;
+  font-family: Segoe UI-Semibold, Segoe UI;
+  font-weight: 600;
+  color: white;
+  line-height: 83px;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 480px;
+  height: 170px;
+  margin-top: 20px;
+}
+
+.form-for-register,
+.footer-for-register {
+  width: 372px;
+  height: 200px;
+
+}
+
+.footer {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  background-color: transparent;
+  border: none;
+  height: 36px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  outline: none;
+  background-color: #f3f3f3;
+}
+
+input[type="text"]:focus::placeholder,
+input[type="password"]:focus::placeholder,
+input[type="email"]:focus::placeholder {
+  color: #707070;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder,
+input[type="email"]::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+
+.custom-checkbox {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #7D7D7D;
+  border-radius: 4px;
+}
+
+input[type="checkbox"]:checked+.custom-checkbox::before {
+  background-color: #b0b0b0;
+  border-color: #f2f2f2;
+}
+
+input[type="checkbox"]:checked+.custom-checkbox::after {
+  content: '';
+  left: 8px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid rgb(58, 56, 56);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+.list-item {
+  width: 480px;
+  height: 50px;
+  opacity: 1;
+}
+
+.password,
+.username,
+.email {
+  border-bottom: #f2f2f2 3px solid;
+}
+
+.login.log {
+  border-radius: 5px;
+  width: 100%;
+  background-color: rgb(80, 80, 80);
+  opacity: 0.8;
+}
+
+.log {
+  width: 372px;
+}
+
+strong {
+  font-size: 20px;
+  font-family: Microsoft YaHei-Bold, Microsoft YaHei;
+  font-weight: bold;
+}
+
+label {
+  color: aliceblue;
+  font-size: 16px;
+  font-family: Microsoft YaHei-Light, Microsoft YaHei;
+  font-weight: 300;
+  color: #cdc9c9;
+}
+
+.register,
+.to-login {
+  display: flex;
+  justify-content: center;
+}
