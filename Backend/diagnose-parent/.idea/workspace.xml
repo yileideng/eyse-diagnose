@@ -32,47 +32,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.ClientTest.jsonResponse.executor": "Run",
-    "JUnit.MinioTest.minioUpload.executor": "Run",
-    "JUnit.Test.messageLogin.executor": "Run",
-    "JUnit.Test.minioUpload.executor": "Run",
-    "Maven.blog-parent [clean].executor": "Run",
-    "Maven.blog-parent [org.apache.maven.plugins:maven-clean-plugin:3.1.0:clean].executor": "Run",
-    "Maven.diagnose-parent [clean].executor": "Run",
-    "Maven.diagnose-project [clean].executor": "Run",
-    "Maven.diagnose-project [package].executor": "Run",
-    "Maven.tts-parent [clean].executor": "Run",
-    "Maven.tts-parent [package].executor": "Run",
-    "Maven.tts-project [clean].executor": "Run",
-    "Maven.tts-project [org.apache.maven.plugins:maven-clean-plugin:3.1.0:clean].executor": "Run",
-    "Maven.tts-project [package].executor": "Run",
-    "Notification.DisplayName-DoNotAsk-Vcs Important Messages": "VCS 重要消息",
-    "Notification.DoNotAsk-Vcs Important Messages": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.MybatisApplication (1).executor": "Run",
-    "Spring Boot.MybatisApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Git-repository/TTS/Chat-TTS/Backend/tts-parent/tts-project/src/main/java/com/project/tts/service/Impl",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "工件",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "com.itangcent.idea.plugin.configurable.AccountConfigurable.apifox",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.ClientTest.jsonResponse.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MinioTest.minioUpload.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Test.messageLogin.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Test.minioUpload.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.blog-parent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.blog-parent [org.apache.maven.plugins:maven-clean-plugin:3.1.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.diagnose-parent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.diagnose-project [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.diagnose-project [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tts-parent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tts-parent [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tts-project [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tts-project [org.apache.maven.plugins:maven-clean-plugin:3.1.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.tts-project [package].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Vcs Important Messages&quot;: &quot;VCS 重要消息&quot;,
+    &quot;Notification.DoNotAsk-Vcs Important Messages&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.MybatisApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MybatisApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Git-repository/TTS/Chat-TTS/Backend/tts-parent/tts-project/src/main/java/com/project/tts/service/Impl&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;工件&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.itangcent.idea.plugin.configurable.AccountConfigurable.apifox&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Git-repository\TTS\Chat-TTS\Backend\tts-parent\tts-project\src\main\java\com\project\tts\service\Impl" />
@@ -254,7 +254,7 @@
       <workItem from="1741702481634" duration="3550000" />
       <workItem from="1741768811176" duration="3000" />
       <workItem from="1741772491620" duration="2488000" />
-      <workItem from="1742801304474" duration="5376000" />
+      <workItem from="1742801304474" duration="6191000" />
     </task>
     <servers />
   </component>

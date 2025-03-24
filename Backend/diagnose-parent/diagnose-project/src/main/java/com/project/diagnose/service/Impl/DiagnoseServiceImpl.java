@@ -26,13 +26,14 @@ import com.project.diagnose.service.DiagnoseService;
 import com.project.diagnose.utils.AliOSSUtils;
 import com.project.diagnose.utils.FileUtils;
 import com.project.diagnose.utils.MinioUtils;
+import com.project.diagnose.utils.UploadFileUtilsFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.util.TempFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,8 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
     private MLClient mlClient;
     @Autowired
     private DiagnoseReportResultMapper diagnoseReportResultMapper;
+    @Autowired
+    private UploadFileUtilsFactory uploadFileUtilsFactory;
 
     @Override
     public List<DiagnoseImageVo> uploadImages(String bucket, MultipartFile[] files, FileUtils.Category requiredCategory, Long userId){
@@ -120,7 +123,7 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         List<String> urlList = new ArrayList<>();
         // 获取诊断图片的文件
         diagnoseImageList.forEach(diagnoseImage -> {
-            File file = new File(diagnoseImage.getUrl());
+            File file = downloadFile(diagnoseImage);
             log.info(file.getName());
             fileList.add(file);
             urlList.add(diagnoseImage.getUrl());
@@ -168,6 +171,23 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         diagnoseReportVo.setUrlList(urlList);
 
         return diagnoseReportVo;
+    }
+
+    private File downloadFile(DiagnoseImage diagnoseImage) {
+        try (InputStream inputStream = uploadFileUtilsFactory.download(diagnoseImage)) {
+            File minioFile = TempFile.createTempFile("minio", ".tmp");
+            try (OutputStream out = new FileOutputStream(minioFile)) {
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = inputStream.read(buffer)) > 0) {
+                    out.write(buffer, 0, length);
+                }
+            }
+            return minioFile;
+        }catch (Exception e){
+            log.info("下载诊断图片失败: {}", e.getMessage());
+            throw new DiagnoseException("下载诊断图片失败");
+        }
     }
 
     @Override
