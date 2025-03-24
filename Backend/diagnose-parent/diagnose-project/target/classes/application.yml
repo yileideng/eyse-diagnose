@@ -1,12 +1,12 @@
 server:
-  port: 8081
-  #8800
+  port: 8082
+  #8082
 spring:
   #数据库连接信息
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/diagnose
-    # docker: jdbc:mysql://mysql2:3307/diagnose (第二个mysql是容器名,qpp_db是数据库名)
+    # docker: jdbc:mysql://mysql2:3306/diagnose (第二个mysql是容器名,qpp_db是数据库名)
     # 服务器: jdbc:mysql://47.109.44.103:3306/ydTest
     # 本地: jdbc:mysql://localhost:3306/diagnose
     username: root
