@@ -22,6 +22,12 @@ public class DiagnoseImage {
      */
     private String name;
 
+    private String storageSource;
+
+    private String bucket;
+
+    private String objectPath;
+
     private String url;
 
     /**

@@ -54,7 +54,7 @@ public class AvatarImageServiceImpl extends ServiceImpl<AvatarImageMapper, Avata
         // 上传文件到Minio
         UploadFileResponse response = null;
         try {
-            response = minioUtils.uploadAndGetUrl(file, bucket);
+            response = minioUtils.upload(file, bucket);
             if(response!=null){
                 log.info("上传文件成功");
             }
@@ -72,6 +72,9 @@ public class AvatarImageServiceImpl extends ServiceImpl<AvatarImageMapper, Avata
         avatarImage.setUserId(userId);
         // 设置文件创建时间
         avatarImage.setTime(LocalDateTime.now());
+        avatarImage.setStorageSource(response.getStorageSource());
+        avatarImage.setBucket(bucket);
+        avatarImage.setObjectPath(response.getObjectPath());
         // 设置文件的访问路径
         avatarImage.setUrl(response.getUrl());
         // 设置文件名

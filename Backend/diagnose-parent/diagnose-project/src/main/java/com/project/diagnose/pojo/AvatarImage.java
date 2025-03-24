@@ -31,6 +31,11 @@ public class AvatarImage implements Serializable {
      */
     private String name;
 
+    private String storageSource;
+
+    private String bucket;
+
+    private String objectPath;
 
     private String url;
 

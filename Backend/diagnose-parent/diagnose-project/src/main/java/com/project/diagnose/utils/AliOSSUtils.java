@@ -3,12 +3,14 @@ package com.project.diagnose.utils;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.model.OSSObject;
 import com.project.diagnose.dto.response.UploadFileResponse;
+import com.project.diagnose.exception.DiagnoseException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFShape;
 import org.apache.poi.xslf.usermodel.XSLFTextShape;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,31 +28,22 @@ import java.util.UUID;
 @Data
 @Component
 @Configuration()
-public class AliOSSUtils {
-
-/*
-@value注解只能一个一个的进行外部属性注入
-而@ConfigurationProperties注解可以批量的将外部属性注入到bean对象的属性中
+public class AliOSSUtils implements UploadFileUtils{
     @Value("${aliyun.oss.endpoint}")
     private String endpoint;
-    @Value("${aliyun.oss.accessKeyId}")
-    private String accessKeyId;
-    @Value("${aliyun.oss.accessKeySecret}")
-    private String accessKeySecret;
     @Value("${aliyun.oss.bucketName}")
     private String bucketName;
-*/
-    @Autowired
-    private AliOSSProperties aliOSSProperties;
 
     @Autowired
     private OSS ossClient;
 
+    public String getBucket() {
+        return bucketName;
+    }
+
     // 下载文件
     public OSSObject download(String url){
         try {
-            // 获取阿里云OSS参数
-            String bucketName=aliOSSProperties.getBucketName();
             // 从 URL 中提取文件名
             String fileName = extractFilenameFromUrl(url);
 
@@ -79,30 +72,55 @@ public class AliOSSUtils {
 
 
     // 上传文件
-    public UploadFileResponse upload(MultipartFile file) throws IOException {
-        // 获取阿里云OSS参数
-        String endpoint=aliOSSProperties.getEndpoint();
-        String bucketName=aliOSSProperties.getBucketName();
-
+    @Override
+    public UploadFileResponse upload(MultipartFile file, String bucketName) {
+        if(!checkBucketName(bucketName)){
+            throw new RuntimeException("bucket:" + bucketName + "不存在");
+        }
         // 获取上传的文件的输入流
-        InputStream inputStream = file.getInputStream();
+        try(InputStream inputStream = file.getInputStream()) {
+            // 避免文件覆盖
+            String originalFilename = file.getOriginalFilename();
+            String fileName = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
+            log.info("文件名称: {}", fileName);
 
-        // 避免文件覆盖
-        String originalFilename = file.getOriginalFilename();
-        String fileName = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
-        log.info("文件名称: {}", fileName);
+            ossClient.putObject(bucketName, fileName, inputStream);
 
-        ossClient.putObject(bucketName, fileName, inputStream);
+            //文件访问路径
+            String url = endpoint.split("//")[0] + "//" + bucketName + "." + endpoint.split("//")[1] + "/" + fileName;
 
-        //文件访问路径
-        String url = endpoint.split("//")[0] + "//" + bucketName + "." + endpoint.split("//")[1] + "/" + fileName;
+            UploadFileResponse uploadFileResponse = new UploadFileResponse();
+            uploadFileResponse.setUrl(url);
+            uploadFileResponse.setBucket(bucketName);
+            uploadFileResponse.setObjectPath(fileName);
+            uploadFileResponse.setName(file.getOriginalFilename());
 
-        // 把上传到oss的路径返回
-        return new UploadFileResponse(fileName, url);
+            // 把上传到oss的路径返回
+            return uploadFileResponse;
+        }catch (Exception e){
+            throw new DiagnoseException("上传文件失败,error:" + e.getMessage());
+        }
+
     }
 
+    private Boolean checkBucketName(String bucket) {
+        return bucket.equals(bucketName);
+    }
+
+    @Override
     public void delete(String bucketName, String objectName) {
         ossClient.deleteObject(bucketName, objectName);
+    }
+
+    @Override
+    public InputStream download(String bucket, String objectName){
+        OSSObject object = ossClient.getObject(bucketName, objectName);
+        return object.getObjectContent();
+    }
+
+    @Override
+    public UploadFileResponse upload(InputStream inputStream, String bucket, String originalFilename, String mimeType) {
+        return null;
     }
 
 }

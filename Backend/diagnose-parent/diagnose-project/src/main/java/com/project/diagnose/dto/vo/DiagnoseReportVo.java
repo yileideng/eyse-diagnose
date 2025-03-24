@@ -1,5 +1,6 @@
 package com.project.diagnose.dto.vo;
 
+import com.project.diagnose.dto.response.DiagnoseResponse;
 import lombok.Data;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public class DiagnoseReportVo {
     private String username;
     private String userId;
     private String time;
-    private String report;
+    private DiagnoseResponse report;
     private List<String> urlList;
 
 

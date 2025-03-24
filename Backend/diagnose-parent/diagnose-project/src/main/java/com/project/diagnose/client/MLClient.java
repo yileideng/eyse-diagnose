@@ -5,9 +5,6 @@ import com.project.diagnose.dto.response.DiagnoseResponse;
 import com.project.diagnose.exception.DiagnoseException;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import okio.BufferedSink;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +22,7 @@ public class MLClient {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public DiagnoseResponse requestForDiagnose(List<File> files) throws IOException {
-        /*if (files == null || files.size() == 0) {
+        if (files == null || files.size() == 0) {
             throw new DiagnoseException("上传的诊断图片不能为空");
         }
         // 创建一个 MultipartBody.Builder
@@ -47,23 +44,12 @@ public class MLClient {
         }
 
         // 构建请求体
-        RequestBody requestBody = requestBodyBuilder.build();*/
+        RequestBody requestBody = requestBodyBuilder.build();
 
         // 创建请求
         Request request = new Request.Builder()
                 .url("http://localhost:8082/mock/files") // 替换为你的服务端地址
-                .post(new RequestBody() {
-                    @Nullable
-                    @Override
-                    public MediaType contentType() {
-                        return null;
-                    }
-
-                    @Override
-                    public void writeTo(@NotNull BufferedSink bufferedSink) throws IOException {
-
-                    }
-                })
+                .post(requestBody)
                 .build();
 
         DiagnoseResponse diagnoseResponse = null;

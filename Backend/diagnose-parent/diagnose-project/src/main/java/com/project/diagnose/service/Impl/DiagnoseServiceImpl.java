@@ -1,10 +1,13 @@
 package com.project.diagnose.service.Impl;
 
 import cn.hutool.core.lang.Assert;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.project.diagnose.client.MLClient;
 import com.project.diagnose.dto.query.DiagnoseQuery;
+import com.project.diagnose.dto.response.DiagnoseResponse;
 import com.project.diagnose.dto.response.UploadFileResponse;
 import com.project.diagnose.dto.vo.DiagnoseImageVo;
 import com.project.diagnose.dto.vo.DiagnoseReportVo;
@@ -13,9 +16,11 @@ import com.project.diagnose.dto.vo.UserVo;
 import com.project.diagnose.exception.DiagnoseException;
 import com.project.diagnose.mapper.DiagnoseImageMapper;
 import com.project.diagnose.mapper.DiagnoseReportMapper;
+import com.project.diagnose.mapper.DiagnoseReportResultMapper;
 import com.project.diagnose.mapper.UserMapper;
 import com.project.diagnose.pojo.DiagnoseImage;
 import com.project.diagnose.pojo.DiagnoseReport;
+import com.project.diagnose.pojo.DiagnoseReportResult;
 import com.project.diagnose.pojo.User;
 import com.project.diagnose.service.DiagnoseService;
 import com.project.diagnose.utils.AliOSSUtils;
@@ -27,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +50,10 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
     private DiagnoseReportMapper diagnoseReportMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private MLClient mlClient;
+    @Autowired
+    private DiagnoseReportResultMapper diagnoseReportResultMapper;
 
     @Override
     public List<DiagnoseImageVo> uploadImages(String bucket, MultipartFile[] files, FileUtils.Category requiredCategory, Long userId){
@@ -68,7 +78,7 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         // 上传文件到Minio
         UploadFileResponse response = null;
         try {
-            response = minioUtils.uploadAndGetUrl(file, bucket);
+            response = minioUtils.upload(file, bucket);
             if(response!=null){
                 log.info("上传文件成功");
             }
@@ -86,6 +96,9 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         diagnoseImage.setUserId(userId);
         // 设置文件创建时间
         diagnoseImage.setTime(LocalDateTime.now());
+        diagnoseImage.setStorageSource(response.getStorageSource());
+        diagnoseImage.setBucket(bucket);
+        diagnoseImage.setObjectPath(response.getObjectPath());
         // 设置文件的访问路径
         diagnoseImage.setUrl(response.getUrl());
         // 设置文件名
@@ -101,22 +114,38 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
 
     @Override
     public DiagnoseReportVo generateDiagnoseReport(Long userId, List<String> idList) {
+        // 根据报告查询要诊断的图片数据
         List<DiagnoseImage> diagnoseImageList = diagnoseImageMapper.selectBatchIds(idList);
         List<File> fileList = new ArrayList<>();
         List<String> urlList = new ArrayList<>();
+        // 获取诊断图片的文件
         diagnoseImageList.forEach(diagnoseImage -> {
             File file = new File(diagnoseImage.getUrl());
+            log.info(file.getName());
             fileList.add(file);
             urlList.add(diagnoseImage.getUrl());
         });
-        // 发送请求获取诊断结果
-        Long resultId = 1L;
-        String result = "诊断结果";
+
+        DiagnoseReportResult diagnoseReportResult = new DiagnoseReportResult();
+        Long resultId;
+        try {
+            // 发送请求获取诊断结果
+            DiagnoseResponse diagnoseResponse = mlClient.requestForDiagnose(fileList);
+            diagnoseReportResult.setText(JSON.toJSONString(diagnoseResponse));
+            // 将诊断结果数据以JSON格式存入数据库
+            diagnoseReportResultMapper.insert(diagnoseReportResult);
+            resultId = diagnoseReportResult.getId();
+
+        } catch (IOException e) {
+            log.info("发送请求，获取诊断结果失败: {}", e.getMessage());
+            throw new DiagnoseException("获取诊断结果失败");
+        }
 
         // 插入诊断报告的数据
         DiagnoseReport diagnoseReport = new DiagnoseReport();
         diagnoseReport.setTime(LocalDateTime.now());
         diagnoseReport.setUserId(userId);
+        // 关联诊断结果
         diagnoseReport.setReportResultId(resultId);
         diagnoseReportMapper.insert(diagnoseReport);
         Long diagnoseId = diagnoseReport.getId();
@@ -131,14 +160,14 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         User user = userMapper.selectById(userId);
         DiagnoseReportVo diagnoseReportVo = new DiagnoseReportVo();
         diagnoseReportVo.setId(diagnoseId.toString());
-        diagnoseReportVo.setReport(result);
+        String resultJson = diagnoseReportResult.getText();
+        diagnoseReportVo.setReport(JSON.parseObject(resultJson, DiagnoseResponse.class));
         diagnoseReportVo.setUserId(user.getId().toString());
         diagnoseReportVo.setUsername(user.getUsername());
         diagnoseReportVo.setTime(LocalDateTime.now().toString());
         diagnoseReportVo.setUrlList(urlList);
 
         return diagnoseReportVo;
-
     }
 
     @Override
@@ -177,7 +206,8 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
             urlList.add(diagnoseImage.getUrl());
         });
         // 查询诊断结果
-        String result = "诊断结果";
+        DiagnoseReportResult diagnoseReportResult = diagnoseReportResultMapper.selectById(diagnoseReport.getReportResultId());
+        DiagnoseResponse diagnoseResponse = JSON.parseObject(diagnoseReportResult.getText(), DiagnoseResponse.class);
         // 查询诊断用户
         User user = userMapper.selectById(userId);
 
@@ -188,7 +218,7 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         diagnoseReportVo.setUserId(userId.toString());
         diagnoseReportVo.setUsername(user.getUsername());
         diagnoseReportVo.setTime(diagnoseReport.getTime().toString());
-        diagnoseReportVo.setReport(result);
+        diagnoseReportVo.setReport(diagnoseResponse);
         return diagnoseReportVo;
     }
 
