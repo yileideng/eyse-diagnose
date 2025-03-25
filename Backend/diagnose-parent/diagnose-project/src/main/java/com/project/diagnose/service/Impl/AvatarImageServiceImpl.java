@@ -51,6 +51,7 @@ public class AvatarImageServiceImpl extends ServiceImpl<AvatarImageMapper, Avata
             throw new DiagnoseException("上传的文件类型不符合要求");
         }
 
+
         // 上传文件到Minio
         UploadFileResponse response = null;
         try {

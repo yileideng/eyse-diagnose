@@ -1,10 +1,13 @@
 package com.project.diagnose.filter;
 
 
+import com.alibaba.fastjson.JSON;
+import com.project.diagnose.dto.vo.Result;
 import com.project.diagnose.pojo.LoginUser;
 import com.project.diagnose.utils.JWTUtils;
 import com.project.diagnose.utils.RedisUtils;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
+@Slf4j
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
@@ -37,13 +41,22 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             // 检查token合法性
             Claims claims= (Claims) JWTUtils.checkToken(token);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("token非法");
+            // 捕获JWT校验失败的异常，返回401 Unauthorized状态码
+            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            httpServletResponse.setContentType("application/json;charset=UTF-8");
+            httpServletResponse.getWriter().write(JSON.toJSONString(Result.error(HttpServletResponse.SC_UNAUTHORIZED, "Token无效或已过期")));
+            log.info("Token无效或已过期");
+            return;
         }
 
         LoginUser loginUser = redisUtils.getLoginUserInRedis(token);
         if(Objects.isNull(loginUser)){
-            throw new RuntimeException("用户未登录,或登录已过期");
+            // 用户未登录或登录已过期，返回401 Unauthorized状态码
+            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            httpServletResponse.setContentType("application/json;charset=UTF-8");
+            httpServletResponse.getWriter().write(JSON.toJSONString(Result.error(HttpServletResponse.SC_UNAUTHORIZED, "用户未登录或登录已过期")));
+            log.info("用户未登录或登录已过期");
+            return;
         }
 
         // 传入三个参数会把"已认证"设置成true:底层是super.setAuthenticated(true);

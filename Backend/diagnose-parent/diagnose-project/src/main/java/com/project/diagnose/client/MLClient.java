@@ -48,7 +48,7 @@ public class MLClient {
 
         // 创建请求
         Request request = new Request.Builder()
-                .url("http://localhost:8082/mock/files") // 替换为你的服务端地址
+                .url("http://8.137.104.3:5000/ai-voice/generate") // 替换为你的服务端地址
                 .post(requestBody)
                 .build();
 

@@ -121,6 +121,7 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         List<DiagnoseImage> diagnoseImageList = diagnoseImageMapper.selectBatchIds(idList);
         List<File> fileList = new ArrayList<>();
         List<String> urlList = new ArrayList<>();
+
         // 获取诊断图片的文件
         diagnoseImageList.forEach(diagnoseImage -> {
             File file = downloadFile(diagnoseImage);
