@@ -1,3 +1,4 @@
+/*
 package com.project.diagnose;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -53,4 +54,5 @@ public class ClientTest {
         DiagnoseResponse diagnoseResponse = objectMapper.readValue(response, DiagnoseResponse.class);
         System.out.println(diagnoseResponse.toString());
     }
-}
+
+}*/

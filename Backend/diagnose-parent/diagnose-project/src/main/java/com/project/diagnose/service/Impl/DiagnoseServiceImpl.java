@@ -37,6 +37,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -222,13 +223,11 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         );
         // 查询诊断报告关联的图片
         List<DiagnoseImage> diagnoseImageList = diagnoseImageMapper.selectList(new LambdaQueryWrapper<DiagnoseImage>().eq(DiagnoseImage::getReportId, diagnoseReport.getId()));
-        List<String> urlList = new ArrayList<>();
-        diagnoseImageList.forEach(diagnoseImage -> {
-            urlList.add(diagnoseImage.getUrl());
-        });
+        List<String> urlList = diagnoseImageList.stream().map(DiagnoseImage::getUrl).collect(Collectors.toList());
         // 查询诊断结果
         DiagnoseReportResult diagnoseReportResult = diagnoseReportResultMapper.selectById(diagnoseReport.getReportResultId());
         DiagnoseResponse diagnoseResponse = JSON.parseObject(diagnoseReportResult.getText(), DiagnoseResponse.class);
+        diagnoseResponse.setPredictionResultsSize(diagnoseResponse.getPredictionResults().size());
         // 查询诊断用户
         User user = userMapper.selectById(userId);
 

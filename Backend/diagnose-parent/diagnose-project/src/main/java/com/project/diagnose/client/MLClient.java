@@ -48,7 +48,7 @@ public class MLClient {
 
         // 创建请求
         Request request = new Request.Builder()
-                .url("http://8.137.104.3:5000/ai-voice/generate") // 替换为你的服务端地址
+                .url(mlApiUrl) // 替换为你的服务端地址
                 .post(requestBody)
                 .build();
 
@@ -60,6 +60,7 @@ public class MLClient {
                log.info("响应数据: {}", responseBody);
                 // 处理返回的 JSON 数据
                 diagnoseResponse = objectMapper.readValue(responseBody, DiagnoseResponse.class);
+                diagnoseResponse.setPredictionResultsSize(diagnoseResponse.getPredictionResults().size());
                 log.info(diagnoseResponse.toString());
             } else {
                 System.out.println("请求失败: " + response);

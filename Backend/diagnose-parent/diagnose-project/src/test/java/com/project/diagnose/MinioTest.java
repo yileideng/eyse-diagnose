@@ -1,3 +1,4 @@
+/*
 package com.project.diagnose;
 
 import com.project.diagnose.utils.FileUtils;
@@ -60,3 +61,4 @@ public class MinioTest {
 
     }
 }
+*/

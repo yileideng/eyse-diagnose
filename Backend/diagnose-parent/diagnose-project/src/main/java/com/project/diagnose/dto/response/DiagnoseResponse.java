@@ -1,44 +1,77 @@
 package com.project.diagnose.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Map;
+
 import java.util.Map;
 
 public class DiagnoseResponse {
 
     @JsonProperty("prediction_results")
-    private PredictionResults predictionResults;
+    private Map<String, PredictionResult> predictionResults;
+    private int predictionResultsSize;
 
-    // Getter and Setter
-    public PredictionResults getPredictionResults() {
+    // 默认构造函数，Jackson需要这个来反序列化
+    public DiagnoseResponse() {
+    }
+
+    // 构造函数（如果需要）
+    public DiagnoseResponse(Map<String, PredictionResult> predictionResults) {
+        this.predictionResults = predictionResults;
+        this.predictionResultsSize = predictionResults.size();
+    }
+
+    // Getter和Setter
+    public Map<String, PredictionResult> getPredictionResults() {
         return predictionResults;
     }
 
-    public void setPredictionResults(PredictionResults predictionResults) {
+    public void setPredictionResults(Map<String, PredictionResult> predictionResults) {
         this.predictionResults = predictionResults;
     }
 
-    public static class PredictionResults {
-        @JsonProperty("diseases")
-        private Map<String, Disease> diseases;
+    public void setPredictionResultsSize(int size) {
+        this.predictionResultsSize = size;
+    }
 
-        // Getter and Setter
-        public Map<String, Disease> getDiseases() {
+    public int getPredictionResultsSize() {
+        return predictionResultsSize;
+    }
+
+    // 内部类：表示每个X_right的预测结果
+    public static class PredictionResult {
+        private Map<String, DiseaseInfo> diseases;
+
+        public PredictionResult() {
+        }
+
+        public PredictionResult(Map<String, DiseaseInfo> diseases) {
+            this.diseases = diseases;
+        }
+
+        public Map<String, DiseaseInfo> getDiseases() {
             return diseases;
         }
 
-        public void setDiseases(Map<String, Disease> diseases) {
+        public void setDiseases(Map<String, DiseaseInfo> diseases) {
             this.diseases = diseases;
         }
     }
 
-    public static class Disease {
-        @JsonProperty("probability")
+    // 内部类：表示每个疾病的预测信息
+    public static class DiseaseInfo {
         private double probability;
-
-        @JsonProperty("status")
         private int status;
 
-        // Getter and Setter
+        public DiseaseInfo() {
+        }
+
+        public DiseaseInfo(double probability, int status) {
+            this.probability = probability;
+            this.status = status;
+        }
+
         public double getProbability() {
             return probability;
         }
@@ -54,20 +87,5 @@ public class DiagnoseResponse {
         public void setStatus(int status) {
             this.status = status;
         }
-
-        @Override
-        public String toString() {
-            return "Disease{" +
-                    "probability=" + probability +
-                    ", status=" + status +
-                    '}';
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "DiagnoseResponse{" +
-                "predictionResults=" + predictionResults +
-                '}';
     }
 }
