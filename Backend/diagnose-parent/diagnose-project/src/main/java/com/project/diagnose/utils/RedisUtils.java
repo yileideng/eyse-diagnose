@@ -19,12 +19,20 @@ public class RedisUtils {
         LoginUser loginUser = JSON.parseObject(userJson, LoginUser.class);//json格式的User转成实体类
         return loginUser;
     }
-
     public void deleteLoginUserInRedis(String token){
         redisTemplate.delete("TOKEN_"+token);
     }
-
     public void setLoginUserInRedis(String token,LoginUser loginUser){
         redisTemplate.opsForValue().set("TOKEN_"+token, JSON.toJSONString(loginUser),1, TimeUnit.DAYS);
+    }
+
+    public void setCode(String mail, String code){
+        redisTemplate.opsForValue().set("MAIL_"+mail, code,1, TimeUnit.MINUTES);
+    }
+    public String getCode(String mail){
+        return redisTemplate.opsForValue().get("MAIL_"+mail);
+    }
+    public void deleteCode(String email) {
+        redisTemplate.delete("MAIL_"+email);
     }
 }

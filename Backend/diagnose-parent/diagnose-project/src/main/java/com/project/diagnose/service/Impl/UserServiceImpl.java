@@ -1,6 +1,7 @@
 package com.project.diagnose.service.Impl;
 
 import cn.hutool.core.lang.Assert;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -85,6 +86,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
         // MyBatis-Plus会自动忽略null值字段
         userMapper.update(user, updateWrapper);
+    }
+
+    @Override
+    public User findUserByMail(String mail) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getEmail,mail);
+        return userMapper.selectOne(queryWrapper);
     }
 
 }

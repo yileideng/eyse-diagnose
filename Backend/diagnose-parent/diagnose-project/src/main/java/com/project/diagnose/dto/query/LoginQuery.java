@@ -14,4 +14,6 @@ public class LoginQuery {
     private String phoneNumber;
 
     private String avatarUrl;
+
+    private String code;
 }

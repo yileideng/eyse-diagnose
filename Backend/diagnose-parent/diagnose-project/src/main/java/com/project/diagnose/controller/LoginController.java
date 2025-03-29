@@ -21,8 +21,21 @@ public class LoginController {
 
     @PostMapping("/login")
     @LogAnnotation(module = "登录操作",operator = "用户登录")
-    public Result<LoginVo> login(@RequestBody LoginQuery loginQuery){
-        return Result.success(loginService.login(loginQuery));
+    public Result<LoginVo> passwordLogin(@RequestBody LoginQuery loginQuery){
+        return Result.success(loginService.passwordLogin(loginQuery));
+    }
+
+    @PostMapping("/login-mail")
+    @LogAnnotation(module = "登录操作",operator = "用户登录")
+    public Result<LoginVo> mailLogin(@RequestBody LoginQuery loginQuery){
+        return Result.success(loginService.emailLogin(loginQuery));
+    }
+
+    @GetMapping("/mail")
+    @LogAnnotation(module = "发送验证码",operator = "用户登录")
+    public Result<String> sendMail(@RequestParam String mail){
+        String code = loginService.generateMail(mail);
+        return Result.success(code);
     }
 
     @PostMapping("/register")

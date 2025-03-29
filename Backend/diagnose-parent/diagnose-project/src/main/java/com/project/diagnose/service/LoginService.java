@@ -9,7 +9,12 @@ import com.project.diagnose.dto.vo.LoginVo;
 
 public interface LoginService extends IService<User> {
     //登录
-    LoginVo login(LoginQuery loginQuery);
+    LoginVo passwordLogin(LoginQuery loginQuery);
+
+    LoginVo emailLogin(LoginQuery loginQuery);
+
+    // 发送邮件
+    String generateMail(String mail);
 
     //退出登录
     void logout(String token);
