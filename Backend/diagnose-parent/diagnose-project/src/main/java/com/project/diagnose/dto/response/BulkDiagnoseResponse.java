@@ -4,20 +4,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Map;
 
-import java.util.Map;
-
-public class DiagnoseResponse {
+public class BulkDiagnoseResponse {
 
     @JsonProperty("prediction_results")
     private Map<String, PredictionResult> predictionResults;
     private int predictionResultsSize;
 
     // 默认构造函数，Jackson需要这个来反序列化
-    public DiagnoseResponse() {
+    public BulkDiagnoseResponse() {
     }
 
     // 构造函数（如果需要）
-    public DiagnoseResponse(Map<String, PredictionResult> predictionResults) {
+    public BulkDiagnoseResponse(Map<String, PredictionResult> predictionResults) {
         this.predictionResults = predictionResults;
         this.predictionResultsSize = predictionResults.size();
     }

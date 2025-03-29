@@ -2,10 +2,7 @@ package com.project.diagnose.controller;
 
 import com.project.diagnose.aop.LogAnnotation;
 import com.project.diagnose.dto.query.DiagnoseQuery;
-import com.project.diagnose.dto.vo.DiagnoseImageVo;
-import com.project.diagnose.dto.vo.DiagnoseReportVo;
-import com.project.diagnose.dto.vo.PageVo;
-import com.project.diagnose.dto.vo.Result;
+import com.project.diagnose.dto.vo.*;
 import com.project.diagnose.service.DiagnoseService;
 import com.project.diagnose.utils.FileUtils;
 import com.project.diagnose.utils.RedisUtils;
@@ -29,25 +26,62 @@ public class DiagnoseReportController {
     @Autowired
     private RedisUtils redisUtils;
 
-
-    @PostMapping("/create")
-    @LogAnnotation(module = "FileController",operator = "生成诊断报告")
-    public Result<DiagnoseReportVo> createReport(@RequestHeader("Authorization") String token, @RequestBody List<String> idList) {
+    @PostMapping("/upload/zip")
+    //@PreAuthorize("hasAuthority('upload')")
+    @LogAnnotation(module = "FileController",operator = "用MinIO批量上传诊断压缩包")
+    public Result<List<DiagnoseImageVo>> uploadZip(@RequestHeader("Authorization") String token, @RequestParam("fileList") MultipartFile[] files) {
         Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
-        DiagnoseReportVo diagnose = diagnoseService.generateDiagnoseReport(userId, idList);
-
-        return Result.success(diagnose);
+        List<DiagnoseImageVo> diagnoseImageVos = diagnoseService.uploadFiles(bucket, files, FileUtils.Category.CATEGORY_ZIP, userId);
+        return Result.success(diagnoseImageVos);
     }
-
 
     @PostMapping("/upload/image")
     //@PreAuthorize("hasAuthority('upload')")
     @LogAnnotation(module = "FileController",operator = "用MinIO批量上传诊断图片")
-    public Result<List<DiagnoseImageVo>> upload(@RequestHeader("Authorization") String token, @RequestParam("fileList") MultipartFile[] files) {
+    public Result<List<DiagnoseImageVo>> uploadImage(@RequestHeader("Authorization") String token, @RequestParam("fileList") MultipartFile[] files) {
         Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
-        List<DiagnoseImageVo> diagnoseImageVos = diagnoseService.uploadImages(bucket, files, FileUtils.Category.CATEGORY_IMAGE, userId);
+        List<DiagnoseImageVo> diagnoseImageVos = diagnoseService.uploadFiles(bucket, files, FileUtils.Category.CATEGORY_IMAGE, userId);
         return Result.success(diagnoseImageVos);
     }
+
+    @PostMapping("/create-bulk")
+    @LogAnnotation(module = "FileController",operator = "生成诊断报告")
+    public Result<BulkDiagnoseReportResultVo> createBulkReport(@RequestHeader("Authorization") String token, @RequestBody List<String> idList) {
+        Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
+        BulkDiagnoseReportResultVo diagnose = diagnoseService.generateBulkDiagnoseReport(userId, idList);
+
+        return Result.success(diagnose);
+    }
+
+    @GetMapping("/details-bulk")
+    @LogAnnotation(module = "FileController",operator = "查询报告详情")
+    public Result<BulkDiagnoseReportResultVo> BulkDetails(@RequestHeader("Authorization") String token, @RequestParam("diagnoseId") Long diagnoseId) {
+        Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
+        BulkDiagnoseReportResultVo bulkDiagnoseReportResultVo = diagnoseService.getBulkDiagnoseDetails(userId, diagnoseId);
+        return Result.success(bulkDiagnoseReportResultVo);
+    }
+
+    @PostMapping("/create-personal")
+    @LogAnnotation(module = "FileController",operator = "生成诊断报告")
+    public Result<PersonalDiagnoseReportResultVo> createPersonalReport(@RequestHeader("Authorization") String token, @RequestBody List<String> idList) {
+        Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
+        PersonalDiagnoseReportResultVo diagnose = diagnoseService.generatePersonalDiagnoseReport(userId, idList);
+
+        return Result.success(diagnose);
+    }
+
+    @GetMapping("/details-personal")
+    @LogAnnotation(module = "FileController",operator = "查询报告详情")
+    public Result<PersonalDiagnoseReportResultVo> personalDetails(@RequestHeader("Authorization") String token, @RequestParam("diagnoseId") Long diagnoseId) {
+        Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
+        PersonalDiagnoseReportResultVo personalDiagnoseReportResultVo = diagnoseService.getPersonalDiagnoseDetails(userId, diagnoseId);
+        return Result.success(personalDiagnoseReportResultVo);
+    }
+
+
+
+
+
 
     @PostMapping("/history")
     //@PreAuthorize("hasAuthority('upload')")
@@ -58,12 +92,6 @@ public class DiagnoseReportController {
         return Result.success(diagnoseReportVoPage);
     }
 
-    @GetMapping("/details")
-    @LogAnnotation(module = "FileController",operator = "查询报告详情")
-    public Result<DiagnoseReportVo> upload(@RequestHeader("Authorization") String token, @RequestParam("diagnoseId") Long diagnoseId) {
-        Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
-        DiagnoseReportVo diagnoseReportVo = diagnoseService.getDiagnoseDetails(userId, diagnoseId);
-        return Result.success(diagnoseReportVo);
-    }
+
 
 }

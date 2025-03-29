@@ -11,7 +11,8 @@ public class FileUtils {
     @AllArgsConstructor
     @Getter
     public enum Category {
-        CATEGORY_IMAGE("image");
+        CATEGORY_IMAGE("image"),
+        CATEGORY_ZIP("zip");
 
         private String category;
     }
@@ -48,7 +49,8 @@ public class FileUtils {
         MIME_TYPE_FUNCTIONS.put("image/jpeg", Category.CATEGORY_IMAGE);
         MIME_TYPE_FUNCTIONS.put("image/png", Category.CATEGORY_IMAGE);
         MIME_TYPE_FUNCTIONS.put("image/gif", Category.CATEGORY_IMAGE);
-        MIME_TYPE_FUNCTIONS.put("application/zip", Category.CATEGORY_IMAGE);
+        MIME_TYPE_FUNCTIONS.put("application/zip", Category.CATEGORY_ZIP);
+
 
     }
 

@@ -5,6 +5,7 @@ D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\mai
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\utils\UploadFileUtilsFactory.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\vo\Result.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\mapper\UserMapper.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\utils\MailUtils.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\controller\DiagnoseReportController.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\pojo\DiagnoseReportResult.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\config\MinioConfig.java
@@ -14,13 +15,14 @@ D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\mai
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\query\UserQuery.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\utils\UploadFileUtils.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\AvatarImageService.java
-D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\response\DiagnoseResponse.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\exception\GlobalExceptionHandler.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\pojo\DiagnoseReport.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\config\WebConfig.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\vo\PersonalDiagnoseReportResultVo.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\filter\JwtAuthenticationTokenFilter.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\query\DiagnoseQuery.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\DiagnoseService.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\response\PersonalDiagnoseResponse.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\exception\DiagnoseException.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\pojo\AvatarImage.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\controller\UserController.java
@@ -39,6 +41,7 @@ D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\mai
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\Impl\PermissionServiceImpl.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\vo\LoginVo.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\query\AvatarQuery.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\response\BulkDiagnoseResponse.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\PermissionService.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\Impl\DiagnoseServiceImpl.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\mapper\AvatarImageMapper.java
@@ -50,6 +53,7 @@ D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\mai
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\pojo\LoginUser.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\response\UploadFileResponse.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\Impl\LoginServiceImpl.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\vo\BulkDiagnoseReportResultVo.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\LoginService.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\mapper\DiagnoseReportMapper.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\config\MybaitsConfig.java
@@ -62,4 +66,5 @@ D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\mai
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\utils\JWTUtils.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\vo\DiagnoseReportVo.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\Impl\UserServiceImpl.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\constans\DiagnoseMode.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\pojo\DiagnoseImage.java

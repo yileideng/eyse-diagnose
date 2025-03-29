@@ -18,4 +18,6 @@ public class DiagnoseReport {
     private LocalDateTime time;
 
     private Long reportResultId;
+
+    private String diagnoseMode;
 }
