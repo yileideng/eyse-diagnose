@@ -1,14 +1,16 @@
 package com.project.diagnose.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.diagnose.constans.DiagnoseMode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class BulkDiagnoseResponse {
 
     @JsonProperty("prediction_results")
     private Map<String, PredictionResult> predictionResults;
-    private int predictionResultsSize;
 
     // 默认构造函数，Jackson需要这个来反序列化
     public BulkDiagnoseResponse() {
@@ -17,7 +19,6 @@ public class BulkDiagnoseResponse {
     // 构造函数（如果需要）
     public BulkDiagnoseResponse(Map<String, PredictionResult> predictionResults) {
         this.predictionResults = predictionResults;
-        this.predictionResultsSize = predictionResults.size();
     }
 
     // Getter和Setter
@@ -27,14 +28,6 @@ public class BulkDiagnoseResponse {
 
     public void setPredictionResults(Map<String, PredictionResult> predictionResults) {
         this.predictionResults = predictionResults;
-    }
-
-    public void setPredictionResultsSize(int size) {
-        this.predictionResultsSize = size;
-    }
-
-    public int getPredictionResultsSize() {
-        return predictionResultsSize;
     }
 
     // 内部类：表示每个X_right的预测结果
@@ -85,5 +78,15 @@ public class BulkDiagnoseResponse {
         public void setStatus(int status) {
             this.status = status;
         }
+    }
+
+
+    // 转换方法：将当前对象转换为 BulkDiagnoseResponseList
+    public BulkDiagnoseResponseList toBulkDiagnoseResponseList(DiagnoseMode diagnoseMode) {
+        if (predictionResults == null) {
+            return new BulkDiagnoseResponseList(new ArrayList<>(), null);
+        }
+        List<PredictionResult> predictionResultsList = new ArrayList<>(predictionResults.values());
+        return new BulkDiagnoseResponseList(predictionResultsList, diagnoseMode.getValue());
     }
 }

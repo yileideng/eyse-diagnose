@@ -28,6 +28,7 @@ import com.project.diagnose.utils.MinioUtils;
 import com.project.diagnose.utils.UploadFileUtilsFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.util.TempFile;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -157,10 +158,11 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         });
 
         DiagnoseReportResult diagnoseReportResult = new DiagnoseReportResult();
+        BulkDiagnoseResponse bulkDiagnoseResponse = null;
         Long resultId;
         try {
             // 发送请求获取诊断结果
-            BulkDiagnoseResponse bulkDiagnoseResponse = mlClient.requestForBulkDiagnose(fileList);
+            bulkDiagnoseResponse = mlClient.requestForBulkDiagnose(fileList);
             diagnoseReportResult.setText(JSON.toJSONString(bulkDiagnoseResponse));
             // 将诊断结果数据以JSON格式存入数据库
             diagnoseReportResultMapper.insert(diagnoseReportResult);
@@ -187,16 +189,8 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
             diagnoseImageMapper.updateById(diagnoseImage);
         });
 
-        // 返回结果
-        User user = userMapper.selectById(userId);
-        BulkDiagnoseReportResultVo bulkDiagnoseReportResultVo = new BulkDiagnoseReportResultVo();
-        bulkDiagnoseReportResultVo.setId(diagnoseId.toString());
-        String resultJson = diagnoseReportResult.getText();
-        bulkDiagnoseReportResultVo.setReport(JSON.parseObject(resultJson, BulkDiagnoseResponse.class));
-        bulkDiagnoseReportResultVo.setUserId(user.getId().toString());
-        bulkDiagnoseReportResultVo.setUsername(user.getUsername());
-        bulkDiagnoseReportResultVo.setTime(LocalDateTime.now().toString());
-        bulkDiagnoseReportResultVo.setUrlList(urlList);
+        // 构造返回结果
+        BulkDiagnoseReportResultVo bulkDiagnoseReportResultVo = buildBulkDiagnoseReportResultVo(userId, diagnoseId, DiagnoseMode.BULK, bulkDiagnoseResponse, urlList);
 
         return bulkDiagnoseReportResultVo;
     }
@@ -240,23 +234,16 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         // 查询诊断结果
         DiagnoseReportResult diagnoseReportResult = diagnoseReportResultMapper.selectById(diagnoseReport.getReportResultId());
         BulkDiagnoseResponse bulkDiagnoseResponse = JSON.parseObject(diagnoseReportResult.getText(), BulkDiagnoseResponse.class);
-        bulkDiagnoseResponse.setPredictionResultsSize(bulkDiagnoseResponse.getPredictionResults().size());
         // 查询诊断用户
         User user = userMapper.selectById(userId);
 
         // 构造返回的结果
-        BulkDiagnoseReportResultVo bulkDiagnoseReportResultVo = new BulkDiagnoseReportResultVo();
-        bulkDiagnoseReportResultVo.setId(diagnoseId.toString());
-        bulkDiagnoseReportResultVo.setUrlList(urlList);
-        bulkDiagnoseReportResultVo.setUserId(userId.toString());
-        bulkDiagnoseReportResultVo.setUsername(user.getUsername());
-        bulkDiagnoseReportResultVo.setTime(diagnoseReport.getTime().toString());
-        bulkDiagnoseReportResultVo.setReport(bulkDiagnoseResponse);
+        BulkDiagnoseReportResultVo bulkDiagnoseReportResultVo = buildBulkDiagnoseReportResultVo(userId, diagnoseId, DiagnoseMode.BULK, bulkDiagnoseResponse, urlList);
         return bulkDiagnoseReportResultVo;
     }
 
     @Override
-    public PersonalDiagnoseReportResultVo generatePersonalDiagnoseReport(Long userId, List<String> idList) {
+    public BulkDiagnoseReportResultVo generatePersonalDiagnoseReport(Long userId, List<String> idList) {
         // 根据报告查询要诊断的图片数据
         List<DiagnoseImage> diagnoseImageList = diagnoseImageMapper.selectBatchIds(idList);
         List<File> fileList = new ArrayList<>();
@@ -275,11 +262,12 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         });
 
         DiagnoseReportResult diagnoseReportResult = new DiagnoseReportResult();
+        BulkDiagnoseResponse bulkDiagnoseResponse = new BulkDiagnoseResponse();
         Long resultId;
         try {
             // 发送请求获取诊断结果
-            PersonalDiagnoseResponse personalDiagnoseResponse = mlClient.requestForPersonalDiagnose(fileList);
-            diagnoseReportResult.setText(JSON.toJSONString(personalDiagnoseResponse));
+            bulkDiagnoseResponse = mlClient.requestForPersonalDiagnose(fileList);
+            diagnoseReportResult.setText(JSON.toJSONString(bulkDiagnoseResponse));
             // 将诊断结果数据以JSON格式存入数据库
             diagnoseReportResultMapper.insert(diagnoseReportResult);
             resultId = diagnoseReportResult.getId();
@@ -305,21 +293,14 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
             diagnoseImageMapper.updateById(diagnoseImage);
         });
 
-        // 返回结果
-        User user = userMapper.selectById(userId);
-        PersonalDiagnoseReportResultVo personalDiagnoseReportResultVo = new PersonalDiagnoseReportResultVo();
-        personalDiagnoseReportResultVo.setId(diagnoseId.toString());
-        String resultJson = diagnoseReportResult.getText();
-        personalDiagnoseReportResultVo.setReport(JSON.parseObject(resultJson, PersonalDiagnoseResponse.class));
-        personalDiagnoseReportResultVo.setUserId(user.getId().toString());
-        personalDiagnoseReportResultVo.setUsername(user.getUsername());
-        personalDiagnoseReportResultVo.setTime(LocalDateTime.now().toString());
-        personalDiagnoseReportResultVo.setUrlList(urlList);
-        return personalDiagnoseReportResultVo;
+        // 构造返回结果
+        BulkDiagnoseReportResultVo bulkDiagnoseReportResultVo = buildBulkDiagnoseReportResultVo(userId, diagnoseId, DiagnoseMode.PERSONAL, bulkDiagnoseResponse, urlList);
+
+        return bulkDiagnoseReportResultVo;
     }
 
     @Override
-    public PersonalDiagnoseReportResultVo getPersonalDiagnoseDetails(Long userId, Long diagnoseId) {
+    public BulkDiagnoseReportResultVo getPersonalDiagnoseDetails(Long userId, Long diagnoseId) {
         // 查询诊断报告
         DiagnoseReport diagnoseReport = diagnoseReportMapper.selectOne(new LambdaQueryWrapper<DiagnoseReport>()
                 .eq(DiagnoseReport::getId, diagnoseId)
@@ -328,28 +309,40 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         if(diagnoseReport==null){
             throw new DiagnoseException("该诊断报告不存在", HttpStatus.NOT_FOUND);
         }
-        // 校验报告类型为bulk
+        // 校验报告类型为personal
         if(!DiagnoseMode.PERSONAL.getValue().equals(diagnoseReport.getDiagnoseMode())){
-            throw new DiagnoseException("该报告不是批量诊断报告", HttpStatus.BAD_REQUEST);
+            throw new DiagnoseException("该报告不是个人诊断报告", HttpStatus.BAD_REQUEST);
         }
         // 查询诊断报告关联的图片
         List<DiagnoseImage> diagnoseImageList = diagnoseImageMapper.selectList(new LambdaQueryWrapper<DiagnoseImage>().eq(DiagnoseImage::getReportId, diagnoseReport.getId()));
         List<String> urlList = diagnoseImageList.stream().map(DiagnoseImage::getUrl).collect(Collectors.toList());
         // 查询诊断结果
         DiagnoseReportResult diagnoseReportResult = diagnoseReportResultMapper.selectById(diagnoseReport.getReportResultId());
-        PersonalDiagnoseResponse personalDiagnoseResponse = JSON.parseObject(diagnoseReportResult.getText(), PersonalDiagnoseResponse.class);
-        // 查询诊断用户
-        User user = userMapper.selectById(userId);
+        BulkDiagnoseResponse bulkDiagnoseResponse = JSON.parseObject(diagnoseReportResult.getText(), BulkDiagnoseResponse.class);
 
-        // 构造返回的结果
-        PersonalDiagnoseReportResultVo personalDiagnoseReportResultVo = new PersonalDiagnoseReportResultVo();
-        personalDiagnoseReportResultVo.setId(diagnoseId.toString());
-        personalDiagnoseReportResultVo.setUrlList(urlList);
-        personalDiagnoseReportResultVo.setUserId(userId.toString());
-        personalDiagnoseReportResultVo.setUsername(user.getUsername());
-        personalDiagnoseReportResultVo.setTime(diagnoseReport.getTime().toString());
-        personalDiagnoseReportResultVo.setReport(personalDiagnoseResponse);
-        return personalDiagnoseReportResultVo;
+        // 构造返回结果
+        BulkDiagnoseReportResultVo bulkDiagnoseReportResultVo = buildBulkDiagnoseReportResultVo(userId, diagnoseId, DiagnoseMode.PERSONAL, bulkDiagnoseResponse, urlList);
+        return bulkDiagnoseReportResultVo;
+    }
+
+    @NotNull
+    private BulkDiagnoseReportResultVo buildBulkDiagnoseReportResultVo(Long userId, Long diagnoseId, DiagnoseMode mode, BulkDiagnoseResponse bulkDiagnoseResponse, List<String> urlList) {
+        // 返回结果
+        BulkDiagnoseReportResultVo bulkDiagnoseReportResultVo = new BulkDiagnoseReportResultVo();
+        // 构建报告基本信息
+        bulkDiagnoseReportResultVo.setId(diagnoseId.toString());
+        bulkDiagnoseReportResultVo.setTime(LocalDateTime.now().toString());
+        // 构建用户基本信息
+        User user = userMapper.selectById(userId);
+        bulkDiagnoseReportResultVo.setUserId(user.getId().toString());
+        bulkDiagnoseReportResultVo.setUsername(user.getUsername());
+        bulkDiagnoseReportResultVo.setEmail(user.getEmail());
+        bulkDiagnoseReportResultVo.setPhoneNumber(user.getPhoneNumber());
+        bulkDiagnoseReportResultVo.setAvatarUrl(user.getAvatarUrl());
+        // 构建报告结果信息
+        bulkDiagnoseReportResultVo.setReport(bulkDiagnoseResponse.toBulkDiagnoseResponseList(mode));
+        bulkDiagnoseReportResultVo.setUrlList(urlList);
+        return bulkDiagnoseReportResultVo;
     }
 
 }

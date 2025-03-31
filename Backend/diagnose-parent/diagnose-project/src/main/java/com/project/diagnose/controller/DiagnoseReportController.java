@@ -63,19 +63,19 @@ public class DiagnoseReportController {
 
     @PostMapping("/create-personal")
     @LogAnnotation(module = "FileController",operator = "生成诊断报告")
-    public Result<PersonalDiagnoseReportResultVo> createPersonalReport(@RequestHeader("Authorization") String token, @RequestBody List<String> idList) {
+    public Result<BulkDiagnoseReportResultVo> createPersonalReport(@RequestHeader("Authorization") String token, @RequestBody List<String> idList) {
         Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
-        PersonalDiagnoseReportResultVo diagnose = diagnoseService.generatePersonalDiagnoseReport(userId, idList);
+        BulkDiagnoseReportResultVo bulkDiagnoseReportResultVo = diagnoseService.generatePersonalDiagnoseReport(userId, idList);
 
-        return Result.success(diagnose);
+        return Result.success(bulkDiagnoseReportResultVo);
     }
 
     @GetMapping("/details-personal")
     @LogAnnotation(module = "FileController",operator = "查询报告详情")
-    public Result<PersonalDiagnoseReportResultVo> personalDetails(@RequestHeader("Authorization") String token, @RequestParam("diagnoseId") Long diagnoseId) {
+    public Result<BulkDiagnoseReportResultVo> personalDetails(@RequestHeader("Authorization") String token, @RequestParam("diagnoseId") Long diagnoseId) {
         Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
-        PersonalDiagnoseReportResultVo personalDiagnoseReportResultVo = diagnoseService.getPersonalDiagnoseDetails(userId, diagnoseId);
-        return Result.success(personalDiagnoseReportResultVo);
+        BulkDiagnoseReportResultVo bulkDiagnoseReportResultVo = diagnoseService.getPersonalDiagnoseDetails(userId, diagnoseId);
+        return Result.success(bulkDiagnoseReportResultVo);
     }
 
 

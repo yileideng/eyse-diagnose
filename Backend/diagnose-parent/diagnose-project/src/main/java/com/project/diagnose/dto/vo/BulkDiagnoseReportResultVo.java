@@ -1,17 +1,25 @@
 package com.project.diagnose.dto.vo;
 
 import com.project.diagnose.dto.response.BulkDiagnoseResponse;
+import com.project.diagnose.dto.response.BulkDiagnoseResponseList;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 public class BulkDiagnoseReportResultVo {
+    // 报告基本信息
     private String id;
-    private String username;
-    private String userId;
     private String time;
-    private BulkDiagnoseResponse report;
+    //用户信息
+    private String userId;
+    private String username;
+    private String email;
+    private String phoneNumber;
+    private String avatarUrl;
+
+    // 报告结果
+    private BulkDiagnoseResponseList report;
     private List<String> urlList;
 
 

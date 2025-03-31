@@ -17,6 +17,6 @@ public interface DiagnoseService extends IService<DiagnoseImage> {
     BulkDiagnoseReportResultVo generateBulkDiagnoseReport(Long userId, List<String> idList);
     BulkDiagnoseReportResultVo getBulkDiagnoseDetails(Long userId, Long diagnoseId);
 
-    PersonalDiagnoseReportResultVo generatePersonalDiagnoseReport(Long userId, List<String> idList);
-    PersonalDiagnoseReportResultVo getPersonalDiagnoseDetails(Long userId, Long diagnoseId);
+    BulkDiagnoseReportResultVo generatePersonalDiagnoseReport(Long userId, List<String> idList);
+    BulkDiagnoseReportResultVo getPersonalDiagnoseDetails(Long userId, Long diagnoseId);
 }

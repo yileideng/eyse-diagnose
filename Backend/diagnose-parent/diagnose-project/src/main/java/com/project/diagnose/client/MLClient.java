@@ -63,7 +63,6 @@ public class MLClient {
                log.info("响应数据: {}", responseBody);
                 // 处理返回的 JSON 数据
                 bulkDiagnoseResponse = objectMapper.readValue(responseBody, BulkDiagnoseResponse.class);
-                bulkDiagnoseResponse.setPredictionResultsSize(bulkDiagnoseResponse.getPredictionResults().size());
                 log.info(bulkDiagnoseResponse.toString());
             } else {
                 System.out.println("请求失败: " + response);
@@ -72,7 +71,7 @@ public class MLClient {
         return bulkDiagnoseResponse;
     }
 
-    public PersonalDiagnoseResponse requestForPersonalDiagnose(List<File> files) throws IOException {
+    public BulkDiagnoseResponse requestForPersonalDiagnose(List<File> files) throws IOException {
         String methodUrl = "/mock/file-personal";
         if (files == null || files.size() == 0) {
             throw new DiagnoseException("上传的诊断图片不能为空");
@@ -105,19 +104,19 @@ public class MLClient {
                 .post(requestBody)
                 .build();
 
-        PersonalDiagnoseResponse personalDiagnoseResponse = null;
+        BulkDiagnoseResponse bulkDiagnoseResponse = null;
         // 发送请求并处理响应
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
                 log.info("响应数据: {}", responseBody);
                 // 处理返回的 JSON 数据
-                personalDiagnoseResponse = objectMapper.readValue(responseBody, PersonalDiagnoseResponse.class);
-                log.info(personalDiagnoseResponse.toString());
+                bulkDiagnoseResponse = objectMapper.readValue(responseBody, BulkDiagnoseResponse.class);
+                log.info(bulkDiagnoseResponse.toString());
             } else {
                 System.out.println("请求失败: " + response);
             }
         }
-        return personalDiagnoseResponse;
+        return bulkDiagnoseResponse;
     }
 }
