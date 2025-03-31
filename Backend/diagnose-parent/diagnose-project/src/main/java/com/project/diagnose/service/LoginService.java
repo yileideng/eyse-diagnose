@@ -2,6 +2,7 @@
 package com.project.diagnose.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.project.diagnose.dto.query.UserQuery;
 import com.project.diagnose.dto.vo.UserVo;
 import com.project.diagnose.pojo.User;
 import com.project.diagnose.dto.query.LoginQuery;
@@ -25,6 +26,6 @@ public interface LoginService extends IService<User> {
     //根据token查询当前登录的用户,把checkToken得到的User封装成Vo返回给前端
     UserVo findCurrentUserByToken(String token);
 
-
+    void forgetPassword(LoginQuery loginQuery);
 }
 

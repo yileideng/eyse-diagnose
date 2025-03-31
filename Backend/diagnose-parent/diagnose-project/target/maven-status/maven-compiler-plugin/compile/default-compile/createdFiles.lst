@@ -17,7 +17,6 @@ com\project\diagnose\exception\GlobalExceptionHandler.class
 com\project\diagnose\aop\LogAnnotation.class
 com\project\diagnose\dto\vo\DiagnoseImageVo.class
 com\project\diagnose\utils\MinioUtils.class
-com\project\diagnose\dto\response\PersonalDiagnoseResponse$PredictionResults.class
 com\project\diagnose\utils\FileUtils.class
 com\project\diagnose\constans\DiagnoseMode.class
 com\project\diagnose\pojo\LoginUser.class
@@ -31,6 +30,7 @@ com\project\diagnose\config\SecurityConfig.class
 com\project\diagnose\pojo\DiagnoseReport.class
 com\project\diagnose\dto\query\DiagnoseQuery.class
 com\project\diagnose\dto\query\AvatarQuery.class
+com\project\diagnose\dto\response\PersonalDiagnoseResponse$DiseaseInfo.class
 com\project\diagnose\dto\vo\Result.class
 com\project\diagnose\service\Impl\PermissionServiceImpl.class
 com\project\diagnose\aop\LogAspect.class
@@ -56,6 +56,7 @@ com\project\diagnose\pojo\DiagnoseReportResult.class
 com\project\diagnose\service\Impl\UserDetailServiceImpl.class
 com\project\diagnose\client\MLClient.class
 com\project\diagnose\service\UserService.class
+com\project\diagnose\dto\response\PersonalDiagnoseResponse$PredictionResult.class
 com\project\diagnose\utils\MailUtils.class
 com\project\diagnose\dto\query\PermissionQuery.class
 com\project\diagnose\pojo\User.class
@@ -63,7 +64,6 @@ com\project\diagnose\controller\AdminController.class
 com\project\diagnose\service\Impl\AvatarImageServiceImpl.class
 com\project\diagnose\mapper\DiagnoseReportResultMapper.class
 com\project\diagnose\dto\query\UserQuery.class
-com\project\diagnose\dto\response\PersonalDiagnoseResponse$Disease.class
 com\project\diagnose\dto\vo\DiagnoseReportVo.class
 com\project\diagnose\dto\response\PersonalDiagnoseResponse.class
 com\project\diagnose\dto\response\BulkDiagnoseResponse$DiseaseInfo.class

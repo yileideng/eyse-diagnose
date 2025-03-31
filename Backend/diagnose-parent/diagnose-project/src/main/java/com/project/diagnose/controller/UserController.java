@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     private RedisUtils redisUtils;
 
-    //获取当前的登录用户
+    // 获取当前的登录用户
     @GetMapping("/details")
     //@PreAuthorize("hasAuthority('currentUser')")
     @LogAnnotation(module = "用户操作",operator = "获取当前用户")
@@ -33,7 +33,7 @@ public class UserController {
         return Result.success(loginService.findCurrentUserByToken(token));
     }
 
-    //分页查询:需提供分页参数,注意UserQuery继承了PageQuery.所以分页信息也许提供
+    // 分页查询:需提供分页参数,注意UserQuery继承了PageQuery.所以分页信息也许提供
     @PostMapping("/page")
     //@PreAuthorize("hasAuthority('getUser')")
     @LogAnnotation(module = "用户操作",operator = "分页查询用户")
@@ -42,7 +42,7 @@ public class UserController {
         return Result.success(page);
     }
 
-    //根据id查询用户
+    // 根据id查询用户
     @GetMapping("/page/{id}")
     //@PreAuthorize("hasAuthority('getUser')")
     @LogAnnotation(module = "用户操作",operator = "根据id查询用户")
@@ -51,7 +51,7 @@ public class UserController {
         return Result.success(userVo);
     }
 
-    //更新用户信息
+    // 更新用户信息
     @PutMapping("/update")
     //@PreAuthorize("hasAuthority('updateUser')")
     @LogAnnotation(module = "用户操作",operator = "更新用户")
@@ -62,6 +62,19 @@ public class UserController {
 
         return Result.success(true);
     }
+
+    // 修改密码
+    @PutMapping("/update/password")
+    //@PreAuthorize("hasAuthority('updateUser')")
+    @LogAnnotation(module = "用户操作",operator = "更新用户")
+    public Result<Boolean> changePassword(@RequestHeader("Authorization")String token, @RequestBody UserQuery userQuery){
+        Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
+        userService.updatePassword(userId, userQuery);
+
+        return Result.success(true);
+    }
+
+
 
 }
 

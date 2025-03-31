@@ -24,6 +24,10 @@ public interface UserService extends IService<User> {
     void updateUser(Long userId, UserQuery user);
 
     User findUserByMail(String email);
+
+    void updatePassword(Long userId, UserQuery userQuery);
+
+
 }
 
 

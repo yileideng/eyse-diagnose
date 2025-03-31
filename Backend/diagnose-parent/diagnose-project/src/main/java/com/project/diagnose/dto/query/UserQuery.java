@@ -11,13 +11,19 @@ public class UserQuery extends PageQuery{
 
     private String username;
 
-    private String email;
-
     private String phoneNumber;
+
+    private String email;
 
     private String avatarUrl;
 
     private Long roleId;
+
+    private String oldPassword;
+
+    private String newPassword;
+
+    private String confirmPassword;
 
     @Override
     protected OrderItem getDefaultOrderItem() {

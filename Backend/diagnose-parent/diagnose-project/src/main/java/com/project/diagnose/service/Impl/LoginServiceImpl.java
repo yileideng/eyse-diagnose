@@ -4,6 +4,7 @@ package com.project.diagnose.service.Impl;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.project.diagnose.dto.query.UserQuery;
 import com.project.diagnose.dto.vo.UserVo;
 import com.project.diagnose.exception.DiagnoseException;
 import com.project.diagnose.mapper.UserMapper;
@@ -18,6 +19,7 @@ import com.project.diagnose.exception.ErrorMessage;
 import com.project.diagnose.dto.vo.LoginVo;
 import com.project.diagnose.utils.MailUtils;
 import com.project.diagnose.utils.RedisUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,6 +36,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Pattern;
 
+@Slf4j
 @Service
 @Transactional
 public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements LoginService {
@@ -50,6 +53,8 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
     private MailUtils mailUtils;
     @Autowired
     private RedisUtils redisUtils;
+    @Autowired
+    private UserMapper userMapper;
 
 
    /* //password的加密盐
@@ -206,9 +211,11 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
             content.append("<p>如果您没有请求邮箱验证码，可能是有人误操作。您可以忽略此邮件，或者联系我们的客服团队。</p>");
             content.append("<p>感谢您使用我们的服务！</p>");
             content.append("<p>此致</p>");
+            log.info("邮件内容构建完成");
 
             mailUtils.sendSimpleMail(mail, subject, content.toString());
         } catch (Exception e) {
+            log.info("发送验证码失败： {}", e.getMessage(),e);
             throw new DiagnoseException("发送验证码失败，请检查邮箱格式", HttpStatus.BAD_REQUEST);
         }
         // 缓存邮件验证码
@@ -216,7 +223,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
         return code;
     }
     private String randomCode(){
-        int code = new Random().nextInt(9000) + 1000; // 范围是 1000 到 9999
+        int code = new Random().nextInt(900000) + 100000; // 范围是 100000 到 999999
         return String.valueOf(code);
     }
 
@@ -225,12 +232,14 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
     public void register(LoginQuery loginQuery) {
         String password = loginQuery.getPassword();
         String username = loginQuery.getUsername();
-        String email = loginQuery.getEmail();
         String phoneNumber = loginQuery.getPhoneNumber();
+        String email = loginQuery.getEmail();
+        String code = loginQuery.getCode();
+
 
         // 校验用户名和密码是否为空
-        if (StringUtils.isBlank(password) || StringUtils.isBlank(username)) {
-            throw new DiagnoseException(ErrorMessage.PARAMS_ERROR, HttpStatus.BAD_REQUEST);
+        if (StringUtils.isBlank(password) || StringUtils.isBlank(username) || StringUtils.isBlank(phoneNumber) || StringUtils.isBlank(email) || StringUtils.isBlank(code)) {
+            throw new DiagnoseException("请填写完整注册数据", HttpStatus.BAD_REQUEST);
         }
 
         // 校验密码复杂度
@@ -257,6 +266,12 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
             throw new DiagnoseException("该邮箱已被注册", HttpStatus.CONFLICT);
         }
 
+        // 验证验证码
+        String realCode = redisUtils.getCode(email);
+        if(!code.equals(realCode)){
+            throw new DiagnoseException("验证码错误", HttpStatus.BAD_REQUEST);
+        }
+        redisUtils.deleteCode(email);
         // 发送欢迎邮件
         try {
             String subject = "欢迎新用户注册";
@@ -302,6 +317,36 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
         // 正则表达式：基本邮箱格式校验
         String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         return Pattern.matches(regex, email);
+    }
+
+    @Override
+    public void forgetPassword(LoginQuery loginQuery) {
+        String email = loginQuery.getEmail();
+        String code = loginQuery.getCode();
+        String newPassword = loginQuery.getPassword();
+
+        if (email == null || code == null || newPassword == null) {
+            throw new DiagnoseException("请输入完整表格数据");
+        }
+
+        String realCode = redisUtils.getCode(email);
+        if (realCode == null) {
+            throw new DiagnoseException("验证码已过期");
+        }
+        if (!code.equals(realCode)) {
+            throw new DiagnoseException("验证码错误");
+        }
+        if(!isValidPassword(newPassword)){
+            throw new DiagnoseException("请输入8位以上密码，数字+字母");
+        }
+
+        User user = userService.findUserByMail(email);
+        if (user == null) {
+            throw new DiagnoseException("用户不存在");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userMapper.updateById(user);
     }
 
 

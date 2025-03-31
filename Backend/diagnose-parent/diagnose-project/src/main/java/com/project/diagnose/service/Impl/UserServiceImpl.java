@@ -13,10 +13,16 @@ import com.project.diagnose.service.LoginService;
 import com.project.diagnose.service.UserService;
 import com.project.diagnose.dto.vo.PageVo;
 import com.project.diagnose.dto.vo.UserVo;
+import com.project.diagnose.utils.RedisUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.regex.Pattern;
 
 @Service
 @Transactional
@@ -24,7 +30,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     @Autowired
     UserMapper userMapper;
     @Autowired
-    LoginService loginService;
+    private RedisUtils redisUtils;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     //分页查询
     @Override
@@ -93,6 +101,40 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getEmail,mail);
         return userMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public void updatePassword(Long userId, UserQuery userQuery) {
+        String oldPassword = userQuery.getOldPassword();
+        String newPassword = userQuery.getNewPassword();
+        String confirmPassword = userQuery.getConfirmPassword();
+        if (oldPassword == null || newPassword == null || confirmPassword == null) {
+            throw new DiagnoseException("密码字段不能为空");
+        }
+        if (!newPassword.equals(confirmPassword)) {
+            throw new DiagnoseException("两次输入的新密码不一致", HttpStatus.BAD_REQUEST);
+        }
+        validatePassword(newPassword);
+
+        User user = userMapper.selectById(userId);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        String databasePassword = user.getPassword();
+        if(!passwordEncoder.matches(oldPassword,databasePassword)){
+            throw new DiagnoseException("原密码错误");
+        }
+
+        String encodeNewPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodeNewPassword);
+        userMapper.updateById(user);
+    }
+
+    private void validatePassword(String password) {
+        // 正则表达式：密码长度至少为8位，且包含至少一个字母和一个数字
+        String regex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+        if(!Pattern.matches(regex, password)){
+            throw new DiagnoseException("请输入八位以上密码，包含数字和字母");
+        }
     }
 
 }

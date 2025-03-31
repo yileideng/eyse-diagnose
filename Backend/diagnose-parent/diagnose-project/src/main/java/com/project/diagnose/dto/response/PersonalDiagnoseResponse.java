@@ -6,39 +6,59 @@ import java.util.Map;
 
 public class PersonalDiagnoseResponse {
     @JsonProperty("prediction_results")
-    private PredictionResults predictionResults;
+    private Map<String, BulkDiagnoseResponse.PredictionResult> predictionResults;
 
-    // Getter and Setter
-    public PredictionResults getPredictionResults() {
-        return predictionResults;
+    // 默认构造函数，Jackson需要这个来反序列化
+    public PersonalDiagnoseResponse() {
     }
 
-    public void setPredictionResults(PredictionResults predictionResults) {
+    // 构造函数（如果需要）
+    public PersonalDiagnoseResponse(Map<String, BulkDiagnoseResponse.PredictionResult> predictionResults) {
         this.predictionResults = predictionResults;
     }
 
-    public static class PredictionResults {
-        @JsonProperty("diseases")
-        private Map<String, Disease> diseases;
+    // Getter和Setter
+    public Map<String, BulkDiagnoseResponse.PredictionResult> getPredictionResults() {
+        return predictionResults;
+    }
 
-        // Getter and Setter
-        public Map<String, Disease> getDiseases() {
+    public void setPredictionResults(Map<String, BulkDiagnoseResponse.PredictionResult> predictionResults) {
+        this.predictionResults = predictionResults;
+    }
+
+    // 内部类：表示每个X_right的预测结果
+    public static class PredictionResult {
+        private Map<String, BulkDiagnoseResponse.DiseaseInfo> diseases;
+
+        public PredictionResult() {
+        }
+
+        public PredictionResult(Map<String, BulkDiagnoseResponse.DiseaseInfo> diseases) {
+            this.diseases = diseases;
+        }
+
+        public Map<String, BulkDiagnoseResponse.DiseaseInfo> getDiseases() {
             return diseases;
         }
 
-        public void setDiseases(Map<String, Disease> diseases) {
+        public void setDiseases(Map<String, BulkDiagnoseResponse.DiseaseInfo> diseases) {
             this.diseases = diseases;
         }
     }
 
-    public static class Disease {
-        @JsonProperty("probability")
+    // 内部类：表示每个疾病的预测信息
+    public static class DiseaseInfo {
         private double probability;
-
-        @JsonProperty("status")
         private int status;
 
-        // Getter and Setter
+        public DiseaseInfo() {
+        }
+
+        public DiseaseInfo(double probability, int status) {
+            this.probability = probability;
+            this.status = status;
+        }
+
         public double getProbability() {
             return probability;
         }
@@ -54,20 +74,5 @@ public class PersonalDiagnoseResponse {
         public void setStatus(int status) {
             this.status = status;
         }
-
-        @Override
-        public String toString() {
-            return "Disease{" +
-                    "probability=" + probability +
-                    ", status=" + status +
-                    '}';
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "DiagnoseResponse{" +
-                "predictionResults=" + predictionResults +
-                '}';
     }
 }

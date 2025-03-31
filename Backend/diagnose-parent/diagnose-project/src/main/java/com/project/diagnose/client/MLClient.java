@@ -17,13 +17,13 @@ import java.util.List;
 @Service
 public class MLClient {
 
-    private final String baseUrl = "http://localhost:8082/mock";
+    private final String baseUrl = "http://localhost:8082";
     @Autowired
     private OkHttpClient client;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public BulkDiagnoseResponse requestForBulkDiagnose(List<File> files) throws IOException {
-        String methodUrl = "/file-bulk";
+        String methodUrl = "/mock/file-bulk";
         if (files == null || files.size() == 0) {
             throw new DiagnoseException("上传的诊断图片不能为空");
         }
@@ -41,7 +41,7 @@ public class MLClient {
             );
             // 添加文件到表单字段 "fileList"
             requestBodyBuilder.addPart(
-                    Headers.of("Content-Disposition", "form-data; name=\"fileList\"; filename=\"" + file.getName() + "\""),
+                    Headers.of("Content-Disposition", "form-data; name=\"file\"; filename=\"" + file.getName() + "\""),
                     fileBody
             );
         }
@@ -73,7 +73,7 @@ public class MLClient {
     }
 
     public PersonalDiagnoseResponse requestForPersonalDiagnose(List<File> files) throws IOException {
-        String methodUrl = "/file-personal";
+        String methodUrl = "/mock/file-personal";
         if (files == null || files.size() == 0) {
             throw new DiagnoseException("上传的诊断图片不能为空");
         }
@@ -91,7 +91,7 @@ public class MLClient {
             );
             // 添加文件到表单字段 "fileList"
             requestBodyBuilder.addPart(
-                    Headers.of("Content-Disposition", "form-data; name=\"fileList\"; filename=\"" + file.getName() + "\""),
+                    Headers.of("Content-Disposition", "form-data; name=\"images\"; filename=\"" + file.getName() + "\""),
                     fileBody
             );
         }

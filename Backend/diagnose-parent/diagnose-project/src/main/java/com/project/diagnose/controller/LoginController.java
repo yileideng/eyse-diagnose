@@ -4,6 +4,7 @@ package com.project.diagnose.controller;
 
 import com.project.diagnose.aop.LogAnnotation;
 import com.project.diagnose.dto.query.LoginQuery;
+import com.project.diagnose.dto.query.UserQuery;
 import com.project.diagnose.dto.vo.LoginVo;
 import com.project.diagnose.service.LoginService;
 import com.project.diagnose.dto.vo.Result;
@@ -53,7 +54,14 @@ public class LoginController {
         return Result.success();
     }
 
-
+    // 忘记密码
+    @PutMapping("/forget-password")
+    //@PreAuthorize("hasAuthority('updateUser')")
+    @LogAnnotation(module = "用户操作",operator = "忘记密码")
+    public Result<Boolean> forgetPassword(@RequestBody LoginQuery loginQuery){
+        loginService.forgetPassword(loginQuery);
+        return Result.success(true);
+    }
 
 }
 

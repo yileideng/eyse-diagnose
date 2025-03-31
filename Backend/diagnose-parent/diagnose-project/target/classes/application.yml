@@ -5,7 +5,7 @@ spring:
   redis:
     host: redis
     # docker: redis(容器名)
-    # 服务器: 47.109.44.103
+    # 服务器: 8.137.104.3
     # 本地: localhost
     port: 6379
   #数据库连接信息
@@ -20,6 +20,7 @@ spring:
     #Dyl!20050802
   mail:
     host: smtp.qq.com
+    port: 587
     protocol: smtp
     default-encoding: UTF-8
     username: 1810133756@qq.com
