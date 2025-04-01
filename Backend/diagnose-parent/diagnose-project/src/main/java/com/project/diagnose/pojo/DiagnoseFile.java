@@ -7,10 +7,10 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@TableName("diagnose_image")
+@TableName("diagnose_file")
 
 
-public class DiagnoseImage {
+public class DiagnoseFile {
 
     /**
      * id

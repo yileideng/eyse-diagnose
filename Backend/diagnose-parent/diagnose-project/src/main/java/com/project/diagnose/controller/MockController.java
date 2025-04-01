@@ -2,7 +2,7 @@ package com.project.diagnose.controller;
 
 import com.project.diagnose.aop.LogAnnotation;
 import com.project.diagnose.client.MLClient;
-import com.project.diagnose.dto.response.BulkDiagnoseResponse;
+import com.project.diagnose.dto.response.DiagnoseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,17 +27,17 @@ public class MockController {
     private MLClient mlClient;
 
     @PostMapping("/send")
-    public BulkDiagnoseResponse mock(){
-        BulkDiagnoseResponse bulkDiagnoseResponse = null;
+    public DiagnoseResponse mock(){
+        DiagnoseResponse diagnoseResponse = null;
         try {
             File file = new File("C:Users/18101/Music/超级玛丽结束_爱给网_aigei_com.wav");
             List<File> fileList=new ArrayList<>();
             fileList.add(file);
-            bulkDiagnoseResponse = mlClient.requestForBulkDiagnose(fileList);
+            diagnoseResponse = mlClient.requestForBulkDiagnose(fileList);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return bulkDiagnoseResponse;
+        return diagnoseResponse;
     }
 
     @PostMapping("/file-bulk")

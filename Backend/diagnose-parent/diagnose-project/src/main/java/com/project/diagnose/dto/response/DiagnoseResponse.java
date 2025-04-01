@@ -7,17 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class BulkDiagnoseResponse {
+public class DiagnoseResponse {
 
     @JsonProperty("prediction_results")
     private Map<String, PredictionResult> predictionResults;
 
     // 默认构造函数，Jackson需要这个来反序列化
-    public BulkDiagnoseResponse() {
+    public DiagnoseResponse() {
     }
 
     // 构造函数（如果需要）
-    public BulkDiagnoseResponse(Map<String, PredictionResult> predictionResults) {
+    public DiagnoseResponse(Map<String, PredictionResult> predictionResults) {
         this.predictionResults = predictionResults;
     }
 
@@ -82,11 +82,11 @@ public class BulkDiagnoseResponse {
 
 
     // 转换方法：将当前对象转换为 BulkDiagnoseResponseList
-    public BulkDiagnoseResponseList toBulkDiagnoseResponseList(DiagnoseMode diagnoseMode) {
+    public DiagnoseResponseList toBulkDiagnoseResponseList(String diagnoseMode) {
         if (predictionResults == null) {
-            return new BulkDiagnoseResponseList(new ArrayList<>(), null);
+            return new DiagnoseResponseList(new ArrayList<>(), null);
         }
         List<PredictionResult> predictionResultsList = new ArrayList<>(predictionResults.values());
-        return new BulkDiagnoseResponseList(predictionResultsList, diagnoseMode.getValue());
+        return new DiagnoseResponseList(predictionResultsList, diagnoseMode);
     }
 }

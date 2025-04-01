@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName("diagnose_report_result")
-public class DiagnoseReportResult {
+@TableName("diagnose_result")
+public class DiagnoseResult {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 

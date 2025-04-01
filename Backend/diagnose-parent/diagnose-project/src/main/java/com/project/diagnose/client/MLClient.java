@@ -1,8 +1,7 @@
 package com.project.diagnose.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.diagnose.dto.response.BulkDiagnoseResponse;
-import com.project.diagnose.dto.response.PersonalDiagnoseResponse;
+import com.project.diagnose.dto.response.DiagnoseResponse;
 import com.project.diagnose.exception.DiagnoseException;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -22,7 +21,7 @@ public class MLClient {
     private OkHttpClient client;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public BulkDiagnoseResponse requestForBulkDiagnose(List<File> files) throws IOException {
+    public DiagnoseResponse requestForBulkDiagnose(List<File> files) throws IOException {
         String methodUrl = "/mock/file-bulk";
         if (files == null || files.size() == 0) {
             throw new DiagnoseException("上传的诊断图片不能为空");
@@ -55,23 +54,23 @@ public class MLClient {
                 .post(requestBody)
                 .build();
 
-        BulkDiagnoseResponse bulkDiagnoseResponse = null;
+        DiagnoseResponse diagnoseResponse = null;
         // 发送请求并处理响应
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
                log.info("响应数据: {}", responseBody);
                 // 处理返回的 JSON 数据
-                bulkDiagnoseResponse = objectMapper.readValue(responseBody, BulkDiagnoseResponse.class);
-                log.info(bulkDiagnoseResponse.toString());
+                diagnoseResponse = objectMapper.readValue(responseBody, DiagnoseResponse.class);
+                log.info(diagnoseResponse.toString());
             } else {
                 System.out.println("请求失败: " + response);
             }
         }
-        return bulkDiagnoseResponse;
+        return diagnoseResponse;
     }
 
-    public BulkDiagnoseResponse requestForPersonalDiagnose(List<File> files) throws IOException {
+    public DiagnoseResponse requestForPersonalDiagnose(List<File> files) throws IOException {
         String methodUrl = "/mock/file-personal";
         if (files == null || files.size() == 0) {
             throw new DiagnoseException("上传的诊断图片不能为空");
@@ -104,19 +103,19 @@ public class MLClient {
                 .post(requestBody)
                 .build();
 
-        BulkDiagnoseResponse bulkDiagnoseResponse = null;
+        DiagnoseResponse diagnoseResponse = null;
         // 发送请求并处理响应
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
                 log.info("响应数据: {}", responseBody);
                 // 处理返回的 JSON 数据
-                bulkDiagnoseResponse = objectMapper.readValue(responseBody, BulkDiagnoseResponse.class);
-                log.info(bulkDiagnoseResponse.toString());
+                diagnoseResponse = objectMapper.readValue(responseBody, DiagnoseResponse.class);
+                log.info(diagnoseResponse.toString());
             } else {
                 System.out.println("请求失败: " + response);
             }
         }
-        return bulkDiagnoseResponse;
+        return diagnoseResponse;
     }
 }

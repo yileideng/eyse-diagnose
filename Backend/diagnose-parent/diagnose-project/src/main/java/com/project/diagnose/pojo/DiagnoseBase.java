@@ -6,8 +6,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@TableName("diagnose_report")
-public class DiagnoseReport {
+@TableName("diagnose_base")
+public class DiagnoseBase {
     /**
      * id
      */

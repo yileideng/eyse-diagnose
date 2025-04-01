@@ -2,10 +2,8 @@ package com.project.diagnose.dto.vo;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
-public class DiagnoseReportVo {
+public class DiagnoseBaseVo {
     private String id;
 
     private String userId;

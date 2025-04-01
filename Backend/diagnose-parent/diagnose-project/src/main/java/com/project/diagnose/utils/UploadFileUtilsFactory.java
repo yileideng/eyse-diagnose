@@ -1,9 +1,7 @@
 package com.project.diagnose.utils;
 
-import cn.hutool.core.net.multipart.UploadFile;
 import com.project.diagnose.dto.response.UploadFileResponse;
-import com.project.diagnose.pojo.AvatarImage;
-import com.project.diagnose.pojo.DiagnoseImage;
+import com.project.diagnose.pojo.DiagnoseFile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,10 +66,10 @@ public class UploadFileUtilsFactory {
         return response;
     }
 
-    public void delete(DiagnoseImage diagnoseImage) throws Exception {
-        StorageSource storageSource = StorageSource.getStorageSource(diagnoseImage.getStorageSource());
-        String bucket = diagnoseImage.getBucket();
-        String objectPath = diagnoseImage.getObjectPath();
+    public void delete(DiagnoseFile diagnoseFile) throws Exception {
+        StorageSource storageSource = StorageSource.getStorageSource(diagnoseFile.getStorageSource());
+        String bucket = diagnoseFile.getBucket();
+        String objectPath = diagnoseFile.getObjectPath();
 
         // 根据storageSource动态获取删除文件的工具类
         UploadFileUtils uploadFileUtils = uploadFileUtilsMap.get(storageSource);
@@ -80,10 +78,10 @@ public class UploadFileUtilsFactory {
 
     }
 
-    public InputStream download(DiagnoseImage diagnoseImage) throws Exception {
-        StorageSource storageSource = StorageSource.getStorageSource(diagnoseImage.getStorageSource());
-        String bucket = diagnoseImage.getBucket();
-        String objectPath = diagnoseImage.getObjectPath();
+    public InputStream download(DiagnoseFile diagnoseFile) throws Exception {
+        StorageSource storageSource = StorageSource.getStorageSource(diagnoseFile.getStorageSource());
+        String bucket = diagnoseFile.getBucket();
+        String objectPath = diagnoseFile.getObjectPath();
 
         UploadFileUtils uploadFileUtils = uploadFileUtilsMap.get(storageSource);
         return uploadFileUtils.download(bucket, objectPath);

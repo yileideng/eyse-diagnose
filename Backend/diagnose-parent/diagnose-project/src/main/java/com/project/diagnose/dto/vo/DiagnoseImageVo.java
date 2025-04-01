@@ -1,11 +1,8 @@
 package com.project.diagnose.dto.vo;
 
-import com.project.diagnose.pojo.AvatarImage;
-import com.project.diagnose.pojo.DiagnoseImage;
+import com.project.diagnose.pojo.DiagnoseFile;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -27,9 +24,9 @@ public class DiagnoseImageVo {
 
 
 
-    public DiagnoseImageVo(DiagnoseImage diagnoseImage) {
-        this.setId(diagnoseImage.getId().toString());
-        this.setName(diagnoseImage.getName());
-        this.setUrl(diagnoseImage.getUrl());
+    public DiagnoseImageVo(DiagnoseFile diagnoseFile) {
+        this.setId(diagnoseFile.getId().toString());
+        this.setName(diagnoseFile.getName());
+        this.setUrl(diagnoseFile.getUrl());
     }
 }
