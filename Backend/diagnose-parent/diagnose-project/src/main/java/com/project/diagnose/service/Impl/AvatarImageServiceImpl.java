@@ -1,6 +1,7 @@
 package com.project.diagnose.service.Impl;
 
 import cn.hutool.core.lang.Assert;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.project.diagnose.dto.query.AvatarQuery;
@@ -9,7 +10,9 @@ import com.project.diagnose.dto.vo.PageVo;
 import com.project.diagnose.dto.vo.AvatarImageVo;
 import com.project.diagnose.exception.DiagnoseException;
 import com.project.diagnose.mapper.AvatarImageMapper;
+import com.project.diagnose.mapper.UserMapper;
 import com.project.diagnose.pojo.AvatarImage;
+import com.project.diagnose.pojo.User;
 import com.project.diagnose.service.AvatarImageService;
 import com.project.diagnose.utils.AliOSSUtils;
 import com.project.diagnose.utils.FileUtils;
@@ -38,6 +41,8 @@ public class AvatarImageServiceImpl extends ServiceImpl<AvatarImageMapper, Avata
     private AliOSSUtils aliOSSUtils;
     @Autowired
     private AvatarImageMapper avatarImageMapper;
+    @Autowired
+    private UserMapper userMapper;
 
 
 
@@ -84,7 +89,14 @@ public class AvatarImageServiceImpl extends ServiceImpl<AvatarImageMapper, Avata
 
         // 写入UploadFile表
         avatarImageMapper.insert(avatarImage);
-        log.info("向数据库插入文件成功");
+        log.info("向数据库插入头像文件成功");
+
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", userId);
+        User user = new User();
+        user.setAvatarUrl(response.getUrl());
+        // MyBatis-Plus会自动忽略null值字段
+        userMapper.update(user, updateWrapper);
 
         return response.getUrl();
     }

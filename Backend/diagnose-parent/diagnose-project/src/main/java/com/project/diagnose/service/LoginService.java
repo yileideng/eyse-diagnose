@@ -15,7 +15,7 @@ public interface LoginService extends IService<User> {
     LoginVo emailLogin(LoginQuery loginQuery);
 
     // 发送邮件
-    String generateMail(String mail);
+    void generateMail(String mail);
 
     //退出登录
     void logout(String token);

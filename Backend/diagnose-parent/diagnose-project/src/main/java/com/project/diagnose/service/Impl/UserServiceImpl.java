@@ -14,6 +14,7 @@ import com.project.diagnose.service.UserService;
 import com.project.diagnose.dto.vo.PageVo;
 import com.project.diagnose.dto.vo.UserVo;
 import com.project.diagnose.utils.RedisUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.regex.Pattern;
 
+@Slf4j
 @Service
 @Transactional
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService{
@@ -135,6 +137,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         if(!Pattern.matches(regex, password)){
             throw new DiagnoseException("请输入八位以上密码，包含数字和字母");
         }
+    }
+
+
+    @Override
+    public UserVo getUserDetails(Long userId) {
+        User user = userMapper.selectById(userId);
+        log.info("avatarUrl: {}", user.getAvatarUrl());
+        return new UserVo(user);
     }
 
 }

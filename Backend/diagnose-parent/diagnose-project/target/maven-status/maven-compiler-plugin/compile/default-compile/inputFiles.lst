@@ -23,6 +23,7 @@ D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\mai
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\exception\DiagnoseException.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\pojo\AvatarImage.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\pojo\DiagnoseFile.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\request\DeepSeekRequestModel.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\vo\DiagnoseResponseVo.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\controller\UserController.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\utils\AliOSSProperties.java
@@ -36,6 +37,7 @@ D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\mai
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\vo\DiagnoseBaseVo.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\mapper\DiagnoseImageMapper.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\response\DiagnoseResponseList.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\DeepSeekService.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\config\SecurityConfig.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\pojo\Permission.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\controller\MockController.java
@@ -43,11 +45,13 @@ D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\mai
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\Impl\PermissionServiceImpl.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\vo\LoginVo.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\query\AvatarQuery.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\Impl\DeepSeekServiceImpl.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\PermissionService.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\Impl\DiagnoseServiceImpl.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\mapper\AvatarImageMapper.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\vo\PageVo.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\controller\AvatarImageController.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\controller\DeepSeekController.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\exception\ErrorMessage.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\dto\vo\DiagnoseImageVo.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\aop\LogAspect.java
@@ -56,6 +60,7 @@ D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\mai
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\Impl\LoginServiceImpl.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\service\LoginService.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\mapper\DiagnoseReportMapper.java
+D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\client\DeepSeekClient.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\config\MybaitsConfig.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\utils\FileUtils.java
 D:\Git-repository\eyse-diagnose\Backend\diagnose-parent\diagnose-project\src\main\java\com\project\diagnose\utils\RedisUtils.java

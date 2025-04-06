@@ -4,6 +4,7 @@ package com.project.diagnose.service.Impl;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import com.project.diagnose.dto.query.UserQuery;
 import com.project.diagnose.dto.vo.UserVo;
 import com.project.diagnose.exception.DiagnoseException;
@@ -199,7 +200,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
     }
 
     @Override
-    public String generateMail(String mail) {
+    public void generateMail(String mail) {
         String code = randomCode();
         try {
             String subject = "您的邮箱验证码";
@@ -220,7 +221,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
         }
         // 缓存邮件验证码
         redisUtils.setCode(mail, code);
-        return code;
+        return;
     }
     private String randomCode(){
         int code = new Random().nextInt(900000) + 100000; // 范围是 100000 到 999999
@@ -238,7 +239,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
 
 
         // 校验用户名和密码是否为空
-        if (StringUtils.isBlank(password) || StringUtils.isBlank(username) || StringUtils.isBlank(phoneNumber) || StringUtils.isBlank(email) || StringUtils.isBlank(code)) {
+        if (StringUtils.isBlank(password) || StringUtils.isBlank(username)|| StringUtils.isBlank(email) || StringUtils.isBlank(code)) {
             throw new DiagnoseException("请填写完整注册数据", HttpStatus.BAD_REQUEST);
         }
 
@@ -247,7 +248,7 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
             throw new DiagnoseException("请输入八位以上密码，包含数字和字母", HttpStatus.BAD_REQUEST);
         }
         // 校验手机号格式
-        if (!isValidPhoneNumber(phoneNumber)) {
+        if (!StringUtils.isBlank(phoneNumber) && !isValidPhoneNumber(phoneNumber)) {
             throw new DiagnoseException("请输入有效的手机号", HttpStatus.BAD_REQUEST);
         }
         // 校验邮箱格式

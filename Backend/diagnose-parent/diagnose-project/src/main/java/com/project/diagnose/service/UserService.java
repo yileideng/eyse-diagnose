@@ -28,6 +28,7 @@ public interface UserService extends IService<User> {
     void updatePassword(Long userId, UserQuery userQuery);
 
 
+    UserVo getUserDetails(Long userId);
 }
 
 

@@ -14,8 +14,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Exception" />
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -82,6 +82,8 @@
       <recent name="D:\Git-repository\TTS\Chat-TTS\Backend\tts-parent\tts-project\src\main\java\com\project\tts\pojo" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.project.diagnose.dto.request" />
+      <recent name="com.project.diagnose.client" />
       <recent name="com.project.diagnose.utils" />
       <recent name="com.project.tts.config" />
       <recent name="com.lingrui.blog.config" />
@@ -271,6 +273,10 @@
       <workItem from="1743410499913" duration="5614000" />
       <workItem from="1743419727963" duration="1637000" />
       <workItem from="1743481696291" duration="2959000" />
+      <workItem from="1743486084966" duration="7000" />
+      <workItem from="1743518532462" duration="2154000" />
+      <workItem from="1743569644799" duration="27000" />
+      <workItem from="1743950833970" duration="2055000" />
     </task>
     <servers />
   </component>

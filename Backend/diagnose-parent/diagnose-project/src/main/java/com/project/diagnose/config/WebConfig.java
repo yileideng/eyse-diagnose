@@ -23,9 +23,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public OkHttpClient okHttpClient() {
         return new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)  // 连接超时
-                .readTimeout(60, TimeUnit.SECONDS)     // 读取超时
-                .writeTimeout(60, TimeUnit.SECONDS)    // 写入超时（可选）
+                .connectTimeout(160, TimeUnit.SECONDS)  // 连接超时
+                .readTimeout(160, TimeUnit.SECONDS)     // 读取超时
+                .writeTimeout(160, TimeUnit.SECONDS)    // 写入超时（可选）
                 .build();
     }
 

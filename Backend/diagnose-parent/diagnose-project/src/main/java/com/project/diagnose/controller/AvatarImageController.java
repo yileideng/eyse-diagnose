@@ -28,8 +28,9 @@ public class AvatarImageController {
     @PostMapping("/avatar")
     //@PreAuthorize("hasAuthority('upload')")
     @LogAnnotation(module = "FileController",operator = "用MinIO上传用户头像")
-    public Result<String> upload(@RequestParam("file") MultipartFile image) {
-        String url = avatarImageService.uploadAndInsert(bucket, image, FileUtils.Category.CATEGORY_IMAGE, null);
+    public Result<String> upload(@RequestHeader("Authorization") String token, @RequestParam("file") MultipartFile image) {
+        Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
+        String url = avatarImageService.uploadAndInsert(bucket, image, FileUtils.Category.CATEGORY_IMAGE, userId);
         return Result.success(url);
     }
 }

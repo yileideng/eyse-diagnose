@@ -34,9 +34,9 @@ public class LoginController {
 
     @GetMapping("/mail")
     @LogAnnotation(module = "发送验证码",operator = "用户登录")
-    public Result<String> sendMail(@RequestParam String mail){
-        String code = loginService.generateMail(mail);
-        return Result.success(code);
+    public Result<Boolean> sendMail(@RequestParam String mail){
+        loginService.generateMail(mail);
+        return Result.success();
     }
 
     @PostMapping("/register")

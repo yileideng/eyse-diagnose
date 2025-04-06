@@ -30,7 +30,8 @@ public class UserController {
     //@PreAuthorize("hasAuthority('currentUser')")
     @LogAnnotation(module = "用户操作",operator = "获取当前用户")
     public Result<UserVo> currentUser(@RequestHeader("Authorization") String token){
-        return Result.success(loginService.findCurrentUserByToken(token));
+        Long userId = redisUtils.getLoginUserInRedis(token).getUser().getId();
+        return Result.success(userService.getUserDetails(userId));
     }
 
     // 分页查询:需提供分页参数,注意UserQuery继承了PageQuery.所以分页信息也许提供
