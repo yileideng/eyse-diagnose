@@ -1,0 +1,54 @@
+/* 打印专用样式 */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .diagnose-modal,
+  .diagnose-modal * {
+    visibility: visible;
+  }
+
+  .diagnose-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    margin: 0;
+    padding: 20px;
+    box-shadow: none;
+  }
+
+  .modal-actions,
+  .download-btn {
+    display: none !important;
+  }
+
+  /* 添加页眉页脚 */
+  @page {
+    size: A4;
+    margin: 2cm;
+
+    @top-left {
+      content: "Eyes Diagnose 诊断报告";
+      font-size: 10pt;
+    }
+
+    @bottom-right {
+      content: "页 " counter(page);
+      font-size: 10pt;
+    }
+  }
+
+  /* 优化表格打印 */
+  .disease-table {
+    page-break-inside: avoid;
+    break-inside: avoid-page;
+  }
+
+  .probability-bar {
+    background-color: #f1f1f1 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

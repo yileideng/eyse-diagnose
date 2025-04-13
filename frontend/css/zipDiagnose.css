@@ -1,0 +1,147 @@
+/* 在诊断.html的<style>中添加 */
+
+
+/* .bulk-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+} */
+
+/* .report-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+} */
+
+.zip-report {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.report-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* .download-link {
+  color: #2196F3;
+  margin-left: auto;
+}  */
+
+.progress-wrapper {
+  position: relative;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  transition: width 0.5s ease;
+}
+
+.progress-label {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  z-index: 1;
+}
+
+.btn-export {
+  background: #2196F3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-report {
+  max-width: 800px;
+  overflow: auto;
+  margin: 0 auto;
+
+}
+
+/* 诊断报告头部 */
+/* .modal-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+} */
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  color: #343333;
+}
+
+/* 下载按钮样式 */
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  background: rgba(33, 150, 243, 0.1);
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.download-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.download-btn:hover {
+  background: rgba(33, 150, 243, 0.2);
+}
+
+/* 概率进度条 */
+/* .probability-bar {
+  position: relative;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+} */
+
+.bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, #08b5ef, #63c0da);
+  transition: width 0.5s ease;
+}
+
+.percent-text {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  mix-blend-mode: difference;
+}
+
+/* 状态标识 */
+/* .status {
+  font-weight: 600;
+  text-transform: uppercase;
+} */
+
+/* .status.normal {
+  color: #4CAF50;
+}
+
+.status.abnormal {
+  color: #F44336;
+} */
