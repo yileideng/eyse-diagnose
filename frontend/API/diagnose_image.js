@@ -1,28 +1,18 @@
-function diagnose() {
-  var form = new FormData();
-  form.append("fileList", fileInput.files[0], "C:\\path\\ppp");
-  form.append("fileList", fileInput.files[0], "C:\\path\\ppp");
-  form.append("fileList", fileInput.files[0], "C:\\path\\ppp");
-
+function diagnose(formData) { // 接收formData参数
   var settings = {
-    "url": "http://localhost:8080/diagnose/upload/image",
+    "url": "http://8.137.104.3:8082/diagnose/upload/image",
     "method": "POST",
-    "timeout": 5000,
+    "timeout": 50000,
     "headers": {
-      "Authorization": "登录后返回的Token"
+      "Authorization": localStorage.getItem('token')// 从本地存储获取token
     },
     "processData": false,
     "mimeType": "multipart/form-data",
     "contentType": false,
-    "data": form
+    "data": formData
   };
-  var diagnoseRequest = $.ajax(settings)
-  diagnoseRequest.done(function (response) {
-    console.log(response);
-  });
-  diagnoseRequest.fail(function (error) {
-    console.log(error)
-  })
-  return diagnoseRequest
+
+  return $.ajax(settings);
 }
+
 export { diagnose }

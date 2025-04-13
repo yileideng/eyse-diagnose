@@ -1,26 +1,23 @@
-function register() {
-  var settings = {
-    "url": "http://localhost:8080/register",
-    "method": "POST",
-    "timeout": 2000,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "data": JSON.stringify({
-      "username": "string",
-      "password": "string",
-      "email": "string",
-      "phoneNumber": "string",
-      "avatarUrl": "string"
-    }),
-  };
-  var registerRequest = $.ajax(settings)
-  registerRequest.done(function (response) {
-    console.log(response);
+// register.js
+function register(username, password, email, code) {
+  return $.ajax({
+    url: "http://8.137.104.3:8082/register",
+    method: "POST",
+    timeout: 2000,
+    headers: { "Content-Type": "application/json" },
+    data: JSON.stringify({
+      username, password, email, code,
+
+    }) // 动态传递参数
   });
-  registerRequest.fail(function (error) {
-    console.log(error)
-  })
-  return registerRequest
 }
+//   var registerRequest = $.ajax(settings)
+//   registerRequest.done(function (response) {
+//     console.log(response);
+//   });
+//   registerRequest.fail(function (error) {
+//     console.log(error)
+//   })
+//   return registerRequest
+// }
 export { register }
