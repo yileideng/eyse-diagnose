@@ -1,26 +1,15 @@
-function update() {
-  var settings = {
-    "url": "http://localhost:8080/user/update",
+function update(data) {
+  const settings = {
+    "url": "http://8.137.104.3:8082/user/update",
     "method": "PUT",
     "timeout": 3000,
     "headers": {
-      "Authorization": "用户登录返回的Token",
+      "Authorization": localStorage.getItem('token'),
       "Content-Type": "application/json"
     },
-    "data": JSON.stringify({
-      "username": "string",
-      "email": "string",
-      "phoneNumber": "string",
-      "avatarUrl": "string"
-    }),
+    "data": JSON.stringify(data)
   };
-  var updateRequest = $.ajax(settings)
-  updateRequest.done(function (response) {
-    console.log(response);
-  });
-  updateRequest.fail(function (error) {
-    console.log(error)
-  })
-  return updateRequest
+
+  return $.ajax(settings);
 }
 export { update }

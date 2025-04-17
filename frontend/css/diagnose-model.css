@@ -1,0 +1,105 @@
+/* 诊断报告模态框 */
+.diagnose-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 800px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 15px;
+  padding: 30px;
+  color: rgb(43, 43, 43);
+  z-index: 9999;
+  display: none;
+  overflow: auto;
+  height: 90vh;
+  box-sizing: content-box;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d35656;
+  /* 轨道背景 */
+  border-radius: 10px;
+  /* 圆角 */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #666;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  color: #2196F3;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.model-content {
+  margin-bottom: 20px;
+  /* overflow: scroll; */
+}
+
+.disease-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+
+}
+
+.disease-table th,
+.disease-table td {
+  padding: 12px;
+  border: 3px solid #444;
+  text-align: left;
+  color: #444;
+  font-weight: 500;
+  text-align: center;
+}
+
+.disease-table th {
+  background: rgba(70, 70, 70, 0.5);
+}
+
+.probability-bar {
+  background: #2196F3;
+  height: 20px;
+  border-radius: 4px;
+  transition: width 0.5s;
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-normal {
+  background: #4CAF50;
+}
+
+.status-abnormal {
+  background: #F44336;
+}
+
+.diagnose-modal {
+  animation: modalIn 0.3s ease-out;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

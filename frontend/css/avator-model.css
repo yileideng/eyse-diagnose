@@ -1,0 +1,134 @@
+.avatar-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(25, 25, 25, 0.5);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 内容容器 */
+.modal-content {
+  background: #1a1a1a;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+/* 头部样式 */
+.modal-header {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h5 {
+  margin: 0;
+  font: 500 20px/1.5 'Microsoft YaHei';
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.modal-body {
+  padding: 24px;
+  position: relative;
+}
+
+.cropper-container {
+  width: 100%;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 底部操作区 */
+.modal-footer {
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+#cropper-image {
+  max-width: 100%;
+}
+
+#avatar-input {
+  display: none;
+}
+
+.upload-label {
+  display: block;
+  margin-bottom: 20px;
+  padding: 12px 24px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 2px dashed rgba(99, 102, 241, 0.3);
+  border-radius: 8px;
+  text-align: center;
+  color: #8b5cf6;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-label svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+.upload-label:hover {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: #6366f1;
+  transform: translateY(-2px);
+}
+
+button {
+  padding: 8px 20px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 28px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    border-radius: 12px;
+  }
+
+  .cropper-container {
+    height: 300px;
+  }
+
+  .modal-header {
+    padding: 18px;
+  }
+
+  .modal-body {
+    padding: 18px;
+  }
+}

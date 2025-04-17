@@ -9,6 +9,7 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  z-index: 3;
 }
 
 .main-svg {
@@ -21,12 +22,13 @@
 .eyes-svg {
   opacity: 0;
   transform-origin: center;
-  pointer-events: auto;
+  pointer-events: none !important;
   transition: opacity 0.3s ease, transform 0.8s ease;
 }
 
 .append-svg {
   opacity: 1;
+  pointer-events: none !important;
 }
 
 .diagnose-content:hover .append-svg {
@@ -40,11 +42,6 @@
   animation: blink 2s ease-in-out -1.5s infinite alternate;
 }
 
-.diagnose-content.active .three-major-symptoms {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
 
 .diagnose-content.active .append-svg,
 .diagnose-content.active .eyes-svg {
@@ -71,6 +68,7 @@
 .common-svg {
   cursor: pointer;
   z-index: 2;
+  pointer-events: none !important;
 }
 
 .three-major-symptoms {
@@ -83,25 +81,30 @@
   opacity: 0;
   visibility: hidden;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateY(20px)
+  transform: translateY(20px);
+  isolation: isolate;
+  /* overflow: visible !important; */
 }
 
 .major {
+  position: relative;
   width: 270px;
   height: 270px;
-  background: #464646;
+  background: rgba(70, 70, 70, 0.5);
   border-radius: 50px;
-  opacity: 0.6;
+
   display: flex;
   justify-content: center;
   align-items: center;
   transform: scale(0.8);
   transition: all 0.4s ease 0.2s;
   cursor: pointer;
+  z-index: 5;
+  /* overflow: visible !important; */
 }
 
 .major:hover {
-  transform: scale(1.05) !important;
+  transform: scale(1.04) !important;
   background: rgba(70, 70, 70, 0.8) !important;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
@@ -110,10 +113,15 @@
   transform: scale(1);
 }
 
+.diagnose-content.active {
+  pointer-events: none;
+}
+
 .diagnose-content.active .three-major-symptoms {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* SVG元素动画 */
@@ -146,8 +154,8 @@
 }
 
 .major:hover::after {
-  width: 120%;
-  height: 120%;
+  width: 130%;
+  height: 130%;
 }
 
 /* 定义浮动动画 */
@@ -156,10 +164,12 @@
   0%,
   100% {
     transform: translateY(0);
+    z-index: 5;
   }
 
   50% {
     transform: translateY(-8px);
+    z-index: 5;
   }
 }
 
@@ -208,4 +218,35 @@
   40% {
     opacity: 0;
   }
+}
+
+.major3.disabled,
+.major2.disabled,
+.major1.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default !important;
+}
+
+.major .tooltip {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(90, 90, 90, 0.9);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.3s;
+  font-size: 14px;
+  z-index: 9999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2)
+}
+
+.major:hover .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
 }

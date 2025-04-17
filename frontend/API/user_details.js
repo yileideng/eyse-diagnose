@@ -1,6 +1,6 @@
 function user_details() {
   var settings = {
-    "url": "http://localhost:8080/user/details",
+    "url": "http://8.137.104.3:8082/user/details",
     "method": "GET",
     "timeout": 2000,
     "headers": {

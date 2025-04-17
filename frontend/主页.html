@@ -129,7 +129,29 @@
     <div class="backgroundMask">
       <div id="content">
         <div class="navbar navbar-expand-lg navbar-dark ">
-          <a class="navbar-brand" href="#"><img src="./photograph/屏幕截图 2025-03-01 145911.png" alt="logo">
+          <a class="navbar-brand" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="42.267" height="40.686"
+              viewBox="0 0 42.267 40.686">
+              <defs>
+                <style>
+                  .a {
+                    fill: none;
+                    stroke: #fff;
+                    stroke-miterlimit: 10;
+                    stroke-width: 2.5px;
+                  }
+                </style>
+              </defs>
+              <g transform="translate(-0.02 0)">
+                <path class="a"
+                  d="M34.85,34.38a3.73,3.73,0,0,1,.49-.29,2.66,2.66,0,0,1,1.89-.21,2.54,2.54,0,0,1,1.46,1.21L41.24,39" />
+                <path class="a"
+                  d="M27.4,20.61c0,4.66-1.38,8.44-3.07,8.44s-3.06-3.78-3.06-8.44,1.37-8.45,3.06-8.45S27.4,15.94,27.4,20.61Z" />
+                <path class="a"
+                  d="M24.64,12.15c-9.09,0-16.45,3.8-16.45,8.46s7.42,8.45,16.56,8.45a27.1,27.1,0,0,0,5.67-.52C32.79,28,38.6,26.73,40,22.73a5.54,5.54,0,0,0,.29-2.2" />
+                <path class="a"
+                  d="M40.27,20.72A19.43,19.43,0,0,0,34.65,6.53,20.59,20.59,0,0,0,21.27,1.25c-11.06,0-20,8.55-20,19.09,0,11.35,10.74,18.85,20,19.09a20.91,20.91,0,0,0,13.72-5.19" />
+              </g>
+            </svg>
           </a>
           <span class="brand"><strong>Eyes Diagnose</strong></span>
           <div class=" collapse navbar-collapse" id="navbarNav">
@@ -143,10 +165,23 @@
               <li class="nav-item">
                 <a class="nav-link" href="历史诊断.html">历史诊断</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="个人信息.html">个人信息</a>
+              </li>
               <li class="nav-item nav-search">
                 <span class="search">搜索</span>
                 <div class="search-bar">
-                  <span class="search-icon">🔍</span>
+                  <span class="search-icon">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                      <g fill="none" fill-rule="evenodd">
+                        <path
+                          d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                        <path fill="currentColor"
+                          d="M10.5 2a8.5 8.5 0 1 0 5.262 15.176l3.652 3.652a1 1 0 0 0 1.414-1.414l-3.652-3.652A8.5 8.5 0 0 0 10.5 2M4 10.5a6.5 6.5 0 1 1 13 0a6.5 6.5 0 0 1-13 0" />
+                      </g>
+                    </svg>
+                  </span>
                   <input type="text" class="search-input" placeholder="-搜索编号-">
                 </div>
               </li>
@@ -169,9 +204,18 @@
 
       </div>
       <div class="right-button-group">
-        <li class="dot first active"></li>
-        <li class="dot second"></li>
-        <li class="dot third"></li>
+        <a href="#">
+          <li class="dot first active"></li>
+        </a>
+        <a href="诊断.html">
+          <li class="dot second"></li>
+        </a>
+        <a href="历史诊断.html">
+          <li class="dot third"></li>
+        </a>
+        <a href="个人信息.html">
+          <li class="dot fourth"></li>
+        </a>
       </div>
     </div>
   </div>
@@ -179,6 +223,11 @@
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
   <script>
+    const searchInput = document.querySelector('.search-input');
+    searchInput.addEventListener('click', () => {
+      alert('搜索功能暂未开放');
+      console.log('搜索功能暂未开放');
+    });
     $(document).ready(function () {
       $(".toDiagnose").click(function () {
         // 加上过渡动画

@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="./css/general.css">
   <link rel="stylesheet" href="./css/diagnose.css">
   <link rel="stylesheet" href="./css/right-bottom-group.css">
+  <link rel="stylesheet" href="./css/diagnose-model.css">
+  <link rel="stylesheet" href="./css/zipDiagnose.css">
+  <link rel="stylesheet" href="./css/print.css">
   <title>诊断界面</title>
   <style>
     .container {
@@ -31,10 +34,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+
     }
 
     .icon-box {
       position: relative;
+      z-index: 10000;
       width: 76px;
       height: 351px;
       background: rgba(90, 91, 91, 0.4);
@@ -92,6 +97,84 @@
       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       opacity: 0;
     }
+
+
+    /* 添加拖拽区域样式 */
+    .drag-over {
+      border: 2px dashed #fff !important;
+      background: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .upload-status {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 8px;
+      color: white;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .upload-status.error {
+      background: rgba(255, 50, 50, 0.9);
+      border: 1px solid #ff0000;
+    }
+
+    .upload-status.success {
+      background: rgba(50, 200, 50, 0.9);
+      border: 1px solid #00ff00;
+    }
+
+    /* 添加常规样式 */
+    .btn-print {
+      /* position: absolute;
+      bottom: 20px;
+      right: 30px; */
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 15px;
+      transition: all 0.3s;
+    }
+
+    .btn-print:hover {
+      background: #45a049;
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .image-preview {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 300px;
+    }
+
+    .image-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 45%;
+      height: 70%;
+    }
+
+    .image-item img {
+      position: relative !important;
+      width: 100% !important;
+      height: 100%;
+    }
   </style>
 </head>
 
@@ -101,7 +184,29 @@
     <div class="backgroundMask">
       <div id="content">
         <div class="navbar navbar-expand-lg navbar-dark ">
-          <a class="navbar-brand" href="#"><img src="./photograph/屏幕截图 2025-03-01 145911.png" alt="logo">
+          <a class="navbar-brand" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="42.267" height="40.686"
+              viewBox="0 0 42.267 40.686">
+              <defs>
+                <style>
+                  .icon-a {
+                    fill: none;
+                    stroke: #fff;
+                    stroke-miterlimit: 10;
+                    stroke-width: 2.5px;
+                  }
+                </style>
+              </defs>
+              <g transform="translate(-0.02 0)">
+                <path class="icon-a"
+                  d="M34.85,34.38a3.73,3.73,0,0,1,.49-.29,2.66,2.66,0,0,1,1.89-.21,2.54,2.54,0,0,1,1.46,1.21L41.24,39" />
+                <path class="icon-a"
+                  d="M27.4,20.61c0,4.66-1.38,8.44-3.07,8.44s-3.06-3.78-3.06-8.44,1.37-8.45,3.06-8.45S27.4,15.94,27.4,20.61Z" />
+                <path class="icon-a"
+                  d="M24.64,12.15c-9.09,0-16.45,3.8-16.45,8.46s7.42,8.45,16.56,8.45a27.1,27.1,0,0,0,5.67-.52C32.79,28,38.6,26.73,40,22.73a5.54,5.54,0,0,0,.29-2.2" />
+                <path class="icon-a"
+                  d="M40.27,20.72A19.43,19.43,0,0,0,34.65,6.53,20.59,20.59,0,0,0,21.27,1.25c-11.06,0-20,8.55-20,19.09,0,11.35,10.74,18.85,20,19.09a20.91,20.91,0,0,0,13.72-5.19" />
+              </g>
+            </svg>
           </a>
           <span class="brand"><strong>Eyes Diagnose</strong></span>
           <div class=" collapse navbar-collapse" id="navbarNav">
@@ -115,10 +220,23 @@
               <li class="nav-item">
                 <a class="nav-link" href="历史诊断.html">历史诊断</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="个人信息.html">个人信息</a>
+              </li>
               <li class="nav-item nav-search">
                 <span class="search">搜索</span>
                 <div class="search-bar">
-                  <span class="search-icon">🔍</span>
+                  <span class="search-icon">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                      <g fill="none" fill-rule="evenodd">
+                        <path
+                          d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                        <path fill="currentColor"
+                          d="M10.5 2a8.5 8.5 0 1 0 5.262 15.176l3.652 3.652a1 1 0 0 0 1.414-1.414l-3.652-3.652A8.5 8.5 0 0 0 10.5 2M4 10.5a6.5 6.5 0 1 1 13 0a6.5 6.5 0 0 1-13 0" />
+                      </g>
+                    </svg>
+                  </span>
                   <input type="text" class="search-input" placeholder="-搜索编号-">
                 </div>
               </li>
@@ -342,7 +460,8 @@
               </svg>
               <div class="three-major-symptoms">
                 <div class="major1 major">
-
+                  <div class="tooltip">上传ZIP压缩包（支持批量）</div>
+                  <input type="file" id="zip-upload" hidden accept=".zip" multiple style="z-index: 1;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="47.749" height="45.02" viewBox="0 0 47.749 45.02">
                     <defs>
                       <style>
@@ -372,7 +491,8 @@
                   </svg>
                 </div>
                 <div class="major2 major">
-
+                  <div class="tooltip">上传双目图片（左眼+右眼）</div>
+                  <input type="file" id="image-upload" hidden accept="image/*" multiple style="z-index: 1; ">
                   <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41">
                     <defs>
                       <style>
@@ -415,7 +535,7 @@
                   </svg>
                 </div>
                 <div class="major3 major">
-
+                  <div class="tooltip">点击获取诊断意见</div>
                   <svg xmlns="http://www.w3.org/2000/svg" width="51.732" height="48.004" viewBox="0 0 51.732 48.004">
                     <defs>
                       <style>
@@ -447,31 +567,61 @@
       </div>
 
       <div class="right-button-group">
-        <li class="dot first active"></li>
-        <li class="dot second"></li>
-        <li class="dot third"></li>
+        <a href="主页.html">
+          <li class="dot first "></li>
+        </a>
+        <a href="#">
+          <li class="dot second active"></li>
+        </a>
+        <a href="历史诊断.html">
+          <li class="dot third"></li>
+        </a>
+        <a href="个人信息.html">
+          <li class="dot fourth"></li>
+        </a>
+      </div>
+      <!-- 诊断报告弹窗 -->
+      <div class="diagnose-modal">
+        <div class="modal-header">
+          <h3>诊断报告</h3>
+          <div class="modal-close">×</div>
+        </div>
+        <button class="btn-print">打印报告</button>
+        <div class="modal-content">
+
+        </div>
       </div>
     </div>
   </div>
   <script src="./js/jquery-3.7.1.js"></script>
   <script src="./js/bootstrap.min.js"></script>
-  <script>
+  <script type="module">
+    const searchInput = document.querySelector('.search-input');
     const contractSvg = document.querySelector('.contract-svg');
     const expandSvg = document.querySelector('.expand-svg');
     const newSvg = document.querySelector('.new-svg');
     const diagnoseContent = document.querySelector('.diagnose-content');
     const threeMajorSymptoms = document.querySelector('.three-major-symptoms');
+
+    searchInput.addEventListener('click', () => {
+      alert('搜索功能暂未开放');
+      console.log('搜索功能暂未开放');
+    });
+
+
     document.querySelector('.diagnose-content').addEventListener('click', function (e) {
-      e.stopPropagation(); // 阻止事件冒泡
-      this.classList.add('active');
+      if (!this.classList.contains('active')) {
+        this.classList.add('active');
+      }
+
       diagnoseContent.style.cssText = `background: rgba(0, 0, 0, 0)`;
-      threeMajorSymptoms.style.cssText = `z-index: 2;`;
+      threeMajorSymptoms.style.cssText = `z-index: 5;`;
       // 外围点击检测
       const clickHandler = (event) => {
         if (!this.contains(event.target)) {
           this.classList.remove('active');
           diagnoseContent.style.cssText = `background: rgba(90, 91, 91, 0.4)`;
-          document.removeEventListener('click', clickHandler);
+          document.removeEventListener('click', clickHandler, true);
         }
       };
 
@@ -496,6 +646,612 @@
       }, { once: true });
     })
 
+
+
+
+    import { diagnose } from './API/diagnose_image.js';
+    import { uploadZip } from './API/ml.js';
+    import { opinion } from './API/diagnostic_opinion.js';
+    import { diagnoseZip } from './API/diagnose_zip.js';
+
+
+    // 初始化上传功能
+    function initUpload() {
+      const major2 = document.querySelector('.major2');
+      const fileInput = document.getElementById('image-upload');
+      const major1 = document.querySelector('.major1');
+      const zipInput = document.getElementById('zip-upload');
+      const major3 = document.querySelector('.major3');
+      document.querySelector('.btn-print').addEventListener('click', () => {
+        console.log('打印报告')
+        printDiagnoseReport();
+      });
+      major1.addEventListener('click', (e) => {
+        e.stopImmediatePropagation();
+        zipInput.click();
+      });
+
+      // 文件选择事件
+      zipInput.addEventListener('change', async (e) => {
+        const files = Array.from(e.target.files); // ✅ 明确表示多文件
+        if (files.length === 0) return;
+
+
+        const formData = new FormData();
+        const invalidFiles = files.filter(file => !file.name.endsWith('.zip'));
+        if (invalidFiles.length > 0) {
+          showStatus('仅支持ZIP格式', false);
+          return;
+        }
+
+        try {
+          files.forEach((file, index) => {
+            formData.append('fileList', file); // 使用统一字段名
+          });
+          // formData.append('diagnoseType', 'zip');
+          console.log(formData)
+          const response = await uploadZip(formData);
+          console.log('诊断结果:', response);
+          showStatus('上传成功', true);
+          major2.classList.add('disabled');
+          // 存储返回的ID
+          const result = JSON.parse(response);
+          const currentDiagnoses = JSON.parse(localStorage.getItem('diagnoses')) || [];
+          currentDiagnoses.push({
+            zipIds: result.data.map(item => item.id),
+            timestamp: new Date().toISOString(),
+            type: 'zip',
+            zipNames: result.data.map(item => item.name),
+            zipUrls: result.data.map(item => item.url),
+
+          });
+
+          console.log(currentDiagnoses)
+
+          localStorage.setItem('diagnoses', JSON.stringify(currentDiagnoses));
+
+          major3.classList.remove('disabled');
+          major1.classList.add('disabled');
+          major2.classList.add('disabled');
+
+        } catch (error) {
+          console.error('上传失败:', error.status, error.statusText, error.responseText)
+          showStatus('上传失败: ' + error.responseJSON?.message, false);
+        }
+      });
+      // 点击触发文件选择
+      major2.addEventListener('click', (e) => {
+        e.stopImmediatePropagation();
+        fileInput.click();
+      });
+
+      // 文件选择处理
+      fileInput.addEventListener('change', async (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length !== 2) {
+          showStatus('请选择2张眼部照片', false);
+          e.target.value = ''; // 清空选择
+          return;
+        }
+        const validTypes = ['image/jpeg', 'image/png'];
+        if (!files.every(file => validTypes.includes(file.type))) {
+          showStatus('仅支持JPG/PNG格式', false);
+          return;
+        }
+        // ▲▲▲ 验证结束 ▲▲▲
+
+        showStatus('上传中...');
+        try {
+          const formData = new FormData();
+          files.forEach((file, index) => {
+            formData.append(`eye_image_${index + 1}`, file); // 明确命名
+          });
+          formData.append('diagnoseType', 'retinal');
+
+          const result = JSON.parse(await handleUpload(files));
+          const imageIds = result.data.map(item => item.id);
+
+          if (imageIds.length !== 2) {
+            throw new Error('未能获取完整图片, 请重新上传');
+          }
+          // ▼▼▼ 修改存储结构为对象数组 ▼▼▼
+          const currentDiagnoses = JSON.parse(localStorage.getItem('diagnoses')) || [];
+          currentDiagnoses.push({
+            // push到数组中，包含两张图的id
+            diagnoseId: generateUniqueId(), // 生成独立诊断ID
+            imageIds,
+            timestamp: new Date().toISOString(),
+            imageCount: 2,
+            type: 'retinal'
+          });
+          localStorage.setItem('diagnoses', JSON.stringify(currentDiagnoses));
+          // ▲▲▲ 结构化存储 ▲▲▲
+          console.log(result)
+          showStatus('上传成功', true);
+          major3.classList.remove('disabled');
+          major1.classList.add('disabled');
+          major2.classList.add('disabled');
+        } catch (error) {
+          showStatus('上传失败', false);
+          console.error('上传失败:', error.status, error.statusText, error.responseText);
+        }
+      });
+
+      // 拖拽处理
+      major2.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        major2.classList.add('drag-over');
+      });
+
+      major2.addEventListener('dragleave', () => {
+        major2.classList.remove('drag-over');
+      });
+
+      major2.addEventListener('drop', async (e) => {
+        e.preventDefault();
+        major2.classList.remove('drag-over');
+
+        const files = Array.from(e.dataTransfer.files);
+        if (files.length !== 2) {
+          showStatus('请拖拽2张眼部照片（左眼+右眼）', false);
+          return;
+        }
+        const validTypes = ['image/jpeg', 'image/png'];
+        if (!files.every(file => validTypes.includes(file.type))) {
+          showStatus('仅支持JPG/PNG格式', false);
+          return;
+        }
+        // ▲▲▲ 验证结束 ▲▲▲
+
+        showStatus('上传中...');
+        try {
+          const formData = new FormData();
+          files.forEach((file, index) => {
+            formData.append(`eye_image_${index + 1}`, file);
+          });
+          formData.append('diagnoseType', 'retinal');
+
+          const result = JSON.parse(await handleUpload(files));
+          const imageIds = result.data.map(item => item.id);
+
+          if (imageIds.length !== 2) {
+            throw new Error('未能获取完整图片, 请重新上传');
+          }
+          // ▼▼▼ 统一使用新的存储结构 ▼▼▼
+          const currentDiagnoses = JSON.parse(localStorage.getItem('diagnoses')) || [];
+          currentDiagnoses.push({
+            diagnoseId: generateUniqueId(), // 生成独立诊断ID
+            imageIds,
+            timestamp: new Date().toISOString(),
+            imageCount: files.length, // 动态记录数量
+            type: 'retinal'
+          });
+          localStorage.setItem('diagnoses', JSON.stringify(currentDiagnoses));
+          // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+          showStatus('上传成功', true);
+          major3.classList.remove('disabled');
+          major1.classList.add('disabled');
+          major2.classList.add('disabled');
+        } catch (error) {
+          showStatus('上传失败', false);
+        }
+      })
+
+      // 处理上传逻辑
+      async function handleUpload(files) {
+        // 替换原有硬编码文件路径
+        const form = new FormData();
+        for (let i = 0; i < files.length; i++) {
+          form.append("fileList", files[i], files[i].name);
+        }
+
+        // 调用导入的diagnose函数
+        return diagnose(form);
+      }
+
+      // 显示上传状态
+      function showStatus(message, isSuccess) {
+        const statusDiv = document.createElement('div');
+        statusDiv.className = `upload-status ${isSuccess ? 'success' : 'error'}`;
+        statusDiv.textContent = message;
+        statusDiv.innerHTML = `
+    ${isSuccess ? '✅' : '⚠️'} 
+    <span>${message}</span>
+  `;
+
+        setTimeout(() => {
+          statusDiv.style.opacity = 0;
+          setTimeout(() => statusDiv.remove(), 500);
+        }, 3000);
+        document.body.appendChild(statusDiv);
+      }
+
+
+      // 诊断意见
+
+      major3.addEventListener('click', async (e) => {
+        e.stopPropagation();
+
+        // 从localStorage获取诊断记录
+        const diagnoses = JSON.parse(localStorage.getItem('diagnoses')) || [];
+        console.log('诊断记录:', diagnoses);
+        if (diagnoses.length === 0) {
+          alert('没有可用的诊断记录');
+          return;
+        }
+
+        // 获取最新记录的图片ID
+        const latestDiagnosis = diagnoses[diagnoses.length - 1];
+        console.log(JSON.stringify(latestDiagnosis.zipIds))
+        // ZIP批量诊断分支
+        if (latestDiagnosis.type === 'zip') {
+          try {
+            showStatus('正在生成批量诊断报告...', true);
+            console.log('zip')
+            // 调用diagnoseZip接口
+            const response = await diagnoseZip(latestDiagnosis.zipIds);
+            console.log(response)
+            // 新增数据转换逻辑
+            const formattedData = formatBulkData(response.data);
+            console.log(formattedData)
+            showBulkModal(formattedData);
+
+            // 存储结果
+            const results = JSON.parse(localStorage.getItem('resultIds') || '[]');
+            results.push({
+              timestamp: new Date().toISOString(),
+              zipNames: latestDiagnosis.zipNames.map(name => name.replace('.zip', '')),
+              resultId: response.data.id,//诊断总报告id
+              zipIds: latestDiagnosis.zipIds.map(id => id),
+              zipUrls: latestDiagnosis.zipUrls.map(url => url),
+              reportUrl: response.data.avatarUrl,
+              type: 'zip'
+            });
+            localStorage.setItem('resultIds', JSON.stringify(results));
+
+          } catch (error) {
+            showStatus(`诊断失败: ${error.responseJSON?.message}`, false);
+            console.error('诊断失败:', error.status, error.statusText, error.responseText);
+          }
+        } else {
+          const imageIds = latestDiagnosis.imageIds;
+          console.log('最新诊断记录:', latestDiagnosis);
+          if (!imageIds || imageIds.length !== 2) {
+            console.error('无效的图片ID');
+            return;
+          }
+          showStatus('获取诊断报告中...', true);
+          try {
+            // 调用诊断意见接口
+            const response = await opinion(imageIds);
+            showDiagnoseModal(response.data);
+            console.log(response.data.id)
+            // 以数组的形式存储response.data.id到localStorage
+            const currentDiagnoses = JSON.parse(localStorage.getItem('resultIds')) || [];
+            currentDiagnoses.push({
+              resultId: response.data.id,
+              timestamp: new Date().toISOString(),
+              type: 'images'
+            });
+            localStorage.setItem('resultIds', JSON.stringify(currentDiagnoses));
+
+
+            // 新增显示模态框函数
+            function showDiagnoseModal(data) {
+              const modal = document.querySelector('.diagnose-modal');
+              const content = modal.querySelector('.modal-content');
+
+              // 构建表格HTML
+              let html = `
+    <div class="user-info">
+      <p>诊断时间：${new Date(data.time).toLocaleString()}</p>
+      <p>用户ID：${data.userId}</p>
+    </div>
+
+    <h4>疾病预测结果：</h4>
+    <table class="disease-table">
+      <thead>
+        <tr>
+          <th>疾病名称</th>
+          <th>概率</th>
+          <th>状态</th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+              const diseases = data.report.predictionResultsList[0].diseases;
+              for (const [name, info] of Object.entries(diseases)) {
+                html += `
+      <tr>
+        <td>${name}</td>
+        <td>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <div class="probability-bar" style="width: ${info.probability * 100}%"></div>
+            <span>${(info.probability * 100).toFixed(2)}%</span>
+          </div>
+        </td>
+        <td>
+          <span class="status-indicator ${info.status ? 'status-abnormal' : 'status-normal'}"></span>
+          ${info.status ? '异常' : '正常'}
+        </td>
+      </tr>`;
+              }
+
+              html += `</tbody></table>`;
+
+              // 添加图片链接
+              html += `
+    <h4>原始图片：</h4>
+<div class="image-preview">`;
+              data.urlList.forEach(url => {
+                html += `
+  <div class="image-item">
+    <img src="${url}" alt="诊断图片" style="max-width: 300px; height: auto; margin: 10px 0; border: 1px solid #ddd;">
+  </div>`;
+              });
+              html += `</div>`;
+
+              content.innerHTML = html;
+              modal.style.display = 'block';
+
+              // 关闭事件
+              modal.querySelector('.modal-close').addEventListener('click', () => {
+                modal.style.display = 'none';
+              });
+            }
+
+            // 显示诊断结果
+            console.log('诊断意见:', response);
+            // 清除上一个status状态
+            const statusDiv = document.querySelector('.upload-status');
+            if (statusDiv) {
+              statusDiv.style.opacity = 0;
+              setTimeout(() => statusDiv.remove(), 500);
+            }
+            showStatus('获取成功', true);
+            // ▼▼▼ 清空历史诊断数据 ▼▼▼
+            localStorage.removeItem('latestDiagnosis');
+            console.log('已清空本次诊断记录');
+            // 将major3变为不可点击
+            major3.classList.add('disabled');
+            major1.classList.remove('disabled');
+            major2.classList.remove('disabled');
+          } catch (error) {
+            console.error('获取诊断意见失败:', error.status, error.statusText, error.responseText);
+            localStorage.removeItem('latestDiagnosis');
+            console.log('已清空本次诊断记录');
+          }
+        }
+      });
+
+      // 新增数据格式化方法
+      function formatBulkData(responseData) {
+        console.log(111)
+        console.log(responseData)
+        if (!responseData?.report?.predictionResultsList) {
+          console.error('无效的响应数据结构');
+          return null;
+        }
+        return {
+          userName: responseData.username || '未知用户',
+          diagnoseTime: responseData.time || '未知时间',
+          reports: responseData.report.predictionResultsList.map((result, index) => {
+            // 获取对应的ZIP文件信息
+            const zipFile = responseData.urlList?.[index] || '';
+
+            return {
+              zipName: `诊断样本_${index + 1}`,
+              downloadUrl: zipFile,
+              diseases: Object.entries(result.diseases).map(([name, info]) => ({
+                name,
+                probability: Number(info.probability.toFixed(6)),
+                status: info.status === 1 ? '异常' : '正常'
+              }))
+            };
+          })
+        };
+      }
+      // 批量诊断模态框
+      function showBulkModal(formattedData) {
+        const modal = document.querySelector('.diagnose-modal');
+        const content = modal.querySelector('.modal-content');
+
+        let html = `
+      <div class="user-info">
+        <p>用户：${formattedData.userName}</p>
+        <p>报告时间：${new Date(formattedData.diagnoseTime).toLocaleString()}</p>
+      </div>`;
+
+        formattedData.reports.forEach((report, index) => {
+          html += `
+    <div class="zip-report">
+      <div class="report-title">
+        <h4>${report.zipName}</h4>
+        <a href="${report.downloadUrl}" class="download-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          下载原始文件
+        </a>
+      </div>
+
+      <table class="disease-table">
+        <thead>
+          <tr>
+            <th>疾病名称</th>
+            <th>概率</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+          report.diseases.forEach(disease => {
+            const percent = (disease.probability * 100).toFixed(3);
+            html += `
+          <tr>
+            <td>${disease.name}</td>
+            <td>
+              <div style="display: flex; align-items: center; gap: 10px">
+              <div class="probability-bar" style="width: ${percent}%"></div>
+
+                <span>${percent}%</span>
+              </div> 
+            </td>
+            <td>
+            <span class="status-indicator ${disease.status === '异常' ? 'status-abnormal' : 'status-normal'}"></span>
+              ${disease.status}
+            </td>
+          </tr>`;
+          });
+
+          html += `</tbody></table></div>
+          `;
+        });
+
+        content.innerHTML = html;
+        modal.style.display = 'block';
+        modal.querySelector('.modal-close').addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
+        // // 打印功能
+        // modal.querySelector('.btn-print').addEventListener('click', () => {
+        //   console.log('打印报告')
+        //   printDiagnoseReport();
+        // });
+      }
+
+      function printDiagnoseReport() {
+        const printWindow = window.open('', '_blank');
+        const content = document.querySelector('.diagnose-modal').outerHTML;
+        // function generatePDF() {
+        //   html2pdf()
+        //     .from(document.querySelector('.diagnose-modal'))
+        //     .set({
+        //       margin: [15, 15],
+        //       filename: 'diagnose-report.pdf',
+        //       pagebreak: { mode: 'avoid-all' }
+        //     })
+        //     .save();
+        // }
+        printWindow.document.write(`
+    <html>
+      <head>
+        <title>诊断报告打印</title>
+        <style>
+           @media print {
+      body * {
+        visibility: hidden;
+
+      }
+
+      .btn-print {
+        display: none;
+      }
+
+      .modal-close{
+        display: none;
+      }
+
+      .diagnose-modal,
+      .diagnose-modal * {
+        visibility: visible;
+      }
+    .image-preview {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 300px;
+    }
+
+    .image-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 45%;
+      height: 70%;
+    }
+
+    .image-item img {
+      position: relative !important;
+      width: 100% !important;
+      height: 100%;
+    }
+      .diagnose-modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100% !important;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+      }
+
+      .modal-actions,
+      .download-btn {
+        display: none !important;
+      }
+
+      /* 添加页眉页脚 */
+      @page {
+        size: A4;
+        margin: 2cm;
+
+        @top-left {
+          content: "Eyes Diagnose 诊断报告";
+          font-size: 10pt;
+        }
+
+        @bottom-right {
+          content: "页 " counter(page);
+          font-size: 10pt;
+        }
+      }
+
+      /* 优化表格打印 */
+      .disease-table {
+        page-break-inside: avoid;
+        break-inside: avoid-page;
+      }
+
+      .probability-bar {
+        background-color: #f1f1f1 !important;
+        -webkit-print-color-adjust: exact;
+       
+      }
+    }
+          body { font-family: 'Microsoft YaHei', sans-serif; }
+          .disease-table { width: 100%; }
+          .probability-bar { height: 20px; }
+        </style>
+      </head>
+      <body>
+        ${content}
+        <script>
+          window.onload = function() {
+            window.print();
+            window.onafterprint = function() {
+              window.close();
+            }
+          }
+  <\/script>
+<\/body>
+
+<\/html>
+`);
+        printWindow.document.close();
+      }
+    }
+    function generateUniqueId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+    }
+
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', initUpload);
   </script>
 </body>
 

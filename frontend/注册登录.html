@@ -15,6 +15,49 @@
   <link rel="stylesheet" href="./css/welcome.css">
   <title>Eye Diseases Detection—登录注册</title>
 </head>
+<style>
+  .verification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .verification .name {
+    width: 50%;
+    padding-bottom: 5px;
+    position: relative;
+  }
+
+  .name {
+    width: 100%;
+    padding-bottom: 5px;
+    position: relative;
+  }
+
+  .aquire {
+    width: 105px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(121, 121, 121, 0.5);
+    font-size: 16px;
+    font-family: Microsoft YaHei-Regular, Microsoft YaHei;
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 83px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    cursor: pointer;
+    margin-right: 110px;
+  }
+
+  .aquire:hover {
+    background: #333333;
+  }
+</style>
 
 <body>
 
@@ -70,11 +113,25 @@
             </div>
           </div>
           <div class="email list-item">
-            <div class="input-group mb-3">
-              <input type="email" class="form-control register-email  " placeholder="邮箱" aria-label="Email"
-                aria-describedby="basic-addon1">
+            <div class="verification">
+
+              <div class="input-group mb-3 name">
+                <input type="email" class="form-control register-email  " placeholder="邮箱" aria-label="Email"
+                  aria-describedby="basic-addon1">
+              </div>
+              <div class="aquire email-aquire">获取验证码</div>
             </div>
           </div>
+          <div class="emailcode list-item ">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control register-code" placeholder="验证码" aria-label="Code">
+            </div>
+          </div>
+          <!-- <div class=" list-item">
+            <div class="input-group mb-3">
+              <input type="text" id="username" name="username" placeholder="请输入验证码">
+            </div>
+          </div> -->
           <div class="password list-item ">
             <div class="input-group mb-3">
               <input type="password" class="form-control register-password" id="exampleInputPassword1"
@@ -83,11 +140,11 @@
           </div>
         </div>
         <div class="footer footer-for-register">
-          <div class="tick list-item">
+          <!-- <div class="tick list-item">
             <label> <input type="checkbox">
               <span class="custom-checkbox"></span>
               我已阅读并同意全部<a href="#"><strong>条款</strong></a>内容</label>
-          </div>
+          </div> -->
           <div class="submit list-item">
             <button type="button" class="btn btn-secondary btn-lg btn-block log">注册</button>
           </div>
@@ -100,7 +157,12 @@
 
   <script src="./js/jquery-3.7.1.js"></script>
   <script src="./js/bootstrap.min.js"></script>
-  <script>
+  <!-- <script src="./API/register.js"></script>
+  <script src="./API/login.js"></script> -->
+  <script type="module">
+    import { login } from "./API/login.js";
+    import { register } from "./API/register.js";
+    import { sendmail } from './API/sendmail.js';
     document.addEventListener('DOMContentLoaded', function () {
       // 显示欢迎动画
       const welcome = document.querySelector('.welcome');
@@ -145,57 +207,99 @@
       document.querySelector(".container-for-register").style.cssText = `opacity: 0;transform: translate(300px,0) scale(0.8);`
       document.querySelector(".container-for-login").style.cssText = `opacity: 1;display: block;transform: translate(0,0);`
     });
+
+    document.querySelectorAll('.email-aquire').forEach(button => {
+      button.addEventListener('click', async () => {
+        console.log(button.parentElement.children[0]);
+        const sendemail = document.querySelector(" .register-email").value;
+        console.log(sendemail);
+        if (!sendemail) {
+          alert('请输入邮箱');
+          return;
+        }
+        if (!/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(sendemail)) {
+          alert("邮箱格式不正确！");
+          return false;
+        }
+        try {
+          const response = await sendmail(sendemail);
+          if (response.code === 200) {
+            alert('验证码已发送至注册邮箱');
+          } else {
+            alert('发送失败: ' + response.msg);
+          }
+        } catch (error) {
+          console.error('发送错误:', error);
+          alert('验证码发送失败');
+        }
+      });
+    });
     // 注册
-    document.querySelector(".log").addEventListener("click", function (e) {
+    document.querySelector(".log").addEventListener("click", async (e) => {
       e.preventDefault();
       var username = document.querySelector(" .register-username").value;
       var email = document.querySelector(" .register-email").value;
       var password = document.querySelector(" .register-password").value;
-      console.log(username, email, password);
-      if (username.trim() == "" || email.trim() == "" || password.trim() == "") {
+      var code = document.querySelector(" .register-code").value;
+      console.log(username, email, password, code);
+      if (username.trim() == "" || email.trim() == "" || password.trim() == "" || code.trim() == "") {
         alert("用户名、邮箱或密码不能为空！");
-      } else if (!document.querySelector(".tick input[type='checkbox']").checked) {
-        alert("请阅读并同意协议内容！");
-        return false;
+
+        // } else if (!document.querySelector(".container-for-register .tick input[type='checkbox']").checked) {
+        //   alert("请阅读并同意协议内容！");
+        //   return false;
         // 正则表达式验证用户名（ 不为数字）、邮箱、密码（6-16位，字母数字下划线）格式
-      } else if (!/^[a-zA-Z][a-zA-Z0-9_]{1,15}$/.test(username)) {
+      }//支持中文用户名  
+      else if (!/^[a-zA-Z0-9\u4e00-\u9fa5]{1,15}$/.test(username)) {
         alert("用户名不能为数字且不得超过15个字符");
         return false;
       } else if (!/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(email)) {
         alert("邮箱格式不正确！");
         return false;
-      } else if (!/^[a-zA-Z0-9_]{6,16}$/.test(password)) {
-        alert("请输入6-16位字母数字下划线密码！");
+      } else if (!/^[a-zA-Z0-9_]{8,16}$/.test(password)) {
+        alert("请输入8-16位字母数字下划线密码！");
         return false;
       }
-      $.ajax({
-        type: "POST",
-        url: "register.php",
-        data: {
-          username: username,
-          email: email,
-          password: password
-        },
-        success: function (data) {
-          if (data == "success") {
-            alert("注册成功！");
-            document.querySelector(".container-for-register").style.cssText = `opacity: 0;transform: translate(300px,0) scale(0.8);`
-            document.querySelector(".container-for-login").style.cssText = `opacity: 1;display: block;transform: translate(0,0);`
-          } else {
-            alert("用户名或邮箱已存在！");
-            // 清空 input 内容
-            document.querySelector(".register-username").value = "";
-            document.querySelector(".register-email").value = "";
-            document.querySelector(".register-password").value = "";
-          }
+      try {
+        const response = await register(username, password, email, code);
+        if (response) {
+          // alert("注册成功！");
+          document.querySelector(".container-for-register").style.cssText = `opacity: 0;transform: translate(300px,0) scale(0.8);`
+          document.querySelector(".container-for-login").style.cssText = `opacity: 1;display: block;transform: translate(0,0);`
+          // 本地存储用户名，密码，邮箱
+          localStorage.setItem('username', username);
+          localStorage.setItem('password', password);
+          localStorage.setItem('email', email);
         }
-      });
+      } catch (error) {
+        alert("注册失败: " + (error.responseJSON?.msg || "服务器错误"));
+        // 清空对应 input 内容
+        // document.querySelector(".register-username").value = "";
+        // document.querySelector(".register-email").value = "";
+        // document.querySelector(".register-password").value = "";
+        // document.querySelector(".register-code").value = "";
+        if (error.responseJSON?.msg === "请输入八位以上密码，包含数字和字母") {
+          document.querySelector(".register-password").value = "";
+        }
+        if (error.responseJSON?.msg === "验证码错误") {
+          document.querySelector(".register-code").value = "";
+        }
+        if (error.responseJSON?.msg === "邮箱已被注册") {
+          document.querySelector(".register-email").value = "";
+        }
+        else {
+          document.querySelector(".register-username").value = "";
+          document.querySelector(".register-email").value = "";
+          document.querySelector(".register-password").value = "";
+          document.querySelector(".register-code").value = "";
+        }
+      }
     });
     // 登录
-    document.querySelector(".login").addEventListener("click", function (e) {
+    document.querySelector(".login").addEventListener("click", async (e) => {
       // 设置一个可以用于登录的初始账号密码
-      var adminUsername = "admin";
-      var adminPassword = "123456";
+      // var adminUsername = "admin";
+      // var adminPassword = "123456";
 
       e.preventDefault();
       var username = document.querySelector(".login-username").value;
@@ -204,38 +308,34 @@
       if (username.trim() == "" || password.trim() == "") {
         alert("用户名或密码不能为空！");
         // 判断是否同意协议
-      } else if (!document.querySelector(".tick input[type='checkbox']").checked) {
+      } else if (!document.querySelector(".container-for-login .tick input[type='checkbox']").checked) {
         alert("请阅读并同意协议内容！");
         return false;
-        // 验证是否和注册数据匹配
       }
+      // 验证是否和注册数据匹配
+      try {
+        const response = await login(username, password);
+        // console.log("登录响应:", response);
+        if (response) {
+          console.log("登录响应:", response);
+          localStorage.setItem('token', response.data.token);
+          // alert("登录成功！");
+          // 跳转到主页
+          window.location.href = "主页.html";
+        }
+      } catch (error) {
+        alert("用户名或密码错误！");
+        // 清空 input 内容
+        document.querySelector(".login-username").value = "";
+        document.querySelector(".login-password").value = "";
+      }
+
       // 判断是否为初始账号密码
-      if (username == adminUsername && password == adminPassword) {
-        // 跳转到主页
-        window.location.href = "主页.html";
-      }
-      else {
-        $.ajax({
-          type: "POST",
-          url: "login.php",
-          data: {
-            username: username,
-            password: password
-          },
-          success: function (data) {
-            if (data == "success") {
-              alert("登录成功！");
-              // 跳转到主页
-              window.location.href = "主页.html";
-            } else {
-              alert("用户名或密码错误！");
-              // 清空 input 内容
-              document.querySelector(".login-username").value = "";
-              document.querySelector(".login-password").value = "";
-            }
-          }
-        });
-      }
+      // if (username == adminUsername && password == adminPassword) {
+      //   // 跳转到主页
+      //   window.location.href = "主页.html";
+      // }
+
     });
   </script>
 
