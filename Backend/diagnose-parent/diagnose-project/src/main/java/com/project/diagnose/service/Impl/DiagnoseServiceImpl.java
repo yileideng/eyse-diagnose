@@ -3,6 +3,7 @@ package com.project.diagnose.service.Impl;
 import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.project.diagnose.client.MLClient;
@@ -27,6 +28,7 @@ import com.project.diagnose.utils.FileUtils;
 import com.project.diagnose.utils.MinioUtils;
 import com.project.diagnose.utils.UploadFileUtilsFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.StringBuilders;
 import org.apache.poi.util.TempFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -245,7 +247,8 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
     // 下载文件
     private File downloadFile(DiagnoseFile diagnoseFile) {
         try (InputStream inputStream = uploadFileUtilsFactory.download(diagnoseFile)) {
-            File minioFile = TempFile.createTempFile("minio", ".tmp");
+            StringBuilder stringBuilder = new StringBuilder(diagnoseFile.getName());
+            File minioFile = TempFile.createTempFile("minio", ".zip");
             try (OutputStream out = new FileOutputStream(minioFile)) {
                 byte[] buffer = new byte[1024];
                 int length;

@@ -16,13 +16,13 @@ import java.util.List;
 @Service
 public class MLClient {
 
-    private final String baseUrl = "http://localhost:8082";
+    private final String baseUrl = "https://b99a-240c-c983-1-a2d-c1d3-6a24-9185-4cbe.ngrok-free.app";
     @Autowired
     private OkHttpClient client;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public DiagnoseResponse requestForBulkDiagnose(List<File> files) throws IOException {
-        String methodUrl = "/mock/file-bulk";
+        String methodUrl = "/api/predict";
         if (files == null || files.size() == 0) {
             throw new DiagnoseException("上传的诊断图片不能为空");
         }
@@ -71,7 +71,7 @@ public class MLClient {
     }
 
     public DiagnoseResponse requestForPersonalDiagnose(List<File> files) throws IOException {
-        String methodUrl = "/mock/file-personal";
+        String methodUrl = "/api/predict";
         if (files == null || files.size() == 0) {
             throw new DiagnoseException("上传的诊断图片不能为空");
         }
