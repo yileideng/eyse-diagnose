@@ -21,8 +21,6 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private LoginService loginService;
-    @Autowired
     private RedisUtils redisUtils;
 
     // 获取当前的登录用户

@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/upload")
 public class AvatarImageController {
-    @Value("${minio.bucket.avatar}")
+    @Value("${aliyun.oss.bucketName}")
     private String bucket;
 
     @Autowired

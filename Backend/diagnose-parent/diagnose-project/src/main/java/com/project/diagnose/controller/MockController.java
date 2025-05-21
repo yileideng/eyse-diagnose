@@ -21,8 +21,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/mock")
 public class MockController {
-    @Value("${minio.bucket.avatar}")
-    private String bucket;
     @Autowired
     private MLClient mlClient;
 
@@ -43,7 +41,7 @@ public class MockController {
     @PostMapping("/file-bulk")
     //@PreAuthorize("hasAuthority('upload')")
     @LogAnnotation(module = "FileController",operator = "用MinIO上传用户头像")
-    public String mock(@RequestParam(value = "fileList", required = false) MultipartFile[] files) {
+    public String mock(@RequestParam(value = "file", required = false) MultipartFile[] files) {
 
         return "{\n" +
                 "  \"prediction_results\": {\n" +
@@ -126,7 +124,7 @@ public class MockController {
     @PostMapping("/file-personal")
     //@PreAuthorize("hasAuthority('upload')")
     @LogAnnotation(module = "FileController",operator = "个人生成诊断报告")
-    public String mockPerson(@RequestParam(value = "fileList", required = false) MultipartFile[] files) {
+    public String mockPerson(@RequestParam(value = "images", required = false) MultipartFile[] files) {
 
         return "{\n" +
                 "  \"prediction_results\": {\n" +

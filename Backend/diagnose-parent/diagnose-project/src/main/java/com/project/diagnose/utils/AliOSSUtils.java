@@ -94,6 +94,7 @@ public class AliOSSUtils implements UploadFileUtils{
             uploadFileResponse.setBucket(bucketName);
             uploadFileResponse.setObjectPath(fileName);
             uploadFileResponse.setName(file.getOriginalFilename());
+            uploadFileResponse.setStorageSource("ali_oss");
 
             // 把上传到oss的路径返回
             return uploadFileResponse;

@@ -60,7 +60,7 @@ public class AvatarImageServiceImpl extends ServiceImpl<AvatarImageMapper, Avata
         // 上传文件到Minio
         UploadFileResponse response = null;
         try {
-            response = minioUtils.upload(file, bucket);
+            response = aliOSSUtils.upload(file, bucket);
             if(response!=null){
                 log.info("上传文件成功");
             }

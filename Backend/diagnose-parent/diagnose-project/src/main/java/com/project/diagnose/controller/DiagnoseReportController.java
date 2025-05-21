@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/diagnose")
 public class DiagnoseReportController {
-    @Value("${minio.bucket.diagnose}")
+    @Value("${aliyun.oss.bucketName}")
     private String bucket;
 
     @Autowired
