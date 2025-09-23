@@ -1,4 +1,4 @@
-# ODIR 多标签分类与病灶定位（CTran 方案）
+# ODIR 多标签分类与病灶定位
 
 本项目针对 ODIR 眼底图像数据集，采用 CTran 多标签分类模型，并结合异常检测 + Grad-CAM 生成平滑的病灶热图。仓库提供数据预处理、模型训练/测试、无监督定位及可视化等完整流程。
 
@@ -74,17 +74,5 @@ python pipelines/unsupervised_loc.py   --config configs/classifier.yaml   --chec
 ## 实用工具
 - `scripts/plot_history.py`：读取 `history.json` 绘制训练/验证曲线，支持 `--output` 保存图像。
 - `scripts/test_api.py`：接口/管线测试示例，可按需扩展。
-- `pytest tests -q`：执行最基本的单元测试，验证数据集与模型加载是否正常。
-
-## 可清理的文件
-以下目录或文件为运行时生成，可按需删除：
-- `work/cache/`、`work/unsup_loc_run*`、`work/det_yolo/`、`work/pseudo_boxes/` 等输出目录。
-- 任意 `__pycache__/` 与 `.pytest_cache/`。
-- `.vscode/` 等 IDE 配置。
-- 大体积模型权重（如 `best_model.pth`、`yolo11n.pt`、`yolov8n.pt`）若已备份，可移动或删除。
-
-## 致谢
-- 数据来源：ODIR（Ocular Disease Intelligent Recognition）挑战赛。
-- 算法参考：CTran、多种注意力模型与 PaDiM 异常检测方法。
 
 如有问题或建议，欢迎提交 Issue 或 Pull Request。
