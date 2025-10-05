@@ -1,0 +1,41 @@
+data:
+  img_dir: D:/eye/Training_data
+  csv_path: D:/eye/total_data.csv
+  cache_dir: D:/eye/work/cache
+  train_ratio: 0.8
+  val_ratio: 0.1
+  seed: 42
+  resample_prob: 0.4
+
+model:
+  backbone: lightweight
+  pretrained: false
+  dropout: 0.2
+  img_height: 256
+  img_width: 512
+  width_mult: 0.75
+
+optimization:
+  epochs: 400
+  train_batch_size: 12
+  val_batch_size: 12
+  lr_head: 5e-4
+  lr_backbone: 1.5e-4
+  weight_decay: 0.01
+  warmup_epochs: 3
+  mixup_alpha: 0.8
+  cutmix_alpha: 0.6
+  ema_decay: 0.995
+  gradient_clip: 1.0
+  val_interval: 10
+  early_stop_patience: 40
+
+loss:
+  asl_gamma_neg: 4
+  asl_gamma_pos: 1
+  asl_clip: 0.05
+
+logging:
+  output_dir: D:/eye/exp/classifier
+  ckpt_interval: 5
+  num_workers: 4

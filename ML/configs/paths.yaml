@@ -1,0 +1,7 @@
+img_dir: "D:/eye/Training_data"      
+label_csv: "D:/eye/total_data.csv"    # （N,D,G,C,A,H,M,O）
+
+work_dir: "D:/eye/work"
+pseudo_dir: "D:/eye/work/pseudo_boxes"
+det_yolo_dir: "D:/eye/work/det_yolo"
+exp_dir: "D:/eye/exp"
