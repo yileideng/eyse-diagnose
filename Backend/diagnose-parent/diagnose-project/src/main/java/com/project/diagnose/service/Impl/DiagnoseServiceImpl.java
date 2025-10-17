@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.project.diagnose.client.MLClient;
 import com.project.diagnose.constans.DiagnoseMode;
+import com.project.diagnose.service.CryptoService;
+import com.project.diagnose.service.KeyManagementService;
 import com.project.diagnose.dto.query.DiagnoseQuery;
 import com.project.diagnose.dto.response.DiagnoseResponse;
 import com.project.diagnose.dto.response.DiagnoseResponseList;
@@ -22,6 +24,7 @@ import com.project.diagnose.pojo.DiagnoseFile;
 import com.project.diagnose.pojo.DiagnoseBase;
 import com.project.diagnose.pojo.DiagnoseResult;
 import com.project.diagnose.pojo.User;
+import com.project.diagnose.dto.response.CryptoResponse;
 import com.project.diagnose.service.DiagnoseService;
 import com.project.diagnose.utils.AliOSSUtils;
 import com.project.diagnose.utils.FileUtils;
@@ -57,6 +60,12 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
     private UserMapper userMapper;
     @Autowired
     private MLClient mlClient;
+    
+    @Autowired
+    private CryptoService cryptoService;
+    
+    @Autowired
+    private KeyManagementService keyManagementService;
     @Autowired
     private DiagnoseReportResultMapper diagnoseReportResultMapper;
     @Autowired
@@ -146,8 +155,22 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         DiagnoseResponseList diagnoseResponseList;
         Long resultId;
         try {
-            // 发送请求获取诊断结果
-            DiagnoseResponse diagnoseResponse = mlClient.requestForPersonalDiagnose(fileList);
+            // 获取用户密钥和模型公钥
+            User user = keyManagementService.getUserWithKeys(userId);
+            String modelPublicKey = keyManagementService.getModelPublicKey();
+            
+            // 对每个图片进行加密
+            List<CryptoResponse.CryptoData> mesDataList = new ArrayList<>();
+            for (File file : fileList) {
+                CryptoResponse cryptoResponse = cryptoService.encryptImage(file, user.getPrivateKey(), modelPublicKey);
+                if (!"success".equals(cryptoResponse.getStatus())) {
+                    throw new DiagnoseException("图片加密失败: " + cryptoResponse.getMessage());
+                }
+                mesDataList.add(cryptoResponse.getData());
+            }
+            
+            // 发送加密后的MES数据获取诊断结果
+            DiagnoseResponse diagnoseResponse = mlClient.requestForBulkDiagnoseWithMES(mesDataList);
             // 将诊断结果从Map转为List
             diagnoseResponseList = diagnoseResponse.toBulkDiagnoseResponseList(diagnoseMode.getValue());
             // 将诊断结果数据以JSON格式存入数据库
@@ -209,8 +232,22 @@ public class DiagnoseServiceImpl extends ServiceImpl<DiagnoseImageMapper, Diagno
         DiagnoseResponseList diagnoseResponseList;
         Long resultId;
         try {
-            // 发送请求获取诊断结果
-            DiagnoseResponse diagnoseResponse = mlClient.requestForPersonalDiagnose(fileList);
+            // 获取用户密钥和模型公钥
+            User user = keyManagementService.getUserWithKeys(userId);
+            String modelPublicKey = keyManagementService.getModelPublicKey();
+            
+            // 对每个图片进行加密
+            List<CryptoResponse.CryptoData> mesDataList = new ArrayList<>();
+            for (File file : fileList) {
+                CryptoResponse cryptoResponse = cryptoService.encryptImage(file, user.getPrivateKey(), modelPublicKey);
+                if (!"success".equals(cryptoResponse.getStatus())) {
+                    throw new DiagnoseException("图片加密失败: " + cryptoResponse.getMessage());
+                }
+                mesDataList.add(cryptoResponse.getData());
+            }
+            
+            // 发送加密后的MES数据获取诊断结果
+            DiagnoseResponse diagnoseResponse = mlClient.requestForPersonalDiagnoseWithMES(mesDataList);
             // 将诊断结果从Map转为List
             diagnoseResponseList = diagnoseResponse.toBulkDiagnoseResponseList(diagnoseMode.getValue());
             // 将诊断结果数据以JSON格式存入数据库

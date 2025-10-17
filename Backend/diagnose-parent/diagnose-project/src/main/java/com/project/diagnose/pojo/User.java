@@ -56,5 +56,15 @@ public class User implements Serializable {
      */
     private Long roleId;
 
+    /**
+     * 用户私钥
+     */
+    private String privateKey;
+
+    /**
+     * 用户公钥
+     */
+    private String publicKey;
+
 
 }

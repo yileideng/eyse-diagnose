@@ -1,6 +1,7 @@
 package com.project.diagnose.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.diagnose.dto.response.CryptoResponse;
 import com.project.diagnose.dto.response.DiagnoseResponse;
 import com.project.diagnose.exception.DiagnoseException;
 import lombok.extern.slf4j.Slf4j;
@@ -11,12 +12,13 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Base64;
 
 @Slf4j
 @Service
 public class MLClient {
 
-    private final String baseUrl = "http://localhost:8082/mock";
+    private final String baseUrl = "http://localhost:8081/mock";
     @Autowired
     private OkHttpClient client;
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -116,6 +118,92 @@ public class MLClient {
                 log.info(diagnoseResponse.toString());
             } else {
                 System.out.println("请求失败: " + response);
+            }
+        }
+        return diagnoseResponse;
+    }
+    
+    /**
+     * 发送加密后的MES数据到机器学习端进行批量诊断
+     * @param cryptoDataList
+     * @return 诊断结果
+     * @throws IOException
+     */
+    public DiagnoseResponse requestForBulkDiagnoseWithMES(List<CryptoResponse.CryptoData> cryptoDataList) throws IOException {
+        String methodUrl = "/file-bulk-mes";
+        if (cryptoDataList == null || cryptoDataList.isEmpty()) {
+            throw new DiagnoseException("上传的加密数据不能为空");
+        }
+
+        // 将CryptoData列表序列化为JSON字符串
+        String cryptoDataJson = objectMapper.writeValueAsString(cryptoDataList);
+
+        // 创建请求体
+        RequestBody requestBody = RequestBody.create(
+                MediaType.get("application/json; charset=utf-8"),
+                cryptoDataJson
+        );
+
+        // 创建请求
+        Request request = new Request.Builder()
+                .url(baseUrl + methodUrl)
+                .post(requestBody)
+                .build();
+
+        DiagnoseResponse diagnoseResponse = null;
+        // 发送请求并处理响应
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful() && response.body() != null) {
+                String responseBody = response.body().string();
+                log.info("响应数据: {}", responseBody);
+                // 处理返回的 JSON 数据
+                diagnoseResponse = objectMapper.readValue(responseBody, DiagnoseResponse.class);
+                log.info(diagnoseResponse.toString());
+            } else {
+                log.error("请求失败: {}", response);
+            }
+        }
+        return diagnoseResponse;
+    }
+    
+    /**
+     * 发送加密后的MES数据到机器学习端进行个人诊断
+     * @param cryptoDataList
+     * @return 诊断结果
+     * @throws IOException
+     */
+    public DiagnoseResponse requestForPersonalDiagnoseWithMES(List<CryptoResponse.CryptoData> cryptoDataList) throws IOException {
+        String methodUrl = "/file-personal-mes";
+        if (cryptoDataList == null || cryptoDataList.isEmpty()) {
+            throw new DiagnoseException("上传的加密数据不能为空");
+        }
+
+        // 将CryptoData列表序列化为JSON字符串
+        String cryptoDataJson = objectMapper.writeValueAsString(cryptoDataList);
+
+        // 创建请求体
+        RequestBody requestBody = RequestBody.create(
+                MediaType.get("application/json; charset=utf-8"),
+                cryptoDataJson
+        );
+
+        // 创建请求
+        Request request = new Request.Builder()
+                .url(baseUrl + methodUrl)
+                .post(requestBody)
+                .build();
+
+        DiagnoseResponse diagnoseResponse = null;
+        // 发送请求并处理响应
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful() && response.body() != null) {
+                String responseBody = response.body().string();
+                log.info("响应数据: {}", responseBody);
+                // 处理返回的 JSON 数据
+                diagnoseResponse = objectMapper.readValue(responseBody, DiagnoseResponse.class);
+                log.info(diagnoseResponse.toString());
+            } else {
+                log.error("请求失败: {}", response);
             }
         }
         return diagnoseResponse;

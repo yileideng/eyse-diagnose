@@ -2,14 +2,12 @@ package com.project.diagnose.controller;
 
 import com.project.diagnose.aop.LogAnnotation;
 import com.project.diagnose.client.MLClient;
+import com.project.diagnose.dto.response.CryptoResponse;
 import com.project.diagnose.dto.response.DiagnoseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -164,6 +162,176 @@ public class MockController {
                 "        }\n" +
                 "      }\n" +
                 "    }  \n" +
+                "  }\n" +
+                "}";
+    }
+
+    @PostMapping("/file-bulk-mes")
+    //@PreAuthorize("hasAuthority('upload')")
+    public String mockBuilkMes(@RequestBody List<CryptoResponse.CryptoData> cryptoDataList) {
+        for(CryptoResponse.CryptoData cryptoData : cryptoDataList) {
+            log.info(cryptoData.toString() + "===============================================================");
+        }
+
+        return "{\n" +
+                "  \"prediction_results\": {\n" +
+                "    \"patient_c7b519d0\": {\n" +
+                "      \"diseases\": {\n" +
+                "        \"AMD\": {\n" +
+                "          \"probability\": 0.00019706117745954543,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"其他疾病/异常\": {\n" +
+                "          \"probability\": 0.3022720515727997,\n" +
+                "          \"status\": 1\n" +
+                "        },\n" +
+                "        \"正常\": {\n" +
+                "          \"probability\": 0.0006025025504641235,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"白内障\": {\n" +
+                "          \"probability\": 1.0,\n" +
+                "          \"status\": 1\n" +
+                "        },\n" +
+                "        \"糖尿病\": {\n" +
+                "          \"probability\": 0.00016099114145617932,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"近视\": {\n" +
+                "          \"probability\": 8.336865721503273e-05,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"青光眼\": {\n" +
+                "          \"probability\": 0.00037023425102233887,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"高血压\": {\n" +
+                "          \"probability\": 0.00020455196499824524,\n" +
+                "          \"status\": 0\n" +
+                "        }\n" +
+                "      }\n" +
+                "    },\n" +
+                "    \"patient_c746519d2\": {\n" +
+                "      \"diseases\": {\n" +
+                "        \"AMD\": {\n" +
+                "          \"probability\": 8.875525963958353e-06,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"其他疾病/异常\": {\n" +
+                "          \"probability\": 0.9908466935157776,\n" +
+                "          \"status\": 1\n" +
+                "        },\n" +
+                "        \"正常\": {\n" +
+                "          \"probability\": 0.00014771672431379557,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"白内障\": {\n" +
+                "          \"probability\": 0.3483974039554596,\n" +
+                "          \"status\": 1\n" +
+                "        },\n" +
+                "        \"糖尿病\": {\n" +
+                "          \"probability\": 0.9999253749847412,\n" +
+                "          \"status\": 1\n" +
+                "        },\n" +
+                "        \"近视\": {\n" +
+                "          \"probability\": 4.61619820271153e-05,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"青光眼\": {\n" +
+                "          \"probability\": 7.147400174289942e-05,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"高血压\": {\n" +
+                "          \"probability\": 0.0001380705798510462,\n" +
+                "          \"status\": 0\n" +
+                "        }\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}";
+    }
+
+    @PostMapping("/file-personal-mes")
+    //@PreAuthorize("hasAuthority('upload')"
+    public String mockPersonalMes(@RequestBody List<CryptoResponse.CryptoData> cryptoDataList) {
+        for(CryptoResponse.CryptoData cryptoData : cryptoDataList) {
+            log.info(cryptoData.toString() + "===============================================================");
+        }
+
+        return "{\n" +
+                "  \"prediction_results\": {\n" +
+                "    \"patient_c7b519d0\": {\n" +
+                "      \"diseases\": {\n" +
+                "        \"AMD\": {\n" +
+                "          \"probability\": 0.00019706117745954543,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"其他疾病/异常\": {\n" +
+                "          \"probability\": 0.3022720515727997,\n" +
+                "          \"status\": 1\n" +
+                "        },\n" +
+                "        \"正常\": {\n" +
+                "          \"probability\": 0.0006025025504641235,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"白内障\": {\n" +
+                "          \"probability\": 1.0,\n" +
+                "          \"status\": 1\n" +
+                "        },\n" +
+                "        \"糖尿病\": {\n" +
+                "          \"probability\": 0.00016099114145617932,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"近视\": {\n" +
+                "          \"probability\": 8.336865721503273e-05,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"青光眼\": {\n" +
+                "          \"probability\": 0.00037023425102233887,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"高血压\": {\n" +
+                "          \"probability\": 0.00020455196499824524,\n" +
+                "          \"status\": 0\n" +
+                "        }\n" +
+                "      }\n" +
+                "    },\n" +
+                "    \"patient_c746519d2\": {\n" +
+                "      \"diseases\": {\n" +
+                "        \"AMD\": {\n" +
+                "          \"probability\": 8.875525963958353e-06,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"其他疾病/异常\": {\n" +
+                "          \"probability\": 0.9908466935157776,\n" +
+                "          \"status\": 1\n" +
+                "        },\n" +
+                "        \"正常\": {\n" +
+                "          \"probability\": 0.00014771672431379557,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"白内障\": {\n" +
+                "          \"probability\": 0.3483974039554596,\n" +
+                "          \"status\": 1\n" +
+                "        },\n" +
+                "        \"糖尿病\": {\n" +
+                "          \"probability\": 0.9999253749847412,\n" +
+                "          \"status\": 1\n" +
+                "        },\n" +
+                "        \"近视\": {\n" +
+                "          \"probability\": 4.61619820271153e-05,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"青光眼\": {\n" +
+                "          \"probability\": 7.147400174289942e-05,\n" +
+                "          \"status\": 0\n" +
+                "        },\n" +
+                "        \"高血压\": {\n" +
+                "          \"probability\": 0.0001380705798510462,\n" +
+                "          \"status\": 0\n" +
+                "        }\n" +
+                "      }\n" +
+                "    }\n" +
                 "  }\n" +
                 "}";
     }
